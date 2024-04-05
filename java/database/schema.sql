@@ -32,6 +32,7 @@ CREATE TABLE pets (
 	description varchar (5000),
 	
 	CHECK (size IN ('XS', 'S', 'M','L', 'XL')),
+	CHECK (gender IN ('Female', 'Male')),
 	
 	CONSTRAINT PK_pets PRIMARY KEY (pet_id),
 	CONSTRAINT FK_pets_specie FOREIGN KEY(species_id) REFERENCES species(species_id)
@@ -43,7 +44,7 @@ CREATE TABLE photos (
 	pet_id integer NOT NULL,
 	
 	CONSTRAINT PK_photos PRIMARY KEY (photo_id),
-	CONSTRAINT FK_photos_pet FOREIGN KEY(pet_id) REFERENCES member(pet_id)
+	CONSTRAINT FK_photos_pet FOREIGN KEY(pet_id) REFERENCES pets(pet_id)
 );
 
 COMMIT TRANSACTION;
