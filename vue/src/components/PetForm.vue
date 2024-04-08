@@ -168,7 +168,6 @@ export default {
         return;
       }
       if (this.editPet.petId === 0) {
-        // add
         petService.addPet(this.editPet)
             .then(response => {
               if (response.status === 201) {

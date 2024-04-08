@@ -26,7 +26,7 @@ export default {
     },
     updatePet(pet) {
         return new Promise((resolve, reject) => {
-            setTimeout(() => resolve({status: 201}), 1000);
+            setTimeout(() => resolve({status: 200}), 1000);
         });
         // return axios.put(`${path}/${pet.id}`, pet);
     },

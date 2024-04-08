@@ -68,7 +68,7 @@ const routes = [
         }
     },
     {
-        path: "/pet/:id/edit",
+        path: "/pet/:petId/edit",
         name: "edit-pet",
         component: EditPetView,
         meta: {

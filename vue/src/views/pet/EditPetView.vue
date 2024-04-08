@@ -1,5 +1,4 @@
 <template>
-  <h1>Edit Pet Info</h1>
   <div v-if="isLoading">
     <h1>loading...</h1>
   </div>
@@ -19,7 +18,7 @@ export default {
     }
   },
   created() {
-    let petId = parseInt(this.$route.params.id);
+    let petId = parseInt(this.$route.params.petId);
     if (petId !== 0) {
       petService.getPet(petId)
           .then(response => {
