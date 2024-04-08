@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Pet {
 
     private int petId;
-    private String species;
-
+    private int speciesId;
+    private String name;
     private int age;
     private boolean hasSpecialNeed;
 
@@ -15,18 +15,25 @@ public class Pet {
 
     private String size;
     private String gender;
+    private boolean isFixed;
     private boolean isAdopted;
     private String description;
+
+    public Pet() {
+
+    }
 
 
     public void setPetId(int petId) {
         this.petId = petId;
     }
 
-    public void setSpecies(String species) {
-        this.species = species;
+    public void setSpeciesId(int speciesId) {
+        this.speciesId = speciesId;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setAge(int age) {
         this.age = age;
     }
@@ -43,18 +50,20 @@ public class Pet {
         this.breed = breed;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
-
+    public void setIsFixed(boolean isAdopted) {
+        this.isAdopted = isAdopted;
+    }
     public void setIsAdopted(boolean isAdopted) {
         this.isAdopted = isAdopted;
     }
@@ -63,8 +72,12 @@ public class Pet {
         return petId;
     }
 
-    public String getSpecies() {
-        return species;
+    public int getSpeciesId() {
+        return speciesId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getAge() {
@@ -90,23 +103,27 @@ public class Pet {
     public String getGender() {
         return gender;
     }
+    public boolean getIsFixed() {
+        return isFixed;
+    }
 
     public boolean getIsAdopted() {
         return isAdopted;
     }
 
-    public text getDescription() {
+    public String getDescription() {
         return description;
     }
+//
+//    public Pets() {
+//    }
 
-    public Pets() {
-    }
-
-    public Pets(int petId, String species, int age, boolean hasSpecialNeed,
+    public Pet(int petId, int speciesId, String name, int age, boolean hasSpecialNeed,
                 String color, String breed, String size,
-                String gender, boolean isAdopted, text description) {
+                String gender, boolean isFixed, boolean isAdopted, String description) {
         this.petId = petId;
-        this.species = species;
+        this.speciesId = speciesId;
+        this.name = name;
         this.age = age;
         this.hasSpecialNeed = hasSpecialNeed;
         this.color = color;
@@ -114,6 +131,7 @@ public class Pet {
         this.size = size;
         this.gender = gender;
         this.description = description;
+        this.isFixed = isFixed;
         this.isAdopted = isAdopted;
     }
 }
