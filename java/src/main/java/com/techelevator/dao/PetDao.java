@@ -12,18 +12,5 @@ public interface PetDao {
      * @return all pets as a list of Pet objects
      */
     List<Pet> getPets();
-
-    /**
-     * Get a pet from the datastore that has the given id.
-     * If the id is not found, return null.
-     *
-     * @param id the pet id to get from the datastore
-     * @return a fully populated Pet object
-     */
-    Pet getPetsById(int id);
-
-    Pet getPetsByUserId(int petId);
-
-//    User createPet(RegisterPetDto pet);
 }
 
