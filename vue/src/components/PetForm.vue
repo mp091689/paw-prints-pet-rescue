@@ -31,7 +31,8 @@
 
     <div>
       <label for="age">Age</label>
-      <input type="number" name="age" id="age" min="1" max="100" placeholder="Enter pet's age" v-model="editPet.age"
+      <input type="number" name="age" id="age" min="1" max="100" placeholder="Enter pet's age"
+             v-model="editPet.age"
              required/>
     </div>
 
@@ -73,18 +74,6 @@
       <input type="checkbox" name="isAdopted" id="isAdopted" v-model="editPet.isAdopted"/>
     </div>
 
-    <div>
-      <label for="avatar">Select avatar:</label>
-      <input type="file" id="avatar" name="avatar" @change="onChangeAvatar"/>
-      <img :src="avatar" width="100" v-if="avatar" alt="Pet's avatar"/>
-    </div>
-
-    <div>
-      <label for="photos">Select photos:</label>
-      <input type="file" id="photos" name="photos" multiple @change="onChangePhotos"/>
-      <img v-for="(photo, idx) in photos" :src="photo" width="100" alt="Pet's avatar" :key="idx"/>
-    </div>
-
     <button>Submit</button>
     <button @click="cancelForm">Cancel</button>
   </form>
@@ -92,7 +81,6 @@
 
 <script>
 import petService from "@/services/PetService";
-import {ref} from "vue";
 
 export default {
   props: {
@@ -103,53 +91,23 @@ export default {
   },
   data() {
     return {
-      avatar: ref(""),
-      photos: ref([]),
       editPet: {
         petId: this.pet?.petId ?? 0,
-        speciesId: 1,
-        name: "aaaa",
-        age: 12,
-        gender: "male",
-        hasSpecialNeeds: true,
-        color: "red",
-        breed: "labrador",
-        size: "xl",
-        isAdopted: true,
-        description: "test description",
-        isFixed: true,
-        avatar: this.pet?.avatar,
-        // photos: this.pet?.photos ?? [],
+        speciesId: this.pet?.speciesId ?? "",
+        name: this.pet?.name,
+        age: this.pet?.age,
+        gender: this.pet?.gender ?? "",
+        hasSpecialNeeds: this.pet?.hasSpecialNeeds,
+        color: this.pet?.color ?? "",
+        breed: this.pet?.breed ?? "",
+        size: this.pet?.size ?? "",
+        isAdopted: this.pet?.isAdopted,
+        description: this.pet?.description ?? "",
+        isFixed: this.pet?.isFixed,
       },
-      // editPet: {
-      //   petId: this.pet?.petId ?? 0,
-      //   speciesId: this.pet?.speciesId ?? "",
-      //   name: this.pet?.name,
-      //   age: this.pet?.age,
-      //   gender: this.pet?.gender ?? "",
-      //   hasSpecialNeeds: this.pet?.hasSpecialNeeds,
-      //   color: this.pet?.color ?? "",
-      //   breed: this.pet?.breed ?? "",
-      //   size: this.pet?.size ?? "",
-      //   isAdopted: this.pet?.isAdopted,
-      //   description: this.pet?.description ?? "",
-      //   isFixed: this.pet?.isFixed,
-      //   avatar: this.pet?.avatar,
-      //   photos: this.pet?.photos ?? [],
-      // },
     };
   },
   methods: {
-    onChangeAvatar(event) {
-      this.editPet.avatar = event.target.files[0];
-      this.avatar = URL.createObjectURL(event.target.files[0]);
-    },
-    onChangePhotos(event) {
-      this.editPet.photos = event.target.files;
-      let urls = [];
-      [...event.target.files].forEach((file) => urls.push(URL.createObjectURL(file)));
-      this.photos = urls;
-    },
     submitForm() {
       if (!this.validateForm()) {
         return;
@@ -158,56 +116,26 @@ export default {
       if (this.editPet.petId === 0) {
         // add
         console.log("add pet")
-        petService
-            .addPet(this.editPet)
+        petService.addPet(this.editPet)
             .then(response => {
               if (response.status === 201) {
-                // this.$store.commit(
-                //     'SET_NOTIFICATION',
-                //     {
-                //       message: 'A new pet was added.',
-                //       type: 'success'
-                //     }
-                // );
                 this.$router.push({name: 'adopt'});
               }
             })
-            .catch(error => {
-              // this.handleErrorResponse(error, 'adding');
-            });
+            .catch(error => console.log(error));
       } else {
         console.log("update pet")
-        petService
-            .updatePet(this.editPet)
+        petService.updatePet(this.editPet)
             .then(response => {
               if (response.status === 200) {
-                // this.$store.commit(
-                //     'SET_NOTIFICATION',
-                //     {
-                //       message: `Pet ${this.editPet.id} was updated.`,
-                //       type: 'success'
-                //     }
-                // );
                 this.$router.push({name: 'adopt'});
               }
             })
-            .catch(error => {
-              // this.handleErrorResponse(error, 'updating');
-            });
+            .catch(error => console.log(error));
       }
     },
     cancelForm() {
       this.$router.push({name: 'adopt'});
-    },
-    handleErrorResponse(error, verb) {
-      if (error.response) {
-        this.$store.commit('SET_NOTIFICATION',
-            "Error " + verb + " pet. Response received was '" + error.response.statusText + "'.");
-      } else if (error.request) {
-        this.$store.commit('SET_NOTIFICATION', "Error " + verb + " pet. Server could not be reached.");
-      } else {
-        this.$store.commit('SET_NOTIFICATION', "Error " + verb + " pet. Request could not be created.");
-      }
     },
     validateForm() {
       let msg = '';

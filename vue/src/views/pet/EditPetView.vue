@@ -15,24 +15,18 @@ export default {
   data() {
     return {
       isLoading: true,
-      pet: {}
+      pet: {},
     }
   },
   created() {
     let petId = parseInt(this.$route.params.id);
     if (petId !== 0) {
-      petService
-          .getPet(petId)
+      petService.getPet(petId)
           .then(response => {
             this.pet = response.data;
             this.isLoading = false;
           })
-          .catch(error => {
-            if (error.response && error.response.status === 404) {
-              this.$store.commit('SET_NOTIFICATION', `Error getting pet ${petId}. This pet may have been deleted or you have entered an invalid pet ID.`);
-              this.$router.push({name: 'home'});
-            }
-          });
+          .catch(error => console.log(error));
     }
   }
 };

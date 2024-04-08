@@ -3,7 +3,7 @@
     <h1>loading...</h1>
   </div>
   <div v-else>
-    <PetCard :pet="pet" v-for="pet in pets" :key="pet.id" />
+    <PetCard :pet="pet" v-for="pet in pets" :key="pet.id"/>
   </div>
 </template>
 
