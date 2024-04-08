@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 import java.util.Objects;
 
-public class Pets {
+public class Pet {
 
     private int petId;
     private String species;
