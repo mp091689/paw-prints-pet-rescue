@@ -1,5 +1,4 @@
 <template>
-  <h1>Edit Pet Info</h1>
   <div v-if="isLoading">
     <h1>loading...</h1>
   </div>
@@ -15,24 +14,18 @@ export default {
   data() {
     return {
       isLoading: true,
-      pet: {}
+      pet: {},
     }
   },
   created() {
-    let petId = parseInt(this.$route.params.id);
+    let petId = parseInt(this.$route.params.petId);
     if (petId !== 0) {
-      petService
-          .getPet(petId)
+      petService.getPet(petId)
           .then(response => {
             this.pet = response.data;
             this.isLoading = false;
           })
-          .catch(error => {
-            if (error.response && error.response.status === 404) {
-              this.$store.commit('SET_NOTIFICATION', `Error getting pet ${petId}. This pet may have been deleted or you have entered an invalid pet ID.`);
-              this.$router.push({name: 'home'});
-            }
-          });
+          .catch(error => console.log(error));
     }
   }
 };

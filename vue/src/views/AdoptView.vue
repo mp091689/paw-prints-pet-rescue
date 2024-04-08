@@ -1,4 +1,3 @@
-
 <template>
   <header>
     <h1 class="title"> Adoptable pets!!!</h1>
@@ -52,20 +51,19 @@
     </div>
 
 
-
   </div>
 
 </template>
 
 <script>
-export default {
-};
+export default {};
 </script>
 
 <style scoped>
 .pet-list {
   display: flexbox;
 }
+
 .pet-card {
   border: solid red 1px;
 }
@@ -77,20 +75,22 @@ export default {
 .pet-card.blue-card {
   background-color: blue;
 }
-header{
+
+header {
   border: solid orange 2px;
   font-family: 'Courier New', Courier, monospace;
 }
-.title{
+
+.title {
   display: flex;
   justify-content: center;
 }
-.desc{
+
+.desc {
   display: flex;
   justify-content: center;
 
 }
-
 
 
 </style>

@@ -24,7 +24,6 @@ export default {
   },
   created() {
     petService.getPets(false).then(response => {
-      console.log(response)
       this.pets = response.data;
       this.isLoading = false;
     })
