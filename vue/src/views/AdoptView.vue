@@ -1,12 +1,13 @@
+
 <template>
-  <header> 
+  <header>
     <h1 class="title"> Adoptable pets!!!</h1>
     <p class="desc"> So many adoptable pets to choose from! </p>
 
   </header>
   <div class="pet-list">
     <div class="pet-card blue-card">
-      
+
       <p>name: </p>
       <p>age: </p>
       <p>species: </p>
@@ -50,10 +51,10 @@
       <p>color(s): </p>
     </div>
 
-    
+
 
   </div>
-  
+
 </template>
 
 <script>
