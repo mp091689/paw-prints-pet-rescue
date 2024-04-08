@@ -1,7 +1,7 @@
 import pets from "@/services/dummy/pets";
 import axios from "axios";
 
-const path = "/pets";
+const path = "/pets1";
 
 export default {
     getPets(isAdopted) {
@@ -19,14 +19,15 @@ export default {
         // return axios.get(`${path}/${petId}`)
     },
     addPet(pet) {
-        let form = new FormData();
-        for (let key in pet) {
-            form.append(key, pet[key]);
-        }
-        return axios.post(path, form);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve({status: 201}), 1000);
+        });
+        // return axios.post(path, pet);
     },
     updatePet(pet) {
-        console.log("put")
-        return axios.put(`${path}/${pet.id}`, pet);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve({status: 201}), 1000);
+        });
+        // return axios.put(`${path}/${pet.id}`, pet);
     },
 }

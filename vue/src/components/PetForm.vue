@@ -1,14 +1,24 @@
 <template>
   <form action="#" @submit.prevent="submitForm" enctype="multipart/form-data">
+    <h2>{{ isSubmitting ? "Submitting new pet..." : "Add New Pet" }}</h2>
     <div>
       <label for="name">Name</label>
-      <input type="text" name="name" id="name" placeholder="Enter pet's name" required
-             v-model="editPet.name"/>
+      <input type="text"
+             name="name"
+             id="name"
+             placeholder="Enter pet's name"
+             v-model="editPet.name"
+             :disabled="isSubmitting"
+             required/>
     </div>
 
     <div>
       <label for="species">Choose a species:</label>
-      <select name="species" id="species" v-model="editPet.speciesId" required>
+      <select name="species"
+              id="species"
+              v-model="editPet.speciesId"
+              :disabled="isSubmitting"
+              required>
         <option value="" disabled selected hidden>Choose pet's species...</option>
         <option value=1>Cat</option>
         <option value=2>Dog</option>
@@ -17,12 +27,21 @@
 
     <div>
       <label for="breed">Breed</label>
-      <input type="text" name="breed" id="breed" placeholder="Enter pet's breed" v-model="editPet.breed"/>
+      <input type="text"
+             name="breed"
+             id="breed"
+             placeholder="Enter pet's breed"
+             v-model="editPet.breed"
+             :disabled="isSubmitting"/>
     </div>
 
     <div>
       <label for="gender">Choose a gender:</label>
-      <select name="gender" id="gender" v-model="editPet.gender" required>
+      <select name="gender"
+              id="gender"
+              v-model="editPet.gender"
+              :disabled="isSubmitting"
+              required>
         <option value="" disabled selected hidden>Choose pet's gender...</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
@@ -31,24 +50,43 @@
 
     <div>
       <label for="age">Age</label>
-      <input type="number" name="age" id="age" min="1" max="100" placeholder="Enter pet's age"
+      <input type="number"
+             name="age"
+             id="age"
+             min="1"
+             max="100"
+             placeholder="Enter pet's age"
              v-model="editPet.age"
+             :disabled="isSubmitting"
              required/>
     </div>
 
     <div>
       <label for="hasSpecialNeeds">Has Special Medical Needs</label>
-      <input type="checkbox" name="hasSpecialNeeds" id="hasSpecialNeeds" v-model="editPet.hasSpecialNeeds"/>
+      <input type="checkbox"
+             name="hasSpecialNeeds"
+             id="hasSpecialNeeds"
+             v-model="editPet.hasSpecialNeeds"
+             :disabled="isSubmitting"/>
     </div>
 
     <div>
       <label for="color">Color</label>
-      <input type="text" name="color" id="color" placeholder="Enter pet's color" v-model="editPet.color"/>
+      <input type="text"
+             name="color"
+             id="color"
+             placeholder="Enter pet's color"
+             v-model="editPet.color"
+             :disabled="isSubmitting"/>
     </div>
 
     <div>
       <label for="size">Choose a size:</label>
-      <select name="size" id="size" v-model="editPet.size" required>
+      <select name="size"
+              id="size"
+              v-model="editPet.size"
+              :disabled="isSubmitting"
+              required>
         <option value="" disabled selected hidden>Choose pet's size...</option>
         <option value="xs">Extra Small</option>
         <option value="s">Small</option>
@@ -60,27 +98,41 @@
 
     <div>
       <label for="description">Description</label>
-      <textarea name="description" id="description" cols="30" rows="10" placeholder="Provide some description"
-                v-model="editPet.description"></textarea>
+      <textarea name="description"
+                id="description"
+                cols="30"
+                rows="10"
+                placeholder="Provide some description"
+                v-model="editPet.description"
+                :disabled="isSubmitting"></textarea>
     </div>
 
     <div>
       <label for="isFixed">Is Fixed</label>
-      <input type="checkbox" name="isFixed" id="isFixed" v-model="editPet.isFixed"/>
+      <input type="checkbox"
+             name="isFixed"
+             id="isFixed"
+             v-model="editPet.isFixed"
+             :disabled="isSubmitting"/>
     </div>
 
     <div>
       <label for="isAdopted">Is Adopted</label>
-      <input type="checkbox" name="isAdopted" id="isAdopted" v-model="editPet.isAdopted"/>
+      <input type="checkbox"
+             name="isAdopted"
+             id="isAdopted"
+             v-model="editPet.isAdopted"
+             :disabled="isSubmitting"/>
     </div>
 
-    <button>Submit</button>
-    <button @click="cancelForm">Cancel</button>
+    <button :disabled="isSubmitting">Submit</button>
+    <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
   </form>
 </template>
 
 <script>
 import petService from "@/services/PetService";
+import {ref} from "vue";
 
 export default {
   props: {
@@ -91,6 +143,7 @@ export default {
   },
   data() {
     return {
+      isSubmitting: false,
       editPet: {
         petId: this.pet?.petId ?? 0,
         speciesId: this.pet?.speciesId ?? "",
@@ -109,13 +162,13 @@ export default {
   },
   methods: {
     submitForm() {
+      this.isSubmitting = true;
       if (!this.validateForm()) {
+        this.isSubmitting = false;
         return;
       }
-
       if (this.editPet.petId === 0) {
         // add
-        console.log("add pet")
         petService.addPet(this.editPet)
             .then(response => {
               if (response.status === 201) {
@@ -124,7 +177,6 @@ export default {
             })
             .catch(error => console.log(error));
       } else {
-        console.log("update pet")
         petService.updatePet(this.editPet)
             .then(response => {
               if (response.status === 200) {

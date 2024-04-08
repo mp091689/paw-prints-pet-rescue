@@ -1,5 +1,4 @@
 <template>
-  <h1>Add New Pet</h1>
   <pet-form :pet="pet"/>
 </template>
 
