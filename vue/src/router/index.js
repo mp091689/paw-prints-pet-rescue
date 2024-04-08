@@ -2,11 +2,13 @@ import {createRouter as createRouter, createWebHistory} from 'vue-router'
 import {useStore} from 'vuex'
 
 // Import components
-import HomeView from '../views/HomeView.vue';
-import LoginView from '../views/LoginView.vue';
-import LogoutView from '../views/LogoutView.vue';
-import RegisterView from '../views/RegisterView.vue';
-import AdoptView from "@/views/AdoptView.vue";
+import HomeView from '../views/pet/HomeView.vue';
+import LoginView from '../views/auth/LoginView.vue';
+import LogoutView from '../views/auth/LogoutView.vue';
+import RegisterView from '../views/auth/RegisterView.vue';
+import AdoptView from "@/views/pet/AdoptView.vue";
+import AddPetView from "@/views/pet/AddPetView.vue";
+import EditPetView from "@/views/pet/EditPetView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -53,6 +55,22 @@ const routes = [
         path: "/adopt",
         name: "adopt",
         component: AdoptView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/pet/add",
+        name: "add-pet",
+        component: AddPetView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/pet/:id/edit",
+        name: "edit-pet",
+        component: EditPetView,
         meta: {
             requiresAuth: true
         }
