@@ -1,11 +1,15 @@
 <template>
-  <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
+  <header>
+    <h1 class="title"> Adoptable pets!!!</h1>
+    <p class="desc"> So many adoptable pets to choose from! </p>
+  </header>
+  <div v-if="isLoading">
+    <h1>loading please wait...</h1>
+  </div>
+  <div v-else  class="pet-list">
+    <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
     <button @click="$router.push({name: 'add-pet'})">Add Pet</button>
   </div>
-  <div v-if="isLoading">
-    <h1>loading...</h1>
-  </div>
-  <div v-else>
     <pet-card :pet="pet" v-for="pet in pets" :key="pet.id"/>
   </div>
 </template>
@@ -32,4 +36,23 @@ export default {
 </script>
 
 <style scoped>
+.pet-list {
+  display: flexbox;
+}
+
+header {
+  border: solid orange 2px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.desc {
+  display: flex;
+  justify-content: center;
+
+}
 </style>

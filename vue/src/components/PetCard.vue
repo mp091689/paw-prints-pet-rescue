@@ -1,7 +1,6 @@
 <template>
-  <router-link :to="{ name: 'edit-pet', params: {petId: pet.petId} }">
-    <div>
-      <p>id: {{ pet.petId }}</p>
+  <!-- <router-link :to="{ name: 'edit-pet', params: {petId: pet.petId} }"> -->
+    <div  class="pet-card" :class="{ 'orange-card': pet.petId % 2 == 0, 'blue-card': pet.petId % 2 != 0 }">
       <p>species: {{ pet.speciesId }}</p>
       <p>name: {{ pet.name }}</p>
       <p>age: {{ pet.age }}</p>
@@ -18,26 +17,32 @@
         <button @click="$router.push({name: 'edit-pet', params: {id: pet.petId}})">Edit</button>
       </div>
     </div>
-  </router-link>
+  <!-- </router-link> -->
 </template>
 
 <script>
 export default {
   props: ['pet'],
+  methods: {}
 }
 </script>
 
 <style scoped>
-div {
-  background: lightgrey;
-  margin-bottom: 8px;
-  padding: 8px 12px;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
+.pet-card {
+  border: solid red 1px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-left: 2px;
+  color: black;
+
 }
 
-div > p {
-  margin: 0;
-  padding: 0;
+.pet-card.orange-card {
+  background-color: orange;
+}
+
+.pet-card.blue-card {
+  background-color: cornflowerblue;
 }
 </style>
