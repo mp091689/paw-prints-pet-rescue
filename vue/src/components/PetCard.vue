@@ -5,7 +5,7 @@
       <p>Name: {{ pet.name }}</p>
       <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
       <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
-      <p>hasSpecialNeed: {{ pet.hasSpecialNeed }}</p>
+      <p>hasSpecialNeed: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
      
       <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
         <button @click="$router.push({name: 'edit-pet', params: {id: pet.petId}})">Edit</button>
