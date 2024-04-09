@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, species, pets, photos;
+DROP TABLE IF EXISTS users, people, species, pets, photos;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -8,6 +8,20 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
+);
+
+CREATE TABLE people (
+	person_id SERIAL,
+	user_id integer NOT NULL,
+	first_name varchar(100) NOT NULL,
+	last_name varchar(100) NOT NULL,
+	email varchar(150) NOT NULL,
+	is_available_weekdays boolean NOT NULL DEFAULT 'false',
+	is_available_weekends boolean NOT NULL DEFAULT 'false',
+	volunteering_interest varchar(500),
+	
+	CONSTRAINT PK_people PRIMARY KEY (person_id),
+	CONSTRAINT FK_people_user FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE species (
@@ -35,13 +49,13 @@ CREATE TABLE pets (
 	CHECK (gender IN ('Female', 'Male')),
 	
 	CONSTRAINT PK_pets PRIMARY KEY (pet_id),
-	CONSTRAINT FK_pets_specie FOREIGN KEY(species_id) REFERENCES species(species_id)
+	CONSTRAINT FK_pets_species FOREIGN KEY(species_id) REFERENCES species(species_id)
 );
 
 CREATE TABLE photos (
 	photo_id SERIAL,
 	file_name varchar NOT NULL,
-	pet_id integer NOT NULL,
+	pet_id integer,
 	
 	CONSTRAINT PK_photos PRIMARY KEY (photo_id),
 	CONSTRAINT FK_photos_pet FOREIGN KEY(pet_id) REFERENCES pets(pet_id)
