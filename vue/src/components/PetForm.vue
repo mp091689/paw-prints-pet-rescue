@@ -125,6 +125,12 @@
              :disabled="isSubmitting"/>
     </div>
 
+      <div>
+        <label for="avatar">Select avatar</label>
+        <input type="file" id="avatar" name="avatar" @change="onChangeAvatar"/>
+        <img :src="avatar" width="100" v-if="avatar" alt="Pet's avatar"/>
+      </div>
+
     <button :disabled="isSubmitting">Submit</button>
     <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
   </form>
@@ -132,7 +138,6 @@
 
 <script>
 import petService from "@/services/PetService";
-import {ref} from "vue";
 
 export default {
   props: {
@@ -144,6 +149,7 @@ export default {
   data() {
     return {
       isSubmitting: false,
+      avatar: null,
       editPet: {
         petId: this.pet?.petId ?? 0,
         speciesId: this.pet?.speciesId ?? "",
@@ -157,6 +163,7 @@ export default {
         isAdopted: this.pet?.isAdopted,
         description: this.pet?.description ?? "",
         isFixed: this.pet?.isFixed,
+        avatar: this.pet?.avatar ?? null,
       },
     };
   },
@@ -187,6 +194,10 @@ export default {
     },
     cancelForm() {
       this.$router.push({name: 'adopt'});
+    },
+    onChangeAvatar(event) {
+        this.editPet.avatar = event.target.files[0];
+        this.avatar = URL.createObjectURL(event.target.files[0]);
     },
     validateForm() {
       let msg = '';
