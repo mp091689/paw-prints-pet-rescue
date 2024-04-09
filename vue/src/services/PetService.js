@@ -5,7 +5,6 @@ const path = "/pets";
 
 export default {
     getPets(isAdopted) {
-        // return axios.get(path, {params: {isAdopted}});
         return axios.get(path);
     },
     getPet(petId) {
@@ -15,15 +14,17 @@ export default {
         // return axios.get(`${path}/${petId}`)
     },
     addPet(pet) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => resolve({status: 201}), 1000);
-        });
-        // return axios.post(path, pet);
+        let formData = new FormData();
+        for (let key in pet) {
+            formData.append(key, pet[key]);
+        }
+        return axios.post(path, formData);
     },
     updatePet(pet) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => resolve({status: 200}), 1000);
-        });
-        // return axios.put(`${path}/${pet.id}`, pet);
+        let formData = new FormData();
+        for (let key in pet) {
+            formData.append(key, pet[key]);
+        }
+        return axios.put(`${path}/${pet.petId}`, formData);
     },
 }
