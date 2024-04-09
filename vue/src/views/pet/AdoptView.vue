@@ -1,16 +1,9 @@
 <template>
   <header>
-    <h1 class="title"> Adoptable pets!!!</h1>
+    <h2 class="title"> Adoptable pets!!!</h2>
     <p class="desc"> So many adoptable pets to choose from! </p>
   </header>
-  <div v-if="isLoading">
-    <h1>loading please wait...</h1>
-  </div>
-  <div v-else  class="pet-list">
-    <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
-    <button @click="$router.push({name: 'add-pet'})">Add Pet</button>
-  </div>
-  <pets-list v-else/>
+  <pets-list/>
 </template>
 
 <script>
@@ -22,13 +15,10 @@ export default {
 </script>
 
 <style scoped>
-.pet-list {
-  display: flexbox;
-}
-
 header {
-  border: solid orange 2px;
+  border: solid red 2px;
   font-family: 'Courier New', Courier, monospace;
+  background-color: orange;
 }
 
 .title {
