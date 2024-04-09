@@ -2,7 +2,7 @@ import {createRouter as createRouter, createWebHistory} from 'vue-router'
 import {useStore} from 'vuex'
 
 // Import components
-import HomeView from '../views/pet/HomeView.vue';
+import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/auth/LoginView.vue';
 import LogoutView from '../views/auth/LogoutView.vue';
 import RegisterView from '../views/auth/RegisterView.vue';

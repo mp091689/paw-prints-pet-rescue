@@ -7,8 +7,8 @@
     </div>
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'adopt' }" v-if="$store.state.token != ''">Adopt</router-link> |
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'adopt' }" v-if="$store.state.token != ''">Adopt</router-link>
     </div>
     <router-view />
   </div>
@@ -39,3 +39,5 @@
   }
   
 </style>
+<script setup lang="ts">
+</script>
