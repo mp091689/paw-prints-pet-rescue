@@ -12,5 +12,11 @@ public interface PetDao {
      * @return all pets as a list of Pet objects
      */
     List<Pet> getPets();
+
+    Pet getPetById(int petId);
+
+    Pet createPet(Pet aPet);
+
+    Pet updatePet(Pet aPet);
 }
 
