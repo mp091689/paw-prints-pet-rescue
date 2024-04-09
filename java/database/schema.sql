@@ -34,6 +34,7 @@ CREATE TABLE species (
 CREATE TABLE pets (
 	pet_id SERIAL,
 	species_id integer NOT NULL,
+	avatar_id integer,
 	name varchar(200) NOT NULL,
 	age integer NOT NULL,
 	has_special_needs boolean DEFAULT 'false',
@@ -60,5 +61,8 @@ CREATE TABLE photos (
 	CONSTRAINT PK_photos PRIMARY KEY (photo_id),
 	CONSTRAINT FK_photos_pet FOREIGN KEY(pet_id) REFERENCES pets(pet_id)
 );
+
+ALTER TABLE pets
+	ADD CONSTRAINT FK_pets_avatar FOREIGN KEY(avatar_id) REFERENCES photos(photo_id);
 
 COMMIT TRANSACTION;

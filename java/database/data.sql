@@ -56,5 +56,15 @@ INSERT INTO photos (file_name, pet_id)
 	VALUES ('..\src\main\resources\bunnies\Rabbit 2.JPG', 8);
 INSERT INTO photos (file_name, pet_id)
 	VALUES ('..\src\main\resources\bunnies\Rabbit 3.JPG', 9);
+	
+UPDATE pets SET avatar_id = 4 WHERE pet_id = 1;
+UPDATE pets SET avatar_id = 5 WHERE pet_id = 2;
+UPDATE pets SET avatar_id = 6 WHERE pet_id = 3;
+UPDATE pets SET avatar_id = 7 WHERE pet_id = 4;
+UPDATE pets SET avatar_id = 8 WHERE pet_id = 5;
+UPDATE pets SET avatar_id = 9 WHERE pet_id = 6;
+UPDATE pets SET avatar_id = 10 WHERE pet_id = 7;
+UPDATE pets SET avatar_id = 11 WHERE pet_id = 8;
+UPDATE pets SET avatar_id = 12 WHERE pet_id = 9;
 
 COMMIT TRANSACTION;
