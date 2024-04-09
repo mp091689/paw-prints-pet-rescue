@@ -9,7 +9,7 @@ const pets = [
         breed: "Mine Coon",
         size: "m",
         gender: "female",
-        isAdopted: true,
+        isAdopted: false,
         description: "some description here",
         isFixed: true,
         photos: [
@@ -19,13 +19,13 @@ const pets = [
         ]
     },
     {
-        petId: 2,
-        speciesId: 2,
+        petId: 2 ,
+        speciesId: 2 ,
         name: "Yoyo",
-        age: 25,
-        hasSpecialNeeds: false,
-        color: "black",
-        breed: "Mine Coon",
+        age: 25 ,
+        hasSpecialNeeds: false ,
+        color: "black" ,
+        breed: "Mine Coon" ,
         size: "xl",
         gender: "male",
         isAdopted: false,
@@ -47,7 +47,7 @@ const pets = [
         breed: "Mine Coon",
         size: "m",
         gender: "male",
-        isAdopted: true,
+        isAdopted: false,
         description: "some description here",
         isFixed: false,
         photos: [
