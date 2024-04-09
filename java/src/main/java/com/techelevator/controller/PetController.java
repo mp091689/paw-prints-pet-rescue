@@ -30,7 +30,7 @@ public class PetController {
     public Pet createPet(
             @RequestParam String name,
             @RequestParam int speciesId,
-            @RequestParam(required = false) String gender,
+            @RequestParam String gender,
             @RequestParam String size,
             @RequestParam(required = false) String breed,
             @RequestParam(required = false) int age,
@@ -69,7 +69,7 @@ public class PetController {
             @PathVariable int id,
             @RequestParam String name,
             @RequestParam int speciesId,
-            @RequestParam(required = false) String gender,
+            @RequestParam String gender,
             @RequestParam String size,
             @RequestParam(required = false) String breed,
             @RequestParam(required = false) int age,

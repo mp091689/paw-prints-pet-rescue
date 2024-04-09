@@ -2,7 +2,7 @@
   <form action="#" @submit.prevent="submitForm" enctype="multipart/form-data">
     <h2>{{ isSubmitting ? "Submitting new pet..." : "Add New Pet" }}</h2>
     <div>
-      <label for="name"><span class="required">*</span>Name</label>
+      <label for="name"><span class="required">*</span> Name</label>
       <input type="text"
              name="name"
              id="name"
@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <label for="species"><span class="required">*</span>Species:</label>
+      <label for="species"><span class="required">*</span> Species:</label>
       <select name="species"
               id="species"
               v-model="editPet.speciesId"
@@ -26,7 +26,7 @@
       </select></div>
 
     <div>
-      <label for="gender"><span class="required">*</span>Gender:</label>
+      <label for="gender"><span class="required">*</span> Gender:</label>
       <select name="gender"
               id="gender"
               v-model="editPet.gender"
@@ -39,7 +39,7 @@
     </div>
 
       <div>
-          <label for="size"><span class="required">*</span>Size:</label>
+          <label for="size"><span class="required">*</span> Size:</label>
           <select name="size"
                   id="size"
                   v-model="editPet.size"
