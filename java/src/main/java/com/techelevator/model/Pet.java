@@ -14,6 +14,7 @@ public class Pet {
     private boolean isFixed;
     private boolean isAdopted;
     private String description;
+    private String mainPhoto;
 
     public Pet() {
     }
@@ -29,7 +30,8 @@ public class Pet {
                String gender,
                boolean isFixed,
                boolean isAdopted,
-               String description
+               String description,
+               String mainPhoto
     ) {
         this.petId = petId;
         this.speciesId = speciesId;
@@ -43,6 +45,27 @@ public class Pet {
         this.description = description;
         this.isFixed = isFixed;
         this.isAdopted = isAdopted;
+        this.mainPhoto = mainPhoto;
+    }
+
+    public boolean hasSpecialNeed() {
+        return hasSpecialNeed;
+    }
+
+    public boolean isAdopted() {
+        return isAdopted;
+    }
+
+    public void setAdopted(boolean adopted) {
+        isAdopted = adopted;
+    }
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 
     public int getPetId() {
@@ -75,10 +98,6 @@ public class Pet {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public boolean getHasSpecialNeed() {
-        return hasSpecialNeed;
     }
 
     public void setHasSpecialNeed(boolean hasSpecialNeed) {
@@ -117,16 +136,16 @@ public class Pet {
         this.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
     }
 
-    public boolean getIsFixed() {
+    public boolean isFixed() {
         return isFixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        isFixed = fixed;
     }
 
     public void setIsFixed(boolean isAdopted) {
         this.isAdopted = isAdopted;
-    }
-
-    public boolean getIsAdopted() {
-        return isAdopted;
     }
 
     public void setIsAdopted(boolean isAdopted) {

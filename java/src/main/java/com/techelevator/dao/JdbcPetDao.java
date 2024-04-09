@@ -13,20 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcPetDao implements PetDao{
-    private final String PET_SELECT ="SELECT pet_id, species_id, name, age, color, " +
+public class JdbcPetDao implements PetDao {
+    private final String PET_SELECT = "SELECT pet_id, species_id, name, age, color, " +
             "has_special_needs, breed, size, gender, description, is_fixed, " +
             "is_adopted FROM pets";
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcPetDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public List<Pet> getPets() {
         List<Pet> pets = new ArrayList<>();
-        String sqlGetPets = PET_SELECT;
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPets);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(PET_SELECT);
         while (results.next()) {
             pets.add(mapRowToPet(results));
         }
@@ -47,6 +47,7 @@ public class JdbcPetDao implements PetDao{
         }
         return aPet;
     }
+
     @Override
     public Pet createPet(Pet aPet) {
         String sql = "INSERT INTO pets (species_id, name, age, color, has_special_needs, breed, " +
@@ -55,9 +56,9 @@ public class JdbcPetDao implements PetDao{
         try {
             int id = jdbcTemplate.queryForObject(
                     sql, int.class, aPet.getSpeciesId(), aPet.getName(), aPet.getAge(),
-                    aPet.getColor(), aPet.getHasSpecialNeed(), aPet.getBreed(),
-                    aPet.getSize(), aPet.getGender(), aPet.getDescription(), aPet.getIsFixed(),
-                    aPet.getIsAdopted()
+                    aPet.getColor(), aPet.hasSpecialNeed(), aPet.getBreed(),
+                    aPet.getSize(), aPet.getGender(), aPet.getDescription(), aPet.isFixed(),
+                    aPet.isAdopted()
             );
 
             aPet = getPetById(id);
@@ -77,9 +78,9 @@ public class JdbcPetDao implements PetDao{
                 "description = ?, is_fixed = ?, is_adopted = ?  WHERE pet_id = ?;";
         try {
             int numberOfRows = jdbcTemplate.update(
-                    sql, aPet.getSpeciesId(), aPet.getName(), aPet.getAge(), aPet.getHasSpecialNeed(),
+                    sql, aPet.getSpeciesId(), aPet.getName(), aPet.getAge(), aPet.hasSpecialNeed(),
                     aPet.getColor(), aPet.getBreed(), aPet.getSize(), aPet.getGender(),
-                    aPet.getDescription(), aPet.getIsFixed(), aPet.getIsAdopted(), aPet.getPetId()
+                    aPet.getDescription(), aPet.isFixed(), aPet.isAdopted(), aPet.getPetId()
             );
 
             if (numberOfRows == 0) {
