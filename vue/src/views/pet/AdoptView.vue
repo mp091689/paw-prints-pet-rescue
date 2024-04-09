@@ -1,8 +1,9 @@
 <template>
-  <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
-    <button @click="$router.push({name: 'add-pet'})">Add Pet</button>
-  </div>
-  <pets-list v-else/>
+  <header>
+    <h2 class="title"> Adoptable pets!!!</h2>
+    <p class="desc"> So many adoptable pets to choose from! </p>
+  </header>
+  <pets-list/>
 </template>
 
 <script>
@@ -14,4 +15,20 @@ export default {
 </script>
 
 <style scoped>
+header {
+  border: solid red 2px;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: orange;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.desc {
+  display: flex;
+  justify-content: center;
+
+}
 </style>

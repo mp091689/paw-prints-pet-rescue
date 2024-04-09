@@ -31,5 +31,8 @@ export default {
 </script>
 
 <style scoped>
-
+.pet-list {
+  display: flexbox;
+  justify-content:left;
+}
 </style>
