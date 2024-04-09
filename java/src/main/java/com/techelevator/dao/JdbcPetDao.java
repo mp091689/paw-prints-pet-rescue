@@ -11,8 +11,8 @@ import java.util.List;
 
 @Component
 public class JdbcPetDao implements PetDao{
-    private final String PET_SELECT ="SELECT pet_id, species_id, name, age, color, " +
-            "breed, size, gender, description, isFixed, isAdopted FROM pets;";
+    private final String PET_SELECT ="SELECT pet_id, species_id, name, age, color, has_special_needs, " +
+            "breed, size, gender, description, is_fixed, is_adopted FROM pets;";
     private JdbcTemplate jdbcTemplate;
 
     public JdbcPetDao(DataSource dataSource) {
