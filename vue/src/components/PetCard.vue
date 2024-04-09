@@ -1,11 +1,11 @@
 <template>
   <!-- <router-link :to="{ name: 'edit-pet', params: {petId: pet.petId} }"> -->
     <div  class="pet-card" :class="{ 'orange-card': pet.petId % 2 == 0, 'blue-card': pet.petId % 2 != 0 }">
-      <p>photo: <img width="80" src="https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg" alt=""></p>
+      <p><img width="80" src="https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg" alt=""></p>
       <p>Name: {{ pet.name }}</p>
       <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
-      <p>age: {{ pet.age }}</p>
-      <p>hasSpecialNeeds: {{ pet.hasSpecialNeeds }}</p>
+      <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
+      <p>hasSpecialNeed: {{ pet.hasSpecialNeed }}</p>
      
       <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
         <button @click="$router.push({name: 'edit-pet', params: {id: pet.petId}})">Edit</button>

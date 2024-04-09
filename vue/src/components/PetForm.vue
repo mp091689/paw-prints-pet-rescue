@@ -2,7 +2,7 @@
   <form action="#" @submit.prevent="submitForm" enctype="multipart/form-data">
     <h2>{{ isSubmitting ? "Submitting new pet..." : "Add New Pet" }}</h2>
     <div>
-      <label for="name">Name</label>
+      <label for="name"><span class="required">*</span>Name</label>
       <input type="text"
              name="name"
              id="name"
@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <label for="species">Choose a species:</label>
+      <label for="species"><span class="required">*</span>Species:</label>
       <select name="species"
               id="species"
               v-model="editPet.speciesId"
@@ -26,17 +26,7 @@
       </select></div>
 
     <div>
-      <label for="breed">Breed</label>
-      <input type="text"
-             name="breed"
-             id="breed"
-             placeholder="Enter pet's breed"
-             v-model="editPet.breed"
-             :disabled="isSubmitting"/>
-    </div>
-
-    <div>
-      <label for="gender">Choose a gender:</label>
+      <label for="gender"><span class="required">*</span>Gender:</label>
       <select name="gender"
               id="gender"
               v-model="editPet.gender"
@@ -48,26 +38,43 @@
       </select>
     </div>
 
+      <div>
+          <label for="size"><span class="required">*</span>Size:</label>
+          <select name="size"
+                  id="size"
+                  v-model="editPet.size"
+                  :disabled="isSubmitting"
+                  required>
+              <option value="" disabled selected hidden>Choose pet's size...</option>
+              <option value="xs">Extra Small</option>
+              <option value="s">Small</option>
+              <option value="m">Medium</option>
+              <option value="l">Large</option>
+              <option value="xl">Extra Large</option>
+          </select>
+      </div>
+
+      <div>
+          <label for="breed">Breed</label>
+          <input type="text"
+                 name="breed"
+                 id="breed"
+                 placeholder="Enter pet's breed"
+                 v-model="editPet.breed"
+                 :disabled="isSubmitting"/>
+      </div>
+
     <div>
       <label for="age">Age</label>
       <input type="number"
              name="age"
              id="age"
-             min="1"
+             min="0"
              max="100"
              placeholder="Enter pet's age"
              v-model="editPet.age"
              :disabled="isSubmitting"
              required/>
-    </div>
-
-    <div>
-      <label for="hasSpecialNeeds">Has Special Medical Needs</label>
-      <input type="checkbox"
-             name="hasSpecialNeeds"
-             id="hasSpecialNeeds"
-             v-model="editPet.hasSpecialNeeds"
-             :disabled="isSubmitting"/>
     </div>
 
     <div>
@@ -81,22 +88,6 @@
     </div>
 
     <div>
-      <label for="size">Choose a size:</label>
-      <select name="size"
-              id="size"
-              v-model="editPet.size"
-              :disabled="isSubmitting"
-              required>
-        <option value="" disabled selected hidden>Choose pet's size...</option>
-        <option value="xs">Extra Small</option>
-        <option value="s">Small</option>
-        <option value="m">Medium</option>
-        <option value="l">Large</option>
-        <option value="xl">Extra Large</option>
-      </select>
-    </div>
-
-    <div>
       <label for="description">Description</label>
       <textarea name="description"
                 id="description"
@@ -107,7 +98,17 @@
                 :disabled="isSubmitting"></textarea>
     </div>
 
-    <div>
+      <div>
+          <label for="hasSpecialNeed">Has Special Medical Needs</label>
+          <input type="checkbox"
+                 name="hasSpecialNeed"
+                 id="hasSpecialNeed"
+                 v-model="editPet.hasSpecialNeed"
+                 :disabled="isSubmitting"/>
+      </div>
+
+
+      <div>
       <label for="isFixed">Is Fixed</label>
       <input type="checkbox"
              name="isFixed"
@@ -153,16 +154,16 @@ export default {
       editPet: {
         petId: this.pet?.petId ?? 0,
         speciesId: this.pet?.speciesId ?? "",
-        name: this.pet?.name,
-        age: this.pet?.age,
+        name: this.pet?.name ?? "",
+        age: this.pet?.age ?? 0,
         gender: this.pet?.gender ?? "",
-        hasSpecialNeeds: this.pet?.hasSpecialNeeds,
+        hasSpecialNeed: this.pet?.hasSpecialNeed ?? false,
         color: this.pet?.color ?? "",
         breed: this.pet?.breed ?? "",
         size: this.pet?.size ?? "",
-        isAdopted: this.pet?.isAdopted,
+        isAdopted: this.pet?.isAdopted ?? false,
         description: this.pet?.description ?? "",
-        isFixed: this.pet?.isFixed,
+        isFixed: this.pet?.isFixed ?? false,
         avatar: this.pet?.avatar ?? null,
       },
     };
@@ -177,6 +178,7 @@ export default {
       if (this.editPet.petId === 0) {
         petService.addPet(this.editPet)
             .then(response => {
+                console.log(response);
               if (response.status === 201) {
                 this.$router.push({name: 'adopt'});
               }
@@ -196,6 +198,7 @@ export default {
       this.$router.push({name: 'adopt'});
     },
     onChangeAvatar(event) {
+        console.log(event.target.files[0])
         this.editPet.avatar = event.target.files[0];
         this.avatar = URL.createObjectURL(event.target.files[0]);
     },
@@ -227,5 +230,8 @@ form > div {
   margin-bottom: 8px;
   display: grid;
   grid-template-columns: 1fr 2fr;
+}
+span.required {
+    color: red;
 }
 </style>

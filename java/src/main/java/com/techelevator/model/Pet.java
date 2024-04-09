@@ -3,9 +3,9 @@ package com.techelevator.model;
 public class Pet {
 
     private int petId;
-    private int speciesId;
     private String name;
     private int age;
+    private int speciesId;
     private boolean hasSpecialNeed;
     private String color;
     private String breed;
@@ -106,7 +106,7 @@ public class Pet {
     }
 
     public void setSize(String size) {
-        this.size = size;
+        this.size = size.toUpperCase();
     }
 
     public String getGender() {
@@ -114,7 +114,7 @@ public class Pet {
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        this.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
     }
 
     public boolean getIsFixed() {
