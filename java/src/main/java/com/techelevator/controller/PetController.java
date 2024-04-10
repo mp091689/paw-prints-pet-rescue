@@ -3,26 +3,36 @@ package com.techelevator.controller;
 import com.techelevator.dao.PetDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pet;
+import com.techelevator.service.ImageService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 @RequestMapping("pets")
 public class PetController {
-    private final PetDao petDao;
+    private PetDao petDao;
+    private ImageService imageService;
 
-    public PetController(PetDao petDao) {
+    public PetController(PetDao petDao, ImageService imageService) {
         this.petDao = petDao;
+        this.imageService = imageService;
     }
 
     @GetMapping
-    public List<Pet> getPets() {
-        return petDao.getPets();
+    public List<Pet> getPets(@RequestParam(defaultValue = "true") boolean isAdopted) {
+        return petDao.getPetsByAdopted(isAdopted);
+    }
+
+    @GetMapping("{id}")
+    public Pet getPetById(@PathVariable int id) {
+        return petDao.getPetById(id);
     }
 
     @PostMapping
@@ -42,6 +52,13 @@ public class PetController {
             @RequestParam(required = false) MultipartFile avatar
     ) {
         Pet pet = new Pet();
+
+        try {
+            pet.setMainPhoto(imageService.saveToStorage(avatar));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+
         pet.setName(name);
         pet.setAge(age);
         pet.setSpeciesId(speciesId);
@@ -53,8 +70,6 @@ public class PetController {
         pet.setIsFixed(isFixed);
         pet.setIsAdopted(isAdopted);
         pet.setDescription(description);
-
-        // todo: upload file and set avatar variable to pet.avatar
 
         try {
             return petDao.createPet(pet);
@@ -80,7 +95,7 @@ public class PetController {
             @RequestParam(required = false) boolean isAdopted,
             @RequestParam(required = false) MultipartFile avatar
     ) {
-        Pet pet = new Pet();
+        Pet pet = petDao.getPetById(id);
         pet.setPetId(id);
         pet.setName(name);
         pet.setAge(age);
@@ -94,12 +109,27 @@ public class PetController {
         pet.setIsAdopted(isAdopted);
         pet.setDescription(description);
 
-        // todo: upload file and set avatar variable to pet.avatar
+        if (avatar != null) {
+            try {
+                pet.setMainPhoto(imageService.saveToStorage(avatar));
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
+        }
 
         try {
             return petDao.updatePet(pet);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet Not Found");
         }
+    }
+
+    @GetMapping(value = "{id}/main-photo", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable int id) throws IOException {
+        Pet pet = petDao.getPetById(id);
+        if (pet == null) {
+            return new byte[0];
+        }
+        return imageService.get(pet.getMainPhoto());
     }
 }

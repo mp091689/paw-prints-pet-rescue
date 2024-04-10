@@ -4,7 +4,7 @@
             <h1>loading...</h1>
         </div>
         <div v-else>
-            <PetCard :pet="pet" v-for="pet in pets" :key="pet.id"/>
+            <PetCard :pet="pet" v-for="(pet, idx) in pets" :key="pet.id" :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"/>
         </div>
     </div>
 </template>
@@ -14,6 +14,12 @@ import PetCard from "@/components/PetCard.vue";
 import petService from "@/services/PetService";
 
 export default {
+    props: {
+        isAdopted: {
+            type: Boolean,
+            required: true
+        }
+    },
     components: {PetCard},
     data() {
         return {
@@ -22,7 +28,7 @@ export default {
         }
     },
     created() {
-        petService.getPets(true).then(response => {
+        petService.getPets(this.isAdopted).then(response => {
             this.pets = response.data;
             this.isLoading = false;
         })

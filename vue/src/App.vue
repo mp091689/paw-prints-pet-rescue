@@ -1,7 +1,7 @@
 <template>
   <div id="capstone-app">
     <div class="header">
-      <img src="public\Paw Prints Pet Rescue Logo.png" class="company-logo">
+      <img src="/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
       <h1 id="title"> Paw Prints pet rescue</h1>
       <p id="description"> </p>
     </div>

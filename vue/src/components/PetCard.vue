@@ -1,15 +1,12 @@
 <template>
-  <!-- <router-link :to="{ name: 'edit-pet', params: {petId: pet.petId} }"> -->
-    <div  class="pet-card" :class="{ 'orange-card': pet.petId % 2 == 0, 'blue-card': pet.petId % 2 != 0 }">
-      <p><img width="80" src="https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg" alt=""></p>
+    <div  class="pet-card" :class="`${$attrs.class}`">
+      <p><img width="80" :src="getMainPhotoUrl(pet.petId)" alt=""></p>
       <p>Name: {{ pet.name }}</p>
       <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
       <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
       <p>hasSpecialNeed: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
-     
-      <div class="admin-bar" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">
-        <button @click="$router.push({name: 'edit-pet', params: {id: pet.petId}})">Edit</button>
-      </div>
+
+      <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">Edit</router-link>
     </div>
 </template>
 
@@ -17,6 +14,9 @@
 export default {
   props: ['pet'],
   methods: {
+    getMainPhotoUrl(id) {
+        return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
+    },
     getSpeciesName(id) {
       if(id == 1) return "Cat";
       if(id == 2) return "Dog";
