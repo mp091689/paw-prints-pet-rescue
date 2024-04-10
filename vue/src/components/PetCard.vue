@@ -4,7 +4,7 @@
       <p>Name: {{ pet.name }}</p>
       <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
       <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
-      <p>hasSpecialNeed: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
+      <p>Any special requirements?: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
 
       <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
     </div>
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .pet-card {
-  border: solid red 1px;
+  border: solid #392F5A 1px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -44,10 +44,10 @@ export default {
 }
 
 .pet-card.orange-card {
-  background-color: orange;
+  background-color: #FF8811 ;
 }
 
 .pet-card.blue-card {
-  background-color: cornflowerblue;
+  background-color: #9DD9D2;
 }
 </style>

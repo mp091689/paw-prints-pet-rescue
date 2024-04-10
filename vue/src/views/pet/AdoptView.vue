@@ -17,9 +17,9 @@ export default {
 
 <style scoped>
 header {
-  border: solid red 2px;
+  border: solid #392F5A  1px;
   font-family: 'Courier New', Courier, monospace;
-  background-color: orange;
+  background-color: #FF8811;
 }
 
 .title {

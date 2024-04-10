@@ -6,7 +6,7 @@
     </div>
             <!-- This will toss a title and description on the home page letting the user see the pets that have already been adopted -->
         <h2 class="adopted-pet"> Adopted Pets</h2>
-        <p class="adopted-pet"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p> -->
+        <p class="adopted-pet"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p> 
         <pets-list :is-adopted="true"/>
 </template>
 
@@ -19,9 +19,11 @@ export default {
 </script>
 <style>
 .About-us{
-    border: solid orange 3px;
-    margin: auto;
-    background-color: cornflowerblue;
+    border: solid #392F5a 3px;
+    /* margin: auto; */
+    background-color: #9DD9D2;
+    padding: 10px;
+    margin-bottom: 5px;
 }
 #Who-title{
     display: flex;
@@ -30,10 +32,12 @@ export default {
 .adopted-pet{
     display: flex;
     justify-content:center;
-    background-color: cornflowerblue;
-    border: solid orange 3px;
+    background-color: #FF8811;
+    border: solid #392F5a 3px;
     margin: auto;
     padding: 5px;
+    margin-bottom: 5px;
+    color: #392F5A;
 }    
 
 

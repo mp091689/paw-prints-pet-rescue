@@ -11,7 +11,7 @@
       <router-link v-bind:to="{name : 'donate'}"> Donate</router-link> | 
       <router-link v-bind:to="{name: 'volunteer'}"> Volunteer </router-link> |
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> |
-      <router-link v-bind:to="{ name: 'login' }">login</router-link> |
+      <router-link v-bind:to="{ name: 'login' }">Login</router-link> |
 
 
     </div>
@@ -26,14 +26,17 @@
     left: 0;
     width: 100%;
     height: 80px;
-    background-color: darkorange;
+    background-color: #FF8811 ;
     display: flex;
+    border: solid #9DD9D2 3px ;
+    
   }
   #nav{
     font-size: medium;
+    padding: 5px;
   }
   #title{
-    color: cornflowerblue;
+    color: #392F5A ;
     margin: auto;
   }
   .company-logo{
