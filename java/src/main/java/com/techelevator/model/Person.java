@@ -85,4 +85,8 @@ public class Person {
         this.volunteeringInterest = volunteeringInterest;
     }
 
+    public Person() {
+
+    }
+
 }
