@@ -8,12 +8,10 @@
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link> | 
       <router-link v-bind:to="{ name: 'adopt' }">Adopt</router-link> |
-      <router-link v-bind:to="{name : 'donate'}"> Donate</router-link> | 
-      <router-link v-bind:to="{name: 'volunteer'}"> Volunteer </router-link> |
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> |
-      <router-link v-bind:to="{ name: 'login' }">Login</router-link> |
-
-
+      <router-link v-bind:to="{name : 'donate'}">Donate</router-link> |
+      <router-link v-bind:to="{name: 'volunteer'}">Volunteer </router-link> |
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
     </div>
     <router-view />
   </div>
@@ -29,7 +27,7 @@
     background-color: #FF8811 ;
     display: flex;
     border: solid #9DD9D2 3px ;
-    
+
   }
   #nav{
     font-size: medium;
