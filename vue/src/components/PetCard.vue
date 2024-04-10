@@ -6,7 +6,7 @@
       <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
       <p>hasSpecialNeed: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
 
-      <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="$store.state.user.authorities.filter(role => role.name === 'ROLE_ADMIN').length">Edit</router-link>
+      <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
     </div>
 </template>
 
@@ -14,6 +14,12 @@
 export default {
   props: ['pet'],
   methods: {
+    isAuthorized(){
+      if(Object.keys(this.$store.state.user).length === 0){
+        return false;
+      }
+      return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN').length;
+    },
     getMainPhotoUrl(id) {
         return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
     },
