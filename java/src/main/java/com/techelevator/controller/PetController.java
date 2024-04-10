@@ -54,7 +54,11 @@ public class PetController {
         Pet pet = new Pet();
 
         try {
-            pet.setMainPhoto(imageService.saveToStorage(avatar));
+            String photoPath = "placeholder_" + speciesId + ".jpg";
+            if (avatar != null) {
+                photoPath = imageService.saveToStorage(avatar);
+            }
+            pet.setMainPhoto(photoPath);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
