@@ -29,3 +29,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/src/main/resources/photos/*
+!/src/main/resources/photos/Cat1.JPG
+!/src/main/resources/photos/Cat2.JPG
+!/src/main/resources/photos/Cat3.JPG
+!/src/main/resources/photos/Dog1.jpg
+!/src/main/resources/photos/Dog2.jpg
+!/src/main/resources/photos/Dog3.jpg
+!/src/main/resources/photos/Rabbit1.jpg
+!/src/main/resources/photos/Rabbit2.jpg
+!/src/main/resources/photos/Rabbit3.jpg
+!/src/main/resources/photos/palceholder_1.jpg
+!/src/main/resources/photos/palceholder_2.jpg
+!/src/main/resources/photos/palceholder_3.jpg
+
