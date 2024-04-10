@@ -1,17 +1,13 @@
-import pets from "@/services/dummy/pets";
 import axios from "axios";
 
 const path = "/pets";
 
 export default {
     getPets(isAdopted) {
-        return axios.get(path);
+        return axios.get(path, {params: {isAdopted}});
     },
     getPet(petId) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => resolve({data: pets[0]}), 1000);
-        });
-        // return axios.get(`${path}/${petId}`)
+        return axios.get(`${path}/${petId}`);
     },
     addPet(pet) {
         let formData = new FormData();

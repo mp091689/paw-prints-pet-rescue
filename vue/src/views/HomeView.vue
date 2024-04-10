@@ -9,9 +9,7 @@
             <!-- This will toss a title and description on the home page letting the user see the pets that have already been adopted -->
         <h2 class="adopted-pet"> Adopted Pets</h2>
         <p class="adopted-pet"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p>
-        <pets-list/>
-    
-    
+        <pets-list :is-adopted="true"/>
 </template>
 
 <script>

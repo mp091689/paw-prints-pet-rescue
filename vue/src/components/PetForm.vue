@@ -2,7 +2,7 @@
   <form action="#" @submit.prevent="submitForm" enctype="multipart/form-data">
     <h2>{{ isSubmitting ? "Submitting new pet..." : "Add New Pet" }}</h2>
     <div>
-      <label for="name"><span class="required">*</span> Name</label>
+      <label for="name"><span class="required">*</span> Name:</label>
       <input type="text"
              name="name"
              id="name"
@@ -33,8 +33,8 @@
               :disabled="isSubmitting"
               required>
         <option value="" disabled selected hidden>Choose pet's gender...</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
       </select>
     </div>
 
@@ -46,16 +46,16 @@
                   :disabled="isSubmitting"
                   required>
               <option value="" disabled selected hidden>Choose pet's size...</option>
-              <option value="xs">Extra Small</option>
-              <option value="s">Small</option>
-              <option value="m">Medium</option>
-              <option value="l">Large</option>
-              <option value="xl">Extra Large</option>
+              <option value="XS">Extra Small</option>
+              <option value="S">Small</option>
+              <option value="M">Medium</option>
+              <option value="L">Large</option>
+              <option value="XL">Extra Large</option>
           </select>
       </div>
 
       <div>
-          <label for="breed">Breed</label>
+          <label for="breed">Breed:</label>
           <input type="text"
                  name="breed"
                  id="breed"
@@ -65,7 +65,7 @@
       </div>
 
     <div>
-      <label for="age">Age</label>
+      <label for="age">Age:</label>
       <input type="number"
              name="age"
              id="age"
@@ -78,7 +78,7 @@
     </div>
 
     <div>
-      <label for="color">Color</label>
+      <label for="color">Color:</label>
       <input type="text"
              name="color"
              id="color"
@@ -88,7 +88,7 @@
     </div>
 
     <div>
-      <label for="description">Description</label>
+      <label for="description">Description:</label>
       <textarea name="description"
                 id="description"
                 cols="30"
@@ -99,7 +99,7 @@
     </div>
 
       <div>
-          <label for="hasSpecialNeed">Has Special Medical Needs</label>
+          <label for="hasSpecialNeed">Has Special Medical Needs:</label>
           <input type="checkbox"
                  name="hasSpecialNeed"
                  id="hasSpecialNeed"
@@ -109,7 +109,7 @@
 
 
       <div>
-      <label for="isFixed">Is Fixed</label>
+      <label for="isFixed">Is Fixed:</label>
       <input type="checkbox"
              name="isFixed"
              id="isFixed"
@@ -118,7 +118,7 @@
     </div>
 
     <div>
-      <label for="isAdopted">Is Adopted</label>
+      <label for="isAdopted">Is Adopted:</label>
       <input type="checkbox"
              name="isAdopted"
              id="isAdopted"
@@ -127,9 +127,9 @@
     </div>
 
       <div>
-        <label for="avatar">Select avatar</label>
+        <label for="avatar">Select avatar:</label>
         <input type="file" id="avatar" name="avatar" @change="onChangeAvatar"/>
-        <img :src="avatar" width="100" v-if="avatar" alt="Pet's avatar"/>
+        <img :src="getMainPhotoUrl(editPet.petId)" width="100" alt="Pet's avatar" v-if="editPet.petId !== 0 || avatar != null"/>
       </div>
 
     <button :disabled="isSubmitting">Submit</button>
@@ -169,6 +169,12 @@ export default {
     };
   },
   methods: {
+      getMainPhotoUrl(id) {
+          if (this.avatar != null) {
+              return this.avatar
+          }
+          return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
+      },
     submitForm() {
       this.isSubmitting = true;
       if (!this.validateForm()) {
@@ -229,9 +235,16 @@ form {
 form > div {
   margin-bottom: 8px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 200px 1fr;
 }
 span.required {
     color: red;
+}
+label {
+    justify-self: end;
+    margin-right: 8px;
+}
+input[type=checkbox] {
+    justify-self: start;
 }
 </style>

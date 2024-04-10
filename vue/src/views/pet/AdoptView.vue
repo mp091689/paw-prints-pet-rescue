@@ -2,8 +2,9 @@
   <header>
     <h2 class="title"> Adoptable pets!!!</h2>
     <p class="desc"> So many adoptable pets to choose from! </p>
+    <router-link class="desc" :to="{name: 'add-pet'}">Add Pet</router-link>
   </header>
-  <pets-list/>
+  <pets-list :is-adopted="false"/>
 </template>
 
 <script>

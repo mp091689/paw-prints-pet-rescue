@@ -48,16 +48,12 @@ public class Pet {
         this.mainPhoto = mainPhoto;
     }
 
-    public boolean hasSpecialNeed() {
+    public boolean getHasSpecialNeed() {
         return hasSpecialNeed;
     }
 
-    public boolean isAdopted() {
+    public boolean getIsAdopted() {
         return isAdopted;
-    }
-
-    public void setAdopted(boolean adopted) {
-        isAdopted = adopted;
     }
 
     public String getMainPhoto() {
@@ -125,7 +121,9 @@ public class Pet {
     }
 
     public void setSize(String size) {
-        this.size = size.toUpperCase();
+        if (size != null) {
+            this.size = size.toUpperCase();
+        }
     }
 
     public String getGender() {
@@ -133,19 +131,17 @@ public class Pet {
     }
 
     public void setGender(String gender) {
-        this.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
+        if (size != null) {
+            this.gender = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
+        }
     }
 
-    public boolean isFixed() {
+    public boolean getIsFixed() {
         return isFixed;
     }
 
-    public void setFixed(boolean fixed) {
-        isFixed = fixed;
-    }
-
-    public void setIsFixed(boolean isAdopted) {
-        this.isAdopted = isAdopted;
+    public void setIsFixed(boolean isFixed) {
+        this.isFixed = isFixed;
     }
 
     public void setIsAdopted(boolean isAdopted) {

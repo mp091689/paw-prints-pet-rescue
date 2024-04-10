@@ -11,7 +11,7 @@ public interface PetDao {
      *
      * @return all pets as a list of Pet objects
      */
-    List<Pet> getPets();
+    List<Pet> getPetsByAdopted(boolean isAdopted);
 
     Pet getPetById(int petId);
 
