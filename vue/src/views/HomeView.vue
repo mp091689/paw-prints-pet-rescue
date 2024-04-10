@@ -1,14 +1,12 @@
 <template>
-   
-    
     <div class="About-us">
         <!--this section explains the about us on the home page--> 
         <h2 id="Who-title"> Who are we?</h2>
-        <p id="about-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam dignissim elit ac dolor luctus, sit amet fermentum sem varius. Integer luctus, est ut eleifend tempus, dui libero rhoncus odio, pharetra ultricies tellus velit sit amet magna. Vestibulum non nulla et purus blandit laoreet eget in diam. Praesent vitae quam non eros ullamcorper bibendum. Praesent ullamcorper, tellus sed cursus faucibus, est arcu auctor massa, dictum cursus quam sapien iaculis enim. </p>
+        <p class="about-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam dignissim elit ac dolor luctus, sit amet fermentum sem varius. Integer luctus, est ut eleifend tempus, dui libero rhoncus odio, pharetra ultricies tellus velit sit amet magna. Vestibulum non nulla et purus blandit laoreet eget in diam. Praesent vitae quam non eros ullamcorper bibendum. Praesent ullamcorper, tellus sed cursus faucibus, est arcu auctor massa, dictum cursus quam sapien iaculis enim. </p>
     </div>
             <!-- This will toss a title and description on the home page letting the user see the pets that have already been adopted -->
         <h2 class="adopted-pet"> Adopted Pets</h2>
-        <p class="adopted-pet"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p>
+        <p class="adopted-pet"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p> -->
         <pets-list :is-adopted="true"/>
 </template>
 

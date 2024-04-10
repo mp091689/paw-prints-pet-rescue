@@ -9,6 +9,8 @@ import RegisterView from '../views/auth/RegisterView.vue';
 import AdoptView from "@/views/pet/AdoptView.vue";
 import AddPetView from "@/views/pet/AddPetView.vue";
 import EditPetView from "@/views/pet/EditPetView.vue";
+import DonateView from "@/views/pet/DonateView.vue";
+import VolunteerView from "@/views/pet/VolunteerView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -24,7 +26,7 @@ const routes = [
         name: 'home',
         component: HomeView,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -56,7 +58,7 @@ const routes = [
         name: "adopt",
         component: AdoptView,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -73,6 +75,20 @@ const routes = [
         component: EditPetView,
         meta: {
             requiresAuth: true
+        }
+    },
+    {path: "/donate",
+        name: "donate",
+        component: DonateView,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {path: "/volunteer",
+        name: "volunteer",
+        component: VolunteerView,
+        meta: {
+            requiresAuth: false
         }
     },
 ];

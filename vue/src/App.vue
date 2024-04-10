@@ -6,9 +6,14 @@
       <p id="description"> </p>
     </div>
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'adopt' }" v-if="$store.state.token != ''">Adopt</router-link> |
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'home' }">Home</router-link> | 
+      <router-link v-bind:to="{ name: 'adopt' }">Adopt</router-link> |
+      <router-link v-bind:to="{name : 'donate'}"> Donate</router-link> | 
+      <router-link v-bind:to="{name: 'volunteer'}"> Volunteer </router-link> |
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> |
+      <router-link v-bind:to="{ name: 'login' }">login</router-link> |
+
+
     </div>
     <router-view />
   </div>
