@@ -99,7 +99,7 @@
     </div>
 
       <div>
-          <label for="hasSpecialNeed">Has Special Medical Needs:</label>
+          <label for="hasSpecialNeed">Has Special<br/>Medical Needs:</label>
           <input type="checkbox"
                  name="hasSpecialNeed"
                  id="hasSpecialNeed"
@@ -228,14 +228,15 @@ export default {
 
 <style scoped>
 form {
-  background: lightgrey;
-  padding: 12px;
+  background: #9dd9d2;
+  color: #392f5a;
+  padding: 12px 48px;
 }
 
 form > div {
   margin-bottom: 8px;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 150px 1fr;
 }
 span.required {
     color: red;
