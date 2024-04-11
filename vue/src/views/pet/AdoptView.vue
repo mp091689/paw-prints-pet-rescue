@@ -30,6 +30,7 @@ header {
 .desc {
   display: flex;
   justify-content: center;
+  
 
 }
 </style>

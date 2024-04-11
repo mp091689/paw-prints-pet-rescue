@@ -24,6 +24,7 @@ export default {
     background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
+    font-family: ;
 }
 #Who-title{
     display: flex;

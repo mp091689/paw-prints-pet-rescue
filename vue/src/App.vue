@@ -18,7 +18,6 @@
 </template>
 
 <style scoped>
-
   .header{
     top: 0;
     left: 0;
