@@ -6,8 +6,10 @@
     </div>
             <!-- This will toss a title and description on the home page letting the user see the pets that have already been adopted -->
             <div class="adopted-pet">
-        <h2 id="pet-title"> success stories</h2>
-        <p class="adopted-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu sapien non enim imperdiet vulputate. In rhoncus, purus ac sodales porta, erat felis posuere mi, at ullamcorper lorem libero id urna. Morbi hendrerit quam vitae neque luctus tincidunt.</p> 
+        <h2 id="pet-title">Success Stories</h2>
+        <p class="adopted-desc">
+            These stories inspire community involvement in adoption, underscore the tireless efforts of our staff and volunteers, and emphasize the importance of providing loving homes to needy animals. It's a testament to the power of companionship and the positive impact of giving pets a second chance at happiness.
+        </p> 
         
     </div>
     <div class="pet-box">
