@@ -14,10 +14,42 @@
     <!-- Shelter items -->
     <div class="shelter-item-list">
     <h3 id="shelter-item-title">Shelter Items</h3>
+    <p>gift cards</p>
+    <P>amazon gift cards</P>
+    <p>Cat/Dog food (especially wet food)</p>
+    <p>Dog Treats</p>
+    <p>Hot dogs (for training)</p>
+    <p>Plastic or wire dog crates</p>
+    <p>Cat Scratchers</p>
+    <p>Gift cards (that can be used at any store)</p>
+    <p>Non-dust cat litter</p>
+    <p>Towels</p>
+    <p>Cat/dog toys</p>
+    <p>Bleach</p>
+    <p>Automatic dish washing liquid</p>
+    <p>Laundry detergent (high efficacy washing machines)</p>
+    <p>Clean newspapers or butcher paper</p>
+    <p>office supplies</p>
 </div>
     <!-- Items for Dogs -->
     <div class="dog-item-list">
+        
     <h3 id="dog-item-title">Dog related items</h3>
+    <div class="card-content">
+        <div>
+            <p>Rawhides</p>
+            <p>Canned pumpkin</p>
+            <p>Chicken/Beef Broth </p>
+            <p>Plain Yogurt</p>
+            <p>Fleece Fabric </p>
+            <p> Unopened bags of uncooked rice </p>
+            <p> White tube socks</p>
+            <p>Peanut Butter</p>
+            <p>Applesauce</p>
+            <p>Medium-sized treats</p>  
+        </div>
+        <img src="/Jimmy Dean-fidos.jpg" class="JIMMY" alt="fidos-dog">
+    </div>
 </div>
 <!-- Items for Cats -->
 <div class="cat-item-list">
@@ -57,6 +89,19 @@
 .bunny-item-list{
     background-color: #F4D06F;
     border: solid #392F5A 3px ;
+}
+.JIMMY{
+    display: flex;
+    justify-content: right;
+    max-width: 250px;
+    max-height: 250px;
+}
+.card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+padding-left: 50px ;
+    /* display: flex; */
+    width: 100%;
 }
 
 
