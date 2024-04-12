@@ -24,7 +24,7 @@ public class PersonController {
         return personDao.getPeople();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Person personById(@PathVariable int personId) {
         Person person = personDao.getPersonById(personId);
         if (person == null) {
