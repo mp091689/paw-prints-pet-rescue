@@ -61,8 +61,8 @@ public class JdbcPersonDao implements PersonDao{
 
     @Override
     public Person createPerson(Person person) {
-        String sql = "INSERT INTO people (person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest FROM people)" +
-                "VALUES (?,?,?,?,?,?,?,?) RETURNING person_id";
+        String sql = "INSERT INTO people (person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING person_id";
         Person newPerson = null;
         try {
             int personId = jdbcTemplate.queryForObject(sql, int.class,
@@ -75,22 +75,21 @@ public class JdbcPersonDao implements PersonDao{
             throw new DaoException("Data integrity violation", e);
         }
 
-
         return newPerson;
     }
 
     @Override
     public Person updatePerson(Person updateIndividual) {
         Person updatedPerson = null;
-        String sql = "UPDATE project " +
-                "SET first_name = ?" +
-                "last_name = ?" +
-                "email = ?" +
-                "is_available_weekdays = ?" +
-                "is_available_weekends = ?" +
-                "volunteering_interest = ?" +
-                "is_approved = ?" +
-                "token = ?" +
+        String sql = "UPDATE people " +
+                "SET first_name = ?," +
+                "last_name = ?," +
+                "email = ?," +
+                "is_available_weekdays = ?," +
+                "is_available_weekends = ?," +
+                "volunteering_interest = ?," +
+                "is_approved = ?," +
+                "token = ? " +
                 "WHERE person_id = ?";
         try {
             int rowsUpdated = jdbcTemplate.update(sql,
@@ -126,6 +125,8 @@ public class JdbcPersonDao implements PersonDao{
         person.setAvailableWeekdays(rs.getBoolean("is_available_weekdays"));
         person.setAvailableWeekends(rs.getBoolean("is_available_weekends"));
         person.setVolunteeringInterest(rs.getString("volunteering_interest"));
+        person.setIsApproved(rs.getBoolean("is_approved"));
+        person.setToken(rs.getString("token"));
         return person;
     }
 }
