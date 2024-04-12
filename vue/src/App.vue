@@ -1,4 +1,4 @@
-<template>
+npm run dev<template>
   <div id="capstone-app">
     <div class="header">
       <img src="/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
