@@ -10,7 +10,7 @@ import AdoptView from "@/views/pet/AdoptView.vue";
 import AddPetView from "@/views/pet/AddPetView.vue";
 import EditPetView from "@/views/pet/EditPetView.vue";
 import DonateView from "@/views/pet/DonateView.vue";
-import VolunteerView from "@/views/pet/VolunteerView.vue";
+import VolunteerView from "@/views/volunteer/VolunteerView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
