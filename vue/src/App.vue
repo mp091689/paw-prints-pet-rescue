@@ -1,10 +1,11 @@
 npm run dev<template>
   <div id="capstone-app">
+
     <div class="header">
       <img src="/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
-      <h1 id="title"> Paw Prints pet rescue</h1>
-      <p id="description"> </p>
+      <h1 id="title"> Paw Prints Pet Rescue</h1>
     </div>
+
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link> | 
       <router-link v-bind:to="{ name: 'adopt' }">Adopt</router-link> |
@@ -13,6 +14,7 @@ npm run dev<template>
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
     </div>
+
     <router-view />
   </div>
 </template>
@@ -21,28 +23,33 @@ npm run dev<template>
   .header{
     top: 0;
     left: 0;
-    width: 100%;
-    height: 80px;
+    width: 100vw;
+    height: 15vh;
     background-color: #FF8811 ;
-    display: flex;
     border: solid #9DD9D2 3px ;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  #nav{
-    font-size: medium;
-    padding: 5px;
+  .company-logo{
+    max-height: 10vh;
+    padding-top: 2vh;
+    margin: auto;
   }
   #title{
     color: #392F5A ;
+    font-size: x-large;
     margin: auto;
   }
-  .company-logo{
+
+  #nav{
+    font-size: medium;
+    padding: 5px;
     display: flex;
-    max-width: 95px;
-    max-height: 95px;
-    justify-content: left;
+    justify-content: space-between;
   }
-  
 </style>
+
 <script setup lang="ts">
 </script>
