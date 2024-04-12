@@ -26,9 +26,8 @@ public class JdbcPersonDao implements PersonDao{
     @Override
     public List<Person> getPeople() {
         List<Person> people = new ArrayList<>();
-        String sql = "SELECT first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest FROM people";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(SELECT_PERSON);
             while (results.next()) {
                 Person person = mapRowToPerson(results);
                 people.add(person);
