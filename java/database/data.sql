@@ -3,10 +3,10 @@ BEGIN TRANSACTION;
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
-INSERT INTO people (user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest)
-	VALUES (1, 'John', 'Smith', 'JohnSmith@volunteer.com', false, true, null);
-INSERT INTO people (user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest)
-	VALUES (2, 'Jane', 'Doe', 'JaneTheAdmin@boss.com', true, true, 'I love animals and cannot wait to make a difference in the world!');
+INSERT INTO people (user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token)
+	VALUES (1, 'John', 'Smith', 'JohnSmith@volunteer.com', false, true, null, true, 'ride');
+INSERT INTO people (user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token)
+	VALUES (2, 'Jane', 'Doe', 'JaneTheAdmin@boss.com', true, true, 'I love animals and cannot wait to make a difference in the world!', true, 'ride');
 
 INSERT INTO species (name) VALUES ('cat');
 INSERT INTO species (name) VALUES ('dog');

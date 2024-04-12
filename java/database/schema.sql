@@ -12,13 +12,15 @@ CREATE TABLE users (
 
 CREATE TABLE people (
 	person_id SERIAL,
-	user_id integer NOT NULL,
+	user_id integer,
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
 	email varchar(150) NOT NULL,
 	is_available_weekdays boolean NOT NULL DEFAULT 'false',
 	is_available_weekends boolean NOT NULL DEFAULT 'false',
 	volunteering_interest varchar(500),
+	is_approved boolean NOT NULL DEFAULT 'false',
+	token varchar(250) NOT NULL,
 	
 	CONSTRAINT PK_people PRIMARY KEY (person_id),
 	CONSTRAINT FK_people_user FOREIGN KEY(user_id) REFERENCES users(user_id)

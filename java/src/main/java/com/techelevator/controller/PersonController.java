@@ -2,10 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.PersonDao;
 import com.techelevator.model.Person;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +20,9 @@ public class PersonController {
     public List<Person> getPeople() {
         return personDao.getPeople();
     }
+
+//    @PostMapping
+//    public Person createPerson(@RequestBody(Person volunteer)){
+//
+//    }
 }

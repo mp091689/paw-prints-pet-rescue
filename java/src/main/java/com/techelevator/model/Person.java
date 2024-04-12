@@ -9,6 +9,8 @@ public class Person {
     private boolean isAvailableWeekdays;
     private boolean isAvailableWeekends;
     private String volunteeringInterest;
+    private boolean isApproved;
+    private String token;
 
     public int getPersonId() {
         return personId;
@@ -74,7 +76,23 @@ public class Person {
         this.volunteeringInterest = volunteeringInterest;
     }
 
-    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest) {
+    public boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest, boolean isApproved, String token) {
         this.personId = personId;
         this.userId = userId;
         this.firstName = firstName;
@@ -83,6 +101,8 @@ public class Person {
         this.isAvailableWeekdays = isAvailableWeekdays;
         this.isAvailableWeekends = isAvailableWeekends;
         this.volunteeringInterest = volunteeringInterest;
+        this.isApproved = isApproved;
+        this.token = token;
     }
 
     public Person() {
