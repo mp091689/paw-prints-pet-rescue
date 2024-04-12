@@ -18,20 +18,22 @@
 </template>
 
 <style scoped>
-
   .header{
     top: 0;
     left: 0;
     width: 100%;
     height: 80px;
-    background-color: darkorange;
+    background-color: #FF8811 ;
     display: flex;
+    border: solid #9DD9D2 3px ;
+
   }
   #nav{
     font-size: medium;
+    padding: 5px;
   }
   #title{
-    color: cornflowerblue;
+    color: #392F5A ;
     margin: auto;
   }
   .company-logo{
