@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface PersonDao {
     List<Person> getPeople();
+    Person getPersonById(int personId);
+    Person createPerson(Person individual);
+    Person updatePerson(Person updateIndividual);
 }
