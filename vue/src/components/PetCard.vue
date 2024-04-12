@@ -40,9 +40,6 @@ export default {
 .pet-card {
   display: flexbox;
  border: solid #392F5A 3px; 
-  /* display: grid;
-  grid-template-columns: auto auto auto ; */
-  /* flex-wrap: wrap; */
   justify-content: space-between;
   padding-left: 2px;
   color: #392F5A ; 
@@ -54,9 +51,6 @@ export default {
 
 }
 
- /* .pet-card .img img {
-   width: 200px; 
-}  */
 
 .pet-card .info {
   display: grid;
