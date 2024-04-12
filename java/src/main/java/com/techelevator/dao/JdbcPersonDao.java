@@ -61,8 +61,8 @@ public class JdbcPersonDao implements PersonDao{
 
     @Override
     public Person createPerson(Person person) {
-        String sql = "INSERT INTO people (person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest FROM people)" +
-                "VALUES (?,?,?,?,?,?,?,?) RETURNING person_id";
+        String sql = "INSERT INTO people (person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING person_id";
         Person newPerson = null;
         try {
             int personId = jdbcTemplate.queryForObject(sql, int.class,
@@ -74,7 +74,6 @@ public class JdbcPersonDao implements PersonDao{
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-
 
         return newPerson;
     }
@@ -126,6 +125,8 @@ public class JdbcPersonDao implements PersonDao{
         person.setAvailableWeekdays(rs.getBoolean("is_available_weekdays"));
         person.setAvailableWeekends(rs.getBoolean("is_available_weekends"));
         person.setVolunteeringInterest(rs.getString("volunteering_interest"));
+        person.setIsApproved(rs.getBoolean("is_approved"));
+        person.setToken(rs.getString("token"));
         return person;
     }
 }
