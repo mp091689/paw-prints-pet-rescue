@@ -66,12 +66,9 @@ export default {
   background-color: #9DD9D2;
   font-size: medium;
 }
-.info{
-  height: 30vw;
-
-}
 
 img {
-  width: 80%;
+  max-width: 100%;
+  max-height: 100%;
 } 
 </style>
