@@ -10,10 +10,10 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
-public class ImageService {
+public class ImageService implements ImageUploader {
     private final String DIR_PATH = "src/main/resources/photos";
 
-    public String saveToStorage(MultipartFile imageFile) throws IOException {
+    public String save(MultipartFile imageFile) throws IOException {
         String uniqueFileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
 
         Path uploadPath = Path.of(DIR_PATH);

@@ -3,7 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.PetDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pet;
-import com.techelevator.service.ImageService;
+import com.techelevator.service.ImageUploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ import java.util.List;
 @RequestMapping("pets")
 public class PetController {
     private PetDao petDao;
-    private ImageService imageService;
+    private ImageUploader imageService;
 
-    public PetController(PetDao petDao, ImageService imageService) {
+    public PetController(PetDao petDao, ImageUploader imageService) {
         this.petDao = petDao;
         this.imageService = imageService;
     }
@@ -56,7 +56,7 @@ public class PetController {
         try {
             String photoPath = "placeholder_" + speciesId + ".jpg";
             if (avatar != null) {
-                photoPath = imageService.saveToStorage(avatar);
+                photoPath = imageService.save(avatar);
             }
             pet.setMainPhoto(photoPath);
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class PetController {
 
         if (avatar != null) {
             try {
-                pet.setMainPhoto(imageService.saveToStorage(avatar));
+                pet.setMainPhoto(imageService.save(avatar));
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
             }
