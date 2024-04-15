@@ -13,6 +13,9 @@
         <div class="columns">
             <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>
         </div>
+      <form action="#" @submit.prevent="submitApprove" v-if="!person.isApproved && $store.getters.isUserRole('ROLE_ADMIN')">
+        <button type="submit">Approve</button>
+      </form>
       <!-- <router-link :to="{name: 'edit-volunteer', params: {personId: person.personId}}" v-if="isAuthorized()">Edit</router-link> -->
     </div>
 </template>
