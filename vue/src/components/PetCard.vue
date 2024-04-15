@@ -46,33 +46,29 @@ export default {
   border: solid #392F5A 3px; 
   justify-content: space-between;
   padding-left: 2px;
-  color: #392F5A ; 
+  color: #392F5A ;
 }
-
 .pet-card .img {
   width: 100%;
   height: 30vw;
 
 }
-
-
 .pet-card .info {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-
  .pet-card.orange-card {
   background-color: #FF8811 ;
   font-size: medium;
 } 
-
 .pet-card.blue-card {
   background-color: #9DD9D2;
   font-size: medium;
 }
-
 img {
-  max-width: 100%;
+  max-width: 95%;
   max-height: 100%;
+  padding-top: 1vh;
+  margin: auto;
 } 
 </style>
