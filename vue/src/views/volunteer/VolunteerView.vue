@@ -1,34 +1,37 @@
 <template>
   <h1>Volunteers</h1>
   <div class="description">
-    <div>
-      <p>you can apply for volunteer position</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse in laudantium reprehenderit? Asperiores commodi
-        delectus deleniti dolorem est officia quaerat, quo suscipit temporibus totam! Adipisci commodi, cupiditate
-        doloribus excepturi laboriosam maxime minima quisquam rerum sed suscipit. A ad alias animi aperiam assumenda
-        blanditiis, dignissimos dolore doloribus, et eveniet facilis fuga hic iusto modi molestiae neque pariatur
-        placeat quisquam, sit sunt tempore totam vero voluptas? Accusantium adipisci alias aliquam at delectus deserunt
-        dicta dignissimos, dolores ducimus ea eius et eveniet exercitationem id libero magnam magni, nam neque nesciunt
-        obcaecati officia officiis perferendis porro praesentium provident quae quaerat quam quo reprehenderit,
-        repudiandae tenetur unde velit vitae. Accusamus, aliquid at consectetur consequuntur error harum incidunt,
-        inventore iusto neque, officia pariatur perspiciatis quam quasi quia reiciendis. Expedita libero rerum vero
-        vitae voluptates? Aliquam dolores earum fugiat omnis reiciendis. Ab, cupiditate dolor dolores eligendi eos ipsum
-        nam natus provident quasi tempore temporibus ullam veritatis voluptatem.</p>
+    <div class="descript">
+      <p><b>Hello! Would you like to apply for volunteer position</b></p>
+      <p class="desc">We are constantly seeking compassionate individuals who share our love for animals and are willing to dedicate their time and effort to make a difference in their lives. Your commitment as a volunteer can play a crucial role in our mission to rescue, rehabilitate pets in need. By being a volunteer, you will have the opportunity to:</p>
+      <div class="list">
+        <li>Saves lives by providing care and shelter for animals in need.</li>
+        <li>Advocates for animal welfare and raises awareness in the community.</li>
+        <li>Fosters personal fulfillment and skill development.</li>
+        <li>Builds relationships with fellow volunteers and animals.</li>
+        <li>Makes a tangible difference in the lives of animals and the community.</li>
+      </div>
+        
     </div>
     <div>
-      <volunteer-form  @person-request-created="loadVolunteers" />
+
+    </div>
+    <div>
+      <volunteer-form @click="dosomthing" @person-request-created="loadVolunteers" />
     </div>
   </div>
   <volunteer-request-list :volunteers="volunteerRequestList"/>
+  <volunteer-list />
 </template>
 
 <script>
 import VolunteerForm from "@/components/VolunteerForm.vue";
 import VolunteerRequestList from "@/components/VolunteerRequestList.vue";
+import VolunteerList from "@/components/VolunteerList.vue";
 import VolunteerService from "@/services/VolunteerService";
 
 export default {
-  components: {VolunteerForm, VolunteerRequestList},
+  components: {VolunteerForm, VolunteerRequestList, VolunteerList},
   data() {
     return {
       volunteerRequestList: [],
@@ -47,7 +50,24 @@ export default {
 
 <style scoped>
 .description {
+  background-color:#9DD9D2;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 20px 1fr;
+  padding: 20px;
+}
+.descript {
+  background-color:#F4D06F;
+  color: black;
+  text-align: left;
+  padding: 20px;
+  font-size: 18px;
+  text-size-adjust: 1fr;
+}
+.desc{
+  display: grid;
+  text-align: left;
+}
+.list {
+  padding: 30px;
 }
 </style>
