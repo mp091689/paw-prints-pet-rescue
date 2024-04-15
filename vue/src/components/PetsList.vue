@@ -43,14 +43,14 @@ export default {
   display: grid;
   /* height: 400px; */
   align-content: center;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
-  background-color: #9DD9D2;
+  /* background-color: #9DD9D2; */
   padding: 10px;
 }
 
 .pets-list > div {
-  background-color:#9DD9D2;
+  /* background-color:#9DD9D2; */
   text-align: center;
   padding: 20px 0;
   font-size: 30px;

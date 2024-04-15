@@ -42,7 +42,6 @@ export default {
   display: grid;
   justify-content:left;
   gap: 6px;  
-  background-color: #9DD9D2;
   padding: 10px;  
 }
 

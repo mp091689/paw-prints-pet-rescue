@@ -46,7 +46,7 @@ npm run dev<template>
     font-size: medium;
     padding: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 </style>
 
