@@ -1,5 +1,5 @@
 <template>
-  <div class="volForm">
+  <div class="form">
     <form action="#" @submit.prevent="submitForm">
       <h2>Volunteer Application Form</h2>
       <div>
@@ -12,16 +12,17 @@
         <input type="text" name="last_name" id="volName" placeholder="Enter Volunteer's last name" required
                v-model="volunteer.lastName"/>
       </div>
-      <div :class="{error : isEmailDuplicated}">
+      <!-- <div class="{error : isEmailDuplicated}"> -->
+      <div class="error">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Enter Volunteer's email" required
                v-model="volunteer.email"/>
       </div>
-      <div>
+      <div class="isButton">
         <label for="isAvailableWeekends">Available weekends</label>
         <input type="checkbox" name="isAvailableWeekends" id="isFixed" v-model="volunteer.isAvailableWeekends"/>
       </div>
-      <div>
+      <div class="isButton">
         <label for="isAvailableWeekdays">Available weekdays</label>
         <input type="checkbox" name="isAvailableWeekdays" id="isFixed" v-model="volunteer.isAvailableWeekdays"/>
       </div>
@@ -31,8 +32,11 @@
                   placeholder="Provide your interest"
                   v-model="volunteer.volunteeringInterest"></textarea>
       </div>
-      <button :disabled="isSubmitting">Submit</button>
-      <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
+      <button :disabled="isSubmitting"> Submit</button>
+      <button @click="cancelForm" :disabled="isSubmitting">   Cancel</button>
+      <!-- <div class="buttons">
+        
+      </div> -->
     </form>
   </div>
 </template>
@@ -129,13 +133,20 @@ form > div {
   display: grid;
   grid-template-columns: 1fr 2fr;
   font-size: 20px;
+  
 }
 .buttonForm{
-  padding: 6px;
+  padding: 50px;
 
 }
-
+.isButton{
+  justify-items: left; 
+}
+/* .buttons{
+  justify-items: end; 
+  grid-template-columns: 1fr;
+} */
 .error {
-  color: red;
+  color: black;
 }
 </style>
