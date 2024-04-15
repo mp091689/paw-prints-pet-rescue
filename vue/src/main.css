@@ -2,6 +2,10 @@
     font-family: HallelujahFont;
     src: url(/public/Gloria_Hallelujah/GloriaHallelujah-Regular.ttf)
   }
+@font-face {
+  font-family: Dekko;
+  src: url(/public/Dekko/Dekko-Regular.ttf);
+}
 body {
-    font-family: HallelujahFont;
+    font-family: Dekko;
 }
