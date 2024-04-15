@@ -31,10 +31,11 @@
                 <textarea name="volunteering_interest" id="volunteering_interest" cols="30" rows="10" placeholder="Provide your interest"
                             v-model="editVolunteer.volunteering_interest"></textarea>
             </div>
-            <button :disabled="isSubmitting">Submit</button>
-            <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
+            <button class="buttonForm" :disabled="isSubmitting">Submit</button>
+            <button @click="cancelForm" class="buttonForm" :disabled="isSubmitting">Cancel</button>
         </form>
     </div>
+    
 </template>
 <script>
 import VolunteerService from '../services/VolunteerService';
@@ -153,5 +154,10 @@ form > div {
   margin-bottom: 8px;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  font-size: 20px;
+}
+.buttonForm{
+  padding: 6px;
+  
 }
 </style>
