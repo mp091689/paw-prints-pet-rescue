@@ -2,14 +2,14 @@
     <div  class="pet-card" :class="`${$attrs.class}`">
 
       <div class="img">
-        <img :src="getMainPhotoUrl(pet.petId)" alt="">
+        <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
       </div>
 
       <div class="info">
-        <p>Name: {{ pet.name }}</p>
-        <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
-        <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
-        <p>Any special requirements?: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
+        <h2 id="pet-name">Meet {{ pet.name }}!</h2>
+        <p id="pet-species">Species: {{ getSpeciesName(pet.speciesId) }}</p>
+        <p id="pet-age">age: {{ pet.age ? pet.age : "unknown" }}</p>
+        <p id="pet-special">Any special requirements?: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
       </div>
 
       <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
@@ -51,11 +51,26 @@ export default {
 .pet-card .img {
   width: 100%;
   height: 30vw;
-
 }
+.pet-pic {
+  max-width: 95%;
+  max-height: 100%;
+  padding-top: 1vh;
+  margin: auto;
+} 
 .pet-card .info {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  "name name"
+  "age species"
+  "special special";
+}
+#pet-name {
+  grid-area: name;
+}
+#pet-species {
+  grid-area: species;
 }
  .pet-card.orange-card {
   background-color: #FF8811 ;
@@ -65,10 +80,5 @@ export default {
   background-color: #9DD9D2;
   font-size: medium;
 }
-img {
-  max-width: 95%;
-  max-height: 100%;
-  padding-top: 1vh;
-  margin: auto;
-} 
+
 </style>
