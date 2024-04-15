@@ -15,7 +15,7 @@ CREATE TABLE people (
 	user_id integer DEFAULT NULL,
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
-	email varchar(150) NOT NULL,
+	email varchar(150) NOT NULL UNIQUE,
 	is_available_weekdays boolean NOT NULL DEFAULT 'false',
 	is_available_weekends boolean NOT NULL DEFAULT 'false',
 	volunteering_interest varchar(500),

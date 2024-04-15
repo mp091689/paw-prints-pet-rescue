@@ -11,6 +11,7 @@ import AddPetView from "@/views/pet/AddPetView.vue";
 import EditPetView from "@/views/pet/EditPetView.vue";
 import DonateView from "@/views/pet/DonateView.vue";
 import VolunteerView from "@/views/volunteer/VolunteerView.vue";
+import ResetView from "@/views/auth/ResetView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -54,6 +55,14 @@ const routes = [
         }
     },
     {
+        path: "/reset-password",
+        name: "reset-password",
+        component: ResetView,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
         path: "/adopt",
         name: "adopt",
         component: AdoptView,
@@ -77,14 +86,16 @@ const routes = [
             requiresAuth: true
         }
     },
-    {path: "/donate",
+    {
+        path: "/donate",
         name: "donate",
         component: DonateView,
         meta: {
             requiresAuth: false
         }
     },
-    {path: "/volunteer",
+    {
+        path: "/volunteer",
         name: "volunteer",
         component: VolunteerView,
         meta: {

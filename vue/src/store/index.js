@@ -25,6 +25,14 @@ export function createStore(currentToken, currentUser) {
         axios.defaults.headers.common = {};
       }
     },
+      getters: {
+          isUserRole: state => role => {
+              if (state.token === '') {
+                  return false;
+              }
+              return state.user?.authorities?.filter(r => r.name === role).length > 0 ?? false;
+          }
+      }
   });
   return store;
 }

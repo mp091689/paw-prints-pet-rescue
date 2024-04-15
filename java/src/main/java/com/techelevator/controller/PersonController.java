@@ -29,8 +29,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getPeople() {
-        return personDao.getPeople();
+    public List<Person> getPeople(@RequestParam(defaultValue = "true") boolean isApproved) {
+        return personDao.getPeopleByApproved(isApproved);
     }
 
     @GetMapping("/{id}")
@@ -46,6 +46,10 @@ public class PersonController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Person createPerson(@RequestBody Person person) {
+        if (personDao.getPersonByEmail(person.getEmail()) != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Person already exists.");
+        }
+
         person.setToken(UUID.randomUUID().toString());
         return personDao.createPerson(person);
     }
@@ -94,7 +98,7 @@ public class PersonController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Opps something went wrong.");
         }
 
-        String msg = "Follow the link to activate your volunteer account http://localhost:9000/reset?token=" + person.getToken();
+        String msg = "Follow the link to activate your volunteer account http://localhost:5173/reset-password?token=" + person.getToken();
         emailService.send(person.getEmail(), "You are approved as a Volunteer", msg);
     }
 }

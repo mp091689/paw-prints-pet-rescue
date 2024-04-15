@@ -3,26 +3,28 @@
       <p>First Name: {{ person.firstName }}</p>
       <p>Last Name: {{ person.lastName }}</p>
       <p>Email: {{ person.email }}</p>
-      <p>Weekdays availability: {{ person.availableWeekdays }}</p>
-      <p>Weekends availability: {{ person.availableWeekends }}</p> 
-      <p>isApproved: {{ person.isApproved }}</p> 
-      <p>volunteeringInterest: {{ person.volunteeringInterest }}</p> 
-      <!-- <router-link :to="{name: 'edit-volunteer', params: {personId: person.personId}}" v-if="isAuthorized()">Edit</router-link> -->
+      <p>Weekdays availability: {{ person.availableWeekdays ? "Yes" : "No" }}</p>
+      <p>Weekends availability: {{ person.availableWeekends ? "Yes" : "No" }}</p>
+      <p>Approved: {{ person.isApproved ? "Yes" : "No" }}</p>
+      <p>Volunteering Interest: {{ person.volunteeringInterest }}</p>
+      <form action="#" @submit.prevent="submitApprove" v-if="!person.isApproved && $store.getters.isUserRole('ROLE_ADMIN')">
+        <button type="submit">Approve</button>
+      </form>
     </div>
 </template>
 
 <script>
+import VolunteerService from "@/services/VolunteerService";
+
 export default {
   props: ['person'],
   methods: {
-    isAuthorized(){
-      if(Object.keys(this.$store.state.user).length === 0){
-        return false;
-      }
-      return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN').length;
-    },
-    getMainPhotoUrl(id) {
-        return import.meta.env.VITE_REMOTE_API + '/volunteers/' + id + '/main-photo';
+    submitApprove() {
+      VolunteerService.approveVolunteer(this.person).then(response => {
+        if (response.status === 200) {
+          window.location.reload();
+        }
+      }).catch(error => console.log(error));
     }
   }
 }

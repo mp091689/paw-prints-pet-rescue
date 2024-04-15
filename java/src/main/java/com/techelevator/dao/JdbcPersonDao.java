@@ -15,17 +15,18 @@ import java.util.List;
 @Component
 public class JdbcPersonDao implements PersonDao {
     private final JdbcTemplate jdbcTemplate;
-    private final String SELECT = "SELECT person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people";
+    private final String SELECT = "SELECT person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people ";
 
     public JdbcPersonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Person> getPeople() {
+    public List<Person> getPeopleByApproved(boolean isApproved) {
         List<Person> people = new ArrayList<>();
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(SELECT);
+            String sql = SELECT + " WHERE is_approved = ? ";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, isApproved);
             while (results.next()) {
                 Person person = mapRowToPerson(results);
                 people.add(person);
@@ -37,6 +38,22 @@ public class JdbcPersonDao implements PersonDao {
         }
 
         return people;
+    }
+
+    @Override
+    public Person getPersonByEmail(String email) {
+        String sql = SELECT + " WHERE email = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, email);
+            if (results.next()) {
+                return mapRowToPerson(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return null;
     }
 
     @Override
@@ -58,12 +75,30 @@ public class JdbcPersonDao implements PersonDao {
 
     @Override
     public Person createPerson(Person person) {
-        String sql = "INSERT INTO people (person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token)" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING person_id";
+        String sql = "INSERT INTO people (" +
+                "first_name, " +
+                "last_name, " +
+                "email, " +
+                "is_available_weekdays, " +
+                "is_available_weekends, " +
+                "volunteering_interest, " +
+                "is_approved, " +
+                "token" +
+                ") VALUES (?,?,?,?,?,?,?,?) RETURNING person_id";
         Person newPerson = null;
         try {
-            int personId = jdbcTemplate.queryForObject(sql, int.class,
-                    person.getPersonId(), person.getUserId(), person.getFirstName(), person.getLastName(), person.getEmail(), person.isAvailableWeekdays(), person.isAvailableWeekends(), person.getVolunteeringInterest(), person.getIsApproved(), person.getToken());
+            int personId = jdbcTemplate.queryForObject(
+                    sql,
+                    int.class,
+                    person.getFirstName(),
+                    person.getLastName(),
+                    person.getEmail(),
+                    person.isAvailableWeekdays(),
+                    person.isAvailableWeekends(),
+                    person.getVolunteeringInterest(),
+                    person.getIsApproved(),
+                    person.getToken()
+            );
             newPerson = getPersonById(personId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
