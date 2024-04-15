@@ -42,14 +42,14 @@ export default {
     padding: 10px;
     margin-bottom: 5px;
 }
-
-#pet-title{
-    display: flex;
-    justify-content: left;
+#about-title{
+    margin: auto;
 }
+.about-desc {
+    margin: auto;
+}
+
 .adopted-pet{
-    border: solid #392F5a 3px;
-    background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
     padding: 5px;
@@ -60,39 +60,52 @@ export default {
     "pet about";
     justify-content: center;
     align-items: center;
-
+}
+#pet-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+div.about-adopted > p {
+    margin: auto;
 }
 .about-adopted {
     grid-area: about;
-    background-color: #FF8811;
+    background-color: #F4D06F;
     display: flexbox;
-    border: solid #392F5A 3px; 
+    border: solid #392F5A 3px;
+    padding: 10px;
+    margin: auto;
 }
 .pet-box{
     border: solid #392F5A 3px; 
-    justify-content: space-between;
-    padding-left: 2px;
+    padding: 10px;
     grid-area: pet;
     background-color: #FF8811;
     margin-right: 2vw;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-    "pic name"
-    "story story";
+    "name name"
+    "pic story";
     justify-content: center;
     align-items: center;
 }
-.adopted-pic {
+#capstone-app > div.adopted-pet > div.pet-box > img {
     grid-area: pic;
-    max-height: 30vh;
+    max-height: 40vh;
+    margin: auto;
 }
 .pet-name {
     grid-area: name;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
 }
 .adoption-story {
     grid-area: story;
+    margin: auto;
 }
-
-
 </style>

@@ -1,15 +1,19 @@
 <template>
     <div  class="pet-card" :class="`${$attrs.class}`">
+
       <div class="img">
         <img :src="getMainPhotoUrl(pet.petId)" alt="">
       </div>
+
       <div class="info">
         <p>Name: {{ pet.name }}</p>
         <p>Species: {{ getSpeciesName(pet.speciesId) }}</p>
         <p>age: {{ pet.age ? pet.age : "unknown" }}</p>
         <p>Any special requirements?: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
       </div>
+
       <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
+
     </div>
 </template>
 
@@ -39,7 +43,7 @@ export default {
 <style scoped>
 .pet-card {
   display: flexbox;
- border: solid #392F5A 3px; 
+  border: solid #392F5A 3px; 
   justify-content: space-between;
   padding-left: 2px;
   color: #392F5A ; 
