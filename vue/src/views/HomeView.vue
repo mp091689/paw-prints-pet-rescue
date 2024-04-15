@@ -5,7 +5,6 @@
         <p class="about-desc"> 
             We believe every animal deserves a chance at happiness. Founded in 2024 in Cleveland, OH, we're dedicated to rescuing, rehabilitating, and rehoming pets in need. Our community of staff and volunteers works tirelessly to provide care, love, and a second chance for animals, connecting them with families ready to open their hearts and homes. Together, we can ensure every pet finds a path to love and safety.
         </p>
-        <img src="pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
     </div>
 
     <div class="adopted-pet">
@@ -42,28 +41,7 @@ export default {
     background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-areas: 
-    "title pic"
-    "about pic";
-    justify-content: center;
-    align-items: center;
 }
-
-.company-logo{
-    grid-area: pic;
-    max-height: 30vh;
-    padding-left: 5px;
-}
-#about-title{
-    grid-area: title;
-    display: flex;
-}
-.about-desc {
-    grid-area: about;
-}
-
 
 #pet-title{
     display: flex;
