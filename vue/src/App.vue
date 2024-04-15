@@ -2,7 +2,7 @@ npm run dev<template>
   <div id="capstone-app">
 
     <div class="header">
-      <img src="/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
+      <img src="pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
       <h1 id="title"> Paw Prints Pet Rescue</h1>
     </div>
 

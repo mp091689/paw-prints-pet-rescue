@@ -13,7 +13,10 @@
 
     <!-- Shelter items -->
     <div class="shelter-item-list">
+
     <h3 id="shelter-item-title">Shelter Items</h3>
+    <div class="shelter-card-content">
+        <div>  
     <p>gift cards</p>
     <P>amazon gift cards</P>
     <p>Cat/Dog food (especially wet food)</p>
@@ -30,6 +33,10 @@
     <p>Laundry detergent (high efficacy washing machines)</p>
     <p>Clean newspapers or butcher paper</p>
     <p>office supplies</p>
+</div>
+    
+    <img src="public\pet-photos\Watson.jpg" class="Watson" alt="Watson.jpg">
+</div>
 </div>
     <!-- Items for Dogs -->
     <div class="dog-item-list">
@@ -48,19 +55,51 @@
             <p>Applesauce</p>
             <p>Medium-sized treats</p>  
         </div>
-        <img src="/Jimmy Dean-fidos.jpg" class="JIMMY" alt="fidos-dog">
+        <img src="pet-photos/Jimmy Dean-fidos.jpg" class="JIMMY" alt="fidos-dog">
     </div>
 </div>
 <!-- Items for Cats -->
 <div class="cat-item-list">
+
     <h3 id="cat-item-title"> Cat related items</h3>
+    <div class="cat-card-content">
+        <div>
+            <p> Single Cat Scratchers </p>
+            <p> Plastic Easter Eggs </p>
+            <p> Cat toys (hard and soft) </p>
+            <p> Interactive cat toys </p>    
+            <p> Pipe cleaners </p>
+            <p> Toy mice </p>
+            <p> Kong treat ball toys for cats </p>
+            <p> Kong cat wobblers </p>
+            <p> Cat carriers (used or new) </p>
+            <p> Cat Food (dry and canned) </p>
+    </div>
+    <img src="pet-photos/Carson.heic" class="Carson" alt="Carson"> 
 </div>
+</div>
+
 <!-- Items for Rabbits -->
 <div class="bunny-item-list">
     <h3 id="bunny-item-title"> Bunny related items</h3>
-
+    <div class="bunny-card-content"> 
+        <div>
+            <p> Kitty litter boxes </p>
+            <p> Clear Storage Tubs </p>
+            <p> Non-Slip Bath Mats </p>
+            <p> Fleece Blankets </p>
+            <p> Alfalfa hay </p>
+            <p> Carrots </p>
+            <p> Rabbit feed </p>
+            <p> Bird chew toys </p> 
+            <p> Cardboard boxes </p>
+            <p> Rabbit mazes </p>
+            <p> Grass mats </p>
+            <p> Bunny tunnels </p>
+        </div>
+        <img src="public\pet-photos\rabbit.jfif" class="bunny-photo">
+    </div>
 </div>
-<h3> </h3>
     
 </template>
 
@@ -72,7 +111,10 @@
     display: flex;
     font-size: larger;
     justify-content: center;
+    border: solid #392F5A 3px ;
+
 }
+/*   **** CSS for each list of items ****   */
 .shelter-item-list{
     background-color: #F4D06F;
     border: solid #392F5A 3px ;
@@ -90,17 +132,62 @@
     background-color: #F4D06F;
     border: solid #392F5A 3px ;
 }
+/*  **** Pet pics on donate page ****  */
 .JIMMY{
+    padding-top: 100px;
+    padding-left: 100px;
     display: flex;
     justify-content: right;
     max-width: 250px;
     max-height: 250px;
 }
+.Carson{
+    padding-top: 100px;
+    padding-left: 100px;
+    display: flex;
+    justify-content: right;
+    max-width: 250px;
+    max-height: 250px;
+}
+.Watson{
+    padding-top: 250px;
+    padding-left: 100px;
+    display: flex;
+    justify-content: right;
+    max-width: 250px;
+    max-height: 250px;
+}
+.bunny-photo{
+    padding-top: 150px;
+    padding-left: 100px;
+    display: flex;
+    justify-content: right;
+    max-width: 250px;
+    max-height: 250px;
+}
+/* card content to organize photos and list of items  */
+.shelter-card-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    padding-left: 50px;
+    width: 100%;
+}
 .card-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-padding-left: 50px ;
-    /* display: flex; */
+    padding-left: 50px ;
+    width: 100%;
+}
+.cat-card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 50px ;
+    width: 100%;
+}
+.bunny-card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 50px ;
     width: 100%;
 }
 
