@@ -17,9 +17,9 @@
                 <input type="password" id="password" v-model="user.password" required/>
             </div>
             <button type="submit">Sign in</button>
-            <p>
-                <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
-            </p>
+<!--            <p>-->
+<!--                <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>-->
+<!--            </p>-->
         </form>
     </div>
 </template>
@@ -57,7 +57,13 @@ export default {
                         }
                     });
         }
+    },
+    created() {
+      if (this.$store.state.token != '') {
+        this.$router.push("/");
+      }
     }
+
 };
 </script>
 

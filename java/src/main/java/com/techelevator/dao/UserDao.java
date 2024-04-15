@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.RegisterUserDto;
+import com.techelevator.model.ResetUserDto;
 import com.techelevator.model.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserDao {
     User getUserByUsername(String username);
 
     User createUser(RegisterUserDto user);
+
+    boolean updateUserPassword(ResetUserDto resetUserDto);
 }

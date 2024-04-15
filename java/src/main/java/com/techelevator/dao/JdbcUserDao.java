@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.RegisterUserDto;
+import com.techelevator.model.ResetUserDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -86,6 +87,32 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException("Data integrity violation", e);
         }
         return newUser;
+    }
+
+    @Override
+    public boolean updateUserPassword(ResetUserDto resetUserDto) {
+        String sql = "UPDATE users u " +
+                "SET password_hash = ? " +
+                "FROM people p " +
+                "WHERE u.user_id = p.user_id " +
+                "AND p.token = ?";
+        try {
+            int numberOfRows = jdbcTemplate.update(
+                    sql,
+                    new BCryptPasswordEncoder().encode(resetUserDto.getPassword()),
+                    resetUserDto.getToken()
+            );
+
+            if (numberOfRows == 0) {
+                throw new DaoException("Zero rows affected, expected at least one");
+            } else {
+                return true;
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     private User mapRowToUser(SqlRowSet rs) {

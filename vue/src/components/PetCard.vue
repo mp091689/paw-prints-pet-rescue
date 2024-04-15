@@ -21,7 +21,7 @@ export default {
       if(Object.keys(this.$store.state.user).length === 0){
         return false;
       }
-      return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN').length;
+      return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN' || 'ROLE_USER').length;
     },
     getMainPhotoUrl(id) {
         return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
