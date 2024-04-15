@@ -1,15 +1,19 @@
 <template>
     <div  class="volunteer-card" :class="`${$attrs.class}`">
-      <p>First Name: {{ person.firstName }}</p>
-      <p>Last Name: {{ person.lastName }}</p>
-      <p>Email: {{ person.email }}</p>
-      <p>Weekdays availability: {{ person.availableWeekdays ? "Yes" : "No" }}</p>
-      <p>Weekends availability: {{ person.availableWeekends ? "Yes" : "No" }}</p>
-      <p>Approved: {{ person.isApproved ? "Yes" : "No" }}</p>
-      <p>Volunteering Interest: {{ person.volunteeringInterest }}</p>
-      <form action="#" @submit.prevent="submitApprove" v-if="!person.isApproved && $store.getters.isUserRole('ROLE_ADMIN')">
-        <button type="submit">Approve</button>
-      </form>
+        <div class="columns">
+            <p><b>First Name:</b> {{ person.firstName }}</p>
+            <p><b>Last Name:</b> {{ person.lastName }}</p>
+            <p><b>Email:</b> {{ person.email }}</p>
+        </div>
+        <div class="columns">
+            <p><b>Is available weekdays:</b> {{ person.availableWeekdays ? "Yes" : "No"  }}</p>
+            <p><b>Is available weekends:</b> {{ person.availableWeekends ? "Yes" : "No"  }}</p>
+            <p><b>Is Approved:</b> {{ person.isApproved ? "Yes" : "No"  }}</p>
+        </div>
+        <div class="columns">
+            <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>
+        </div>
+      <!-- <router-link :to="{name: 'edit-volunteer', params: {personId: person.personId}}" v-if="isAuthorized()">Edit</router-link> -->
     </div>
 </template>
 
@@ -32,16 +36,25 @@ export default {
 
 <style scoped>
 .volunteer-card {
-  border: solid red 1px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding-left: 2px;
-  color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: solid red 1px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-left: 2px;
+    color: black;
 }
-
-.volunteer-card.orange-card {
+.columns{
+  display: grid;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 1px;
+  flex-wrap: wrap;
+}
+/* */
+.volunteer-card.orange-card  {
   background-color: orange;
+  color: rgb(212, 18, 18);
 }
 
 .volunteer-card.blue-card {

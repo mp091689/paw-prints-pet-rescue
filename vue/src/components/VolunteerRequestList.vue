@@ -4,8 +4,9 @@
         <div v-if="!volunteers">
             <h1>loading...</h1>
         </div>
-        <div v-else>
-            <VolunteerCard :person="person" v-for="person in volunteers" :key="person.personId" />
+        <div  v-for="(person, idx) in volunteers" :key="person.personId" v-else>
+            <VolunteerCard :person="person" :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
+            />
         </div>
     </div>
 </template>
@@ -19,5 +20,20 @@ export default {
 </script>
 
 <style scoped>
+.volunteerRequest-list {
+  display: grid;
+  justify-content:left;
+  gap: 6px;
+  background-color: #9DD9D2;
+  padding: 10px;
+}
+
+.volunteerRequest-list > div {
+  background-color:#9DD9D2;
+  color: black;
+  text-align: left;
+  padding: 5px 0;
+  font-size: 22px;
+}
 </style>
 

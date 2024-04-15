@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcPersonDao implements PersonDao {
+public class JdbcPersonDao implements PersonDao{
     private final JdbcTemplate jdbcTemplate;
     private final String SELECT = "SELECT person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people ";
 

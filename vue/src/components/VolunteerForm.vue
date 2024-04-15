@@ -128,6 +128,11 @@ form > div {
   margin-bottom: 8px;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  font-size: 20px;
+}
+.buttonForm{
+  padding: 6px;
+
 }
 
 .error {
