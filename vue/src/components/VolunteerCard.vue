@@ -13,10 +13,14 @@
         <div class="columns">
             <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>
         </div>
-      <form action="#" @submit.prevent="submitApprove" v-if="!person.isApproved && $store.getters.isUserRole('ROLE_ADMIN')">
-        <button type="submit">Approve</button>
-      </form>
-      <!-- <router-link :to="{name: 'edit-volunteer', params: {personId: person.personId}}" v-if="isAuthorized()">Edit</router-link> -->
+        <div v-if="person.isApproved == null && $store.getters.isUserRole('ROLE_ADMIN')">
+          <form action="#" @submit.prevent="submitApprove(true)">
+            <button type="submit">Approve</button>
+          </form>
+          <form action="#" @submit.prevent="submitApprove(false)">
+            <button type="submit">Decline</button>
+          </form>
+        </div>
     </div>
 </template>
 
@@ -26,8 +30,8 @@ import VolunteerService from "@/services/VolunteerService";
 export default {
   props: ['person'],
   methods: {
-    submitApprove() {
-      VolunteerService.approveVolunteer(this.person).then(response => {
+    submitApprove(isApproved) {
+      VolunteerService.approveVolunteer(isApproved, this.person.personId).then(response => {
         if (response.status === 200) {
           window.location.reload();
         }

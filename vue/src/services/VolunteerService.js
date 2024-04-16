@@ -9,7 +9,9 @@ export default {
     addVolunteer(volunteer) {
         return axios.post(path, volunteer);
     },
-    approveVolunteer(volunteer) {
-        return axios.put(path + '/' + volunteer.personId + '/approve', volunteer);
+    approveVolunteer(isApproved, volunteerId) {
+        let suffix = isApproved ? "/approve" : "/decline";
+
+        return axios.put(path + '/' + volunteerId + suffix);
     }
 }
