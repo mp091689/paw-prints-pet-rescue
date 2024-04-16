@@ -15,10 +15,10 @@
         </div>
         <div v-if="person.isApproved == null && $store.getters.isUserRole('ROLE_ADMIN')">
           <form action="#" @submit.prevent="submitApprove(true)">
-            <button type="submit">Approve</button>
+            <button type="submit" :disabled="isSubmitting">Approve</button>
           </form>
           <form action="#" @submit.prevent="submitApprove(false)">
-            <button type="submit">Decline</button>
+            <button type="submit" :disabled="isSubmitting">Decline</button>
           </form>
         </div>
     </div>
@@ -30,13 +30,23 @@ import VolunteerService from "@/services/VolunteerService";
 export default {
   props: ['person'],
   emits: ['person-approved'],
+  data() {
+    return {
+      isSubmitting: false,
+    }
+  },
   methods: {
     submitApprove(isApproved) {
+      this.isSubmitting = true;
       VolunteerService.approveVolunteer(isApproved, this.person.personId).then(response => {
         if (response.status === 200) {
           this.$emit('person-approved');
+          this.isSubmitting = false;
         }
-      }).catch(error => console.log(error));
+      }).catch(error => {
+        this.isSubmitting = false;
+        console.log(error);
+      });
     }
   }
 }
