@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcPersonDao implements PersonDao{
+public class JdbcPersonDao implements PersonDao {
     private final JdbcTemplate jdbcTemplate;
     private final String SELECT = "SELECT person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people ";
 
@@ -22,11 +22,11 @@ public class JdbcPersonDao implements PersonDao{
     }
 
     @Override
-    public List<Person> getPeopleByApproved(boolean isApproved) {
+    public List<Person> getPeople() {
         List<Person> people = new ArrayList<>();
         try {
-            String sql = SELECT + " WHERE is_approved = ? ";
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, isApproved);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(SELECT);
+
             while (results.next()) {
                 Person person = mapRowToPerson(results);
                 people.add(person);
@@ -151,14 +151,15 @@ public class JdbcPersonDao implements PersonDao{
     private Person mapRowToPerson(SqlRowSet rs) {
         Person person = new Person();
         person.setPersonId(rs.getInt("person_id"));
-        person.setUserId(rs.getInt("user_id"));
+        int userId = rs.getInt("user_id");
+        person.setUserId(userId == 0 ? null : userId);
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setEmail(rs.getString("email"));
         person.setAvailableWeekdays(rs.getBoolean("is_available_weekdays"));
         person.setAvailableWeekends(rs.getBoolean("is_available_weekends"));
         person.setVolunteeringInterest(rs.getString("volunteering_interest"));
-        person.setIsApproved(rs.getBoolean("is_approved"));
+        person.setIsApproved((Boolean) rs.getObject("is_approved"));
         person.setToken(rs.getString("token"));
         return person;
     }

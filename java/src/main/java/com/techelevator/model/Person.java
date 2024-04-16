@@ -2,15 +2,30 @@ package com.techelevator.model;
 
 public class Person {
     private int personId;
-    private int userId;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String email;
     private boolean isAvailableWeekdays;
     private boolean isAvailableWeekends;
     private String volunteeringInterest;
-    private boolean isApproved;
+    private Boolean isApproved;
     private String token;
+
+    public Person() {}
+
+    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest, boolean isApproved, String token) {
+        this.personId = personId;
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.isAvailableWeekdays = isAvailableWeekdays;
+        this.isAvailableWeekends = isAvailableWeekends;
+        this.volunteeringInterest = volunteeringInterest;
+        this.isApproved = isApproved;
+        this.token = token;
+    }
 
     public int getPersonId() {
         return personId;
@@ -20,11 +35,11 @@ public class Person {
         this.personId = personId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -76,11 +91,11 @@ public class Person {
         this.volunteeringInterest = volunteeringInterest;
     }
 
-    public boolean getIsApproved() {
+    public Boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setIsApproved(boolean isApproved) {
+    public void setIsApproved(Boolean isApproved) {
         this.isApproved = isApproved;
     }
 
@@ -91,22 +106,4 @@ public class Person {
     public void setToken(String token) {
         this.token = token;
     }
-
-    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest, boolean isApproved, String token) {
-        this.personId = personId;
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.isAvailableWeekdays = isAvailableWeekdays;
-        this.isAvailableWeekends = isAvailableWeekends;
-        this.volunteeringInterest = volunteeringInterest;
-        this.isApproved = isApproved;
-        this.token = token;
-    }
-
-    public Person() {
-
-    }
-
 }
