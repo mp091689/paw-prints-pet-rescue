@@ -20,8 +20,11 @@
       <volunteer-form @person-request-created="loadVolunteers" />
     </div>
   </div>
-  <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers"/>
-  <volunteer-list :volunteers="volunteerList" title="Volunteer List"/>
+  <div class="volLists">
+    <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers"/>
+    <volunteer-list :volunteers="volunteerList" title="Volunteer List"/>
+  </div>
+  
 </template>
 
 <script>

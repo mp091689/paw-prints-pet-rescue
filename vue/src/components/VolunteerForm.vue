@@ -32,11 +32,10 @@
                   placeholder="Provide your interest"
                   v-model="volunteer.volunteeringInterest"></textarea>
       </div>
-      <button :disabled="isSubmitting"> Submit</button>
-      <button @click="cancelForm" :disabled="isSubmitting">   Cancel</button>
-      <!-- <div class="buttons">
-        
-      </div> -->
+      <div class="buttons">
+        <button :disabled="isSubmitting">Submit</button>
+        <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
+      </div>
     </form>
   </div>
 </template>
@@ -126,6 +125,13 @@ export default {
 form {
   background: lightgrey;
   padding: 12px;
+}
+
+form .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  gap: 10px;
 }
 
 form > div {

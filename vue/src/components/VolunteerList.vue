@@ -4,13 +4,12 @@
         <div v-if="!volunteers">
             <h1>loading...</h1>
         </div>
-        <div  v-for="(person, idx) in volunteers" :key="person.personId" v-else>
-            <VolunteerCard
-                :person="person"
-                :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
-                @person-approved="$emit('person-approved')"
-            />
-        </div>
+        <VolunteerCard
+            v-for="(person, idx) in volunteers" :key="person.personId" v-else
+            :person="person"
+            :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
+            @person-approved="$emit('person-approved')"
+        />
     </div>
 </template>
 <script>
@@ -25,7 +24,6 @@ export default {
 
 <style scoped>
 .volunteer-list {
-  display: grid;
   justify-content:left;
   gap: 6px;
   background-color: #9DD9D2;
@@ -36,7 +34,6 @@ export default {
   background-color:#9DD9D2;
   color: black;
   text-align: left;
-  padding: 5px 0;
   font-size: 22px;
 }
 </style>
