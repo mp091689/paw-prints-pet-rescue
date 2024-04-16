@@ -11,9 +11,14 @@
 </template>
 
 <script>
+import petService from "@/services/PetService";
+
+
 export default{
-    props:['pet'],
-    methods:{}
+    pet: {
+      type: Object,
+      required: true
+    }
 }
 
 </script>
