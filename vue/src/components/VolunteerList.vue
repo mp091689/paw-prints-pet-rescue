@@ -1,13 +1,11 @@
 <template>
   <h1>{{ title }}</h1>
   <div class="volunteer-list">
-    <div v-for="(person, idx) in volunteers" :key="person.personId">
-      <VolunteerCard
-          :person="person"
-          :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
-          @person-approved="$emit('person-approved')"
-      />
-    </div>
+    <VolunteerCard
+        v-for="(person, idx) in volunteers" :key="person.personId"
+        :person="person"
+        :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
+        @person-approved="$emit('person-approved')" />
   </div>
 </template>
 <script>
@@ -23,8 +21,8 @@ export default {
 <style scoped>
 .volunteer-list {
   display: grid;
-  justify-content: left;
-  gap: 6px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   background-color: #9DD9D2;
   padding: 10px;
 }
