@@ -11,7 +11,7 @@
         <li>Builds relationships with fellow volunteers and animals.</li>
         <li>Makes a tangible difference in the lives of animals and the community.</li>
       </div>
-        
+
     </div>
     <div>
 
@@ -20,8 +20,12 @@
       <volunteer-form @person-request-created="loadVolunteers" />
     </div>
   </div>
-  <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers"/>
-  <volunteer-list :volunteers="volunteerList" title="Volunteer List"/>
+  <volunteer-list
+      :volunteers="volunteerRequestList"
+      title="Volunteer Request List"
+      @person-approved="loadVolunteers"
+      v-if="$store.state.token != ''"/>
+  <volunteer-list :volunteers="volunteerList" title="Volunteer List" v-if="volunteerList.length"/>
 </template>
 
 <script>
