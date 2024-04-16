@@ -123,27 +123,25 @@ public class PersonController {
     private String getApprovedMessage(Person person) {
         String url = "http://localhost:5173/reset-password?token=" + person.getToken();
 
-        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n" +
-                "\n" +
-                "Congratulations! Your volunteer application with Paw Prints Pet Rescue has been approved. " +
+        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",<br>" +
+                "<br>" +
+                "Congratulations! Your volunteer application with Paw Prints Pet Rescue has been approved.<br>" +
                 "We're thrilled to have you on board. " +
                 "<a href='" + url + "'>Please click here</a> to set password and activate your volunteer account. " +
-                "We'll be in touch soon with more details.\n" +
-                "\n" +
-                "Best regards,\n" +
-                "\n" +
+                "We'll be in touch soon with more details.<br>" +
+                "<br>" +
+                "Best regards,<br>" +
                 "Paw Prints Pet Rescue Team";
     }
 
     private String getDeclinedMessage(Person person) {
-        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n" +
-                "\n" +
+        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",<br>" +
+                "<br>" +
                 "Thank you for your interest in volunteering with Paw Prints Pet Rescue." +
-                "While we currently don't have a suitable opportunity available," +
-                "we appreciate your enthusiasm. Please stay connected for future opportunities.\n" +
-                "\n" +
-                "Best regards,\n" +
-                "\n" +
+                "While we currently don't have a suitable opportunity available,we appreciate your enthusiasm." +
+                "<br>Please stay connected for future opportunities.<br>" +
+                "<br>" +
+                "Best regards,<br>" +
                 "Paw Prints Pet Rescue Team";
     }
 }

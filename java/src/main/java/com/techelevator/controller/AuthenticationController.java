@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -54,21 +53,6 @@ public class AuthenticationController {
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
         return new ResponseEntity<>(new LoginResponseDto(jwt, user), httpHeaders, HttpStatus.OK);
     }
-
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "/register", method = RequestMethod.POST)
-//    public void register(@Valid @RequestBody RegisterUserDto newUser) {
-//        try {
-//            if (userDao.getUserByUsername(newUser.getUsername()) != null) {
-//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
-//            } else {
-//                userDao.createUser(newUser);
-//            }
-//        }
-//        catch (DaoException e) {
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
-//        }
-//    }
 
     @PutMapping("reset")
     public boolean reset(@Valid @RequestBody ResetUserDto resetUserDto) {
