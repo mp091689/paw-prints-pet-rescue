@@ -5,7 +5,6 @@
         <p class="about-desc"> 
             We believe every animal deserves a chance at happiness. Founded in 2024 in Cleveland, OH, we're dedicated to rescuing, rehabilitating, and rehoming pets in need. Our community of staff and volunteers works tirelessly to provide care, love, and a second chance for animals, connecting them with families ready to open their hearts and homes. Together, we can ensure every pet finds a path to love and safety.
         </p>
-        <img src="pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
     </div>
 
     <div class="adopted-pet">
@@ -42,36 +41,15 @@ export default {
     background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-areas: 
-    "title pic"
-    "about pic";
-    justify-content: center;
-    align-items: center;
-}
-
-.company-logo{
-    grid-area: pic;
-    max-height: 30vh;
-    padding-left: 5px;
 }
 #about-title{
-    grid-area: title;
-    display: flex;
+    margin: auto;
 }
 .about-desc {
-    grid-area: about;
+    margin: auto;
 }
 
-
-#pet-title{
-    display: flex;
-    justify-content: left;
-}
 .adopted-pet{
-    border: solid #392F5a 3px;
-    background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
     padding: 5px;
@@ -82,39 +60,52 @@ export default {
     "pet about";
     justify-content: center;
     align-items: center;
-
+}
+#pet-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+div.about-adopted > p {
+    margin: auto;
 }
 .about-adopted {
     grid-area: about;
-    background-color: #FF8811;
+    background-color: #F4D06F;
     display: flexbox;
-    border: solid #392F5A 3px; 
+    border: solid #392F5A 3px;
+    padding: 10px;
+    margin: auto;
 }
 .pet-box{
     border: solid #392F5A 3px; 
-    justify-content: space-between;
-    padding-left: 2px;
+    padding: 10px;
     grid-area: pet;
     background-color: #FF8811;
     margin-right: 2vw;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-    "pic name"
-    "story story";
+    "name name"
+    "pic story";
     justify-content: center;
     align-items: center;
 }
-.adopted-pic {
+#capstone-app > div.adopted-pet > div.pet-box > img {
     grid-area: pic;
-    max-height: 30vh;
+    max-height: 40vh;
+    margin: auto;
 }
 .pet-name {
     grid-area: name;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0%;
 }
 .adoption-story {
     grid-area: story;
+    margin: auto;
 }
-
-
 </style>

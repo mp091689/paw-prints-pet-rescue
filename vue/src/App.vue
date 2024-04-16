@@ -3,7 +3,7 @@ npm run dev<template>
 
     <div class="header">
       <img src="pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
-      <h1 id="title"> Paw Prints Pet Rescue</h1>
+      <!-- <h1 id="title"> Paw Prints Pet Rescue</h1> -->
     </div>
 
     <div id="nav">
@@ -24,7 +24,7 @@ npm run dev<template>
     top: 0;
     left: 0;
     width: 100vw;
-    height: 15vh;
+    height: 20vh;
     background-color: #FF8811 ;
     border: solid #9DD9D2 3px ;
     display: flex;
@@ -33,8 +33,7 @@ npm run dev<template>
     justify-content: center;
   }
   .company-logo{
-    max-height: 10vh;
-    padding-top: 2vh;
+    max-height: 18vh;
     margin: auto;
   }
   #title{
@@ -47,7 +46,7 @@ npm run dev<template>
     font-size: medium;
     padding: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 </style>
 

@@ -5,7 +5,10 @@
             <h1>loading...</h1>
         </div>
         <div  v-for="(person, idx) in volunteers" :key="person.personId" v-else>
-            <VolunteerCard :person="person" :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}" 
+            <VolunteerCard 
+            :person="person" 
+            :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}" 
+            @person-approved="loadVolunteers"
             />
         </div>
     </div>
@@ -15,12 +18,6 @@ import VolunteerCard from "@/components/VolunteerCard.vue";
 import VolunteerService from "../services/VolunteerService";
 
 export default {
-    props: {
-        isApproved: {
-            type: Boolean,
-            required: true
-        }
-    },
     components: {VolunteerCard},
     data() {
         return {
@@ -28,11 +25,16 @@ export default {
             volunteers: []
         }
     },
+    methods: {
+        loadVolunteers() {
+            VolunteerService.getVolunteers(true).then(response => {
+                this.volunteers = response.data;
+                this.isLoading = false;
+            });
+        }
+    },
     created() {
-        VolunteerService.getVolunteers(this.isApproved).then(response => {
-            this.volunteers = response.data;
-            this.isLoading = false;
-        })
+        this.loadVolunteers();
     }
 }
 </script>
@@ -42,7 +44,6 @@ export default {
   display: grid;
   justify-content:left;
   gap: 6px;  
-  background-color: #9DD9D2;
   padding: 10px;  
 }
 

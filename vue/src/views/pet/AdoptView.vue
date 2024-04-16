@@ -18,19 +18,18 @@ export default {
 <style scoped>
 header {
   border: solid #392F5A  1px;
-  font-family: 'Courier New', Courier, monospace;
   background-color: #FF8811;
 }
 
 .title {
   display: flex;
   justify-content: center;
+  margin: auto;
 }
 
 .desc {
   display: flex;
   justify-content: center;
-  
-
+  margin: auto;
 }
 </style>

@@ -29,11 +29,12 @@ import VolunteerService from "@/services/VolunteerService";
 
 export default {
   props: ['person'],
+  emits: ['person-approved'],
   methods: {
     submitApprove(isApproved) {
       VolunteerService.approveVolunteer(isApproved, this.person.personId).then(response => {
         if (response.status === 200) {
-          window.location.reload();
+          this.$emit('person-approved');
         }
       }).catch(error => console.log(error));
     }
