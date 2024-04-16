@@ -65,7 +65,6 @@ export default {
   },
   methods: {
     submitForm() {
-      this.validationMessages = []
       if (!this.validateForm()) {
         return;
       }
@@ -104,11 +103,11 @@ export default {
       this.$router.push({name: 'volunteer'});
     },
     validateForm() {
+      this.validationMessages = [];
+
       this.volunteer.firstName = this.volunteer.firstName.trim();
       if (this.volunteer.firstName.length < 3) {
-        console.log(this.volunteer.firstName)
         this.validationMessages.push("Volunteer name should be at least 3 characters.");
-        console.log(this.validationMessages)
       }
       this.volunteer.lastName = this.volunteer.lastName.trim();
       if (this.volunteer.lastName.length < 3) {
