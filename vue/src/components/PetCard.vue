@@ -1,18 +1,20 @@
 <template>
     <div  class="pet-card" :class="`${$attrs.class}`">
 
+      <router-link id="pet-edit" :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
+
       <div class="img">
         <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
       </div>
 
       <div class="info">
         <h2 id="pet-name">Meet {{ pet.name }}!</h2>
-        <p id="pet-species">Species: {{ getSpeciesName(pet.speciesId) }}</p>
-        <p id="pet-age">age: {{ pet.age ? pet.age : "unknown" }}</p>
-        <p id="pet-special">Any special requirements?: {{ pet.hasSpecialNeed ? "Yes" : "No" }}</p>
+        <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
+        <p id="pet-age">{{ pet.age ? pet.age : "unknown" }} years old</p>
+        <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
       </div>
-
-      <router-link :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
+      
+      
 
     </div>
 </template>
@@ -47,6 +49,7 @@ export default {
   justify-content: space-between;
   padding-left: 2px;
   color: #392F5A ;
+  height: 100%;
 }
 .pet-card .img {
   width: 100%;
@@ -68,10 +71,30 @@ export default {
 }
 #pet-name {
   grid-area: name;
+  margin: auto;
+  padding-top: 2vh;
+  font-size: 150%;
 }
 #pet-species {
   grid-area: species;
+  margin: auto;
+  font-size: 150%;
 }
+#pet-age {
+  grid-area: age;
+  margin: auto;
+  font-size: 150%;
+}
+#pet-special {
+  grid-area: special;
+  margin: auto;
+  font-size: 150%;
+}
+#pet-edit {
+  display: flex;
+  justify-content: end;
+}
+
  .pet-card.orange-card {
   background-color: #FF8811 ;
   font-size: medium;
@@ -80,5 +103,4 @@ export default {
   background-color: #9DD9D2;
   font-size: medium;
 }
-
 </style>

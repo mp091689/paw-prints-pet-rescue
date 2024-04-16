@@ -19,7 +19,7 @@
             <img class="adopted-pic" src="../assets/Dog1.jpg" />
             <h2 class="pet-name">Enzo</h2>
             <p class="adoption-story">
-                Enzo, a sweet-tempered german shepherd, has found his forever home! This gentle soul was patiently waiting at our shelter when he captured the hearts of a kind couple looking to expand their family. After getting to know Enzo, they decided to adopt him. His new family is thrilled to begin a new chapter with Enzo, filled with long walks and relaxing evenings together. We are overjoyed to see Enzo embark on this wonderful new journey with his adopters, who promise to provide him with a safe and caring environment. Congratulations to Enzo and her new family!
+                Enzo, a sweet-tempered german shepherd, has found his forever home! This gentle soul was patiently waiting at our shelter when he captured the hearts of a kind couple looking to expand their family. After getting to know Enzo, they decided to adopt him. His new family is thrilled to begin a new chapter with Enzo, filled with long walks and relaxing evenings together. We are overjoyed to see Enzo embark on this wonderful new journey with his adopters, who promise to provide him with a safe and caring environment. Congratulations to Enzo and his new family!
             </p>
     </div>
     </div>
@@ -41,6 +41,7 @@ export default {
     background-color: #9DD9D2;
     padding: 10px;
     margin-bottom: 5px;
+    font-size: 125%;
 }
 #about-title{
     margin: auto;
@@ -60,6 +61,7 @@ export default {
     "pet about";
     justify-content: center;
     align-items: center;
+    font-size: 125%;
 }
 #pet-title{
     display: flex;
@@ -76,7 +78,7 @@ div.about-adopted > p {
     display: flexbox;
     border: solid #392F5A 3px;
     padding: 10px;
-    margin: auto;
+    margin-right: 2vw;
 }
 .pet-box{
     border: solid #392F5A 3px; 
