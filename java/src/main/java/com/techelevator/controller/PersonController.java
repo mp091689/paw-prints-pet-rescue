@@ -51,6 +51,8 @@ public class PersonController {
         }
 
         person.setToken(UUID.randomUUID().toString());
+        person.setIsApproved(null);
+
         return personDao.createPerson(person);
     }
 
