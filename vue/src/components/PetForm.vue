@@ -1,6 +1,10 @@
 <template>
   <form action="#" @submit.prevent="submitForm" enctype="multipart/form-data">
     <h2>{{ isSubmitting ? "Submitting new pet..." : "Add New Pet" }}</h2>
+    <ul class="errors" v-if="validationMessages.length">
+      <li v-for="(msg, idx) in validationMessages" :key="idx">{{msg}}</li>
+    </ul>
+
     <div>
       <label for="name"><span class="required">*</span> Name:</label>
       <input type="text"
@@ -149,6 +153,7 @@ export default {
   },
   data() {
     return {
+      validationMessages: [],
       isSubmitting: false,
       avatar: null,
       editPet: {
@@ -176,11 +181,12 @@ export default {
           return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
       },
     submitForm() {
-      this.isSubmitting = true;
       if (!this.validateForm()) {
-        this.isSubmitting = false;
         return;
       }
+
+      this.isSubmitting = true;
+
       if (this.editPet.petId === 0) {
         petService.addPet(this.editPet)
             .then(response => {
@@ -204,23 +210,21 @@ export default {
       this.$router.push({name: 'adopt'});
     },
     onChangeAvatar(event) {
-        console.log(event.target.files[0])
         this.editPet.avatar = event.target.files[0];
         this.avatar = URL.createObjectURL(event.target.files[0]);
     },
     validateForm() {
-      let msg = '';
+      this.validationMessages = [];
 
+      if (this.editPet.avatar.size >= 1024 * 1024 * 2) {
+        this.validationMessages.push("Avatar size is too large, it should be 2MB maximum.");
+      }
       this.editPet.name = this.editPet.name.trim();
       this.editPet.breed = this.editPet.breed.trim();
       this.editPet.color = this.editPet.color.trim();
       this.editPet.description = this.editPet.description.trim();
 
-      if (msg.length > 0) {
-        this.$store.commit('SET_NOTIFICATION', msg);
-        return false;
-      }
-      return true;
+      return !this.validationMessages.length;
     },
   },
 }
@@ -231,6 +235,10 @@ form {
   background: #9dd9d2;
   color: #392f5a;
   padding: 12px 48px;
+}
+
+form ul.errors {
+  color: red;
 }
 
 form > div {
