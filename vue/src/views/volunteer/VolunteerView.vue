@@ -20,12 +20,11 @@
       <volunteer-form @person-request-created="loadVolunteers" />
     </div>
   </div>
-  <volunteer-list
-      :volunteers="volunteerRequestList"
-      title="Volunteer Request List"
-      @person-approved="loadVolunteers"
-      v-if="$store.state.token != ''"/>
-  <volunteer-list :volunteers="volunteerList" title="Volunteer List" v-if="volunteerList.length"/>
+  <div class="volLists">
+    <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers" v-if="volunteerRequestList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
+    <volunteer-list :volunteers="volunteerList" title="Volunteer List" v-if="volunteerList.length"/>
+    <volunteer-list :volunteers="volunteerDeclinedList" title="List of Declined Candidates for Volunteering" v-if="volunteerDeclinedList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
+  </div>
 </template>
 
 <script>
@@ -38,6 +37,7 @@ export default {
   data() {
     return {
       volunteerRequestList: [],
+      volunteerDeclinedList: [],
       volunteerList: [],
     }
   },
@@ -46,8 +46,9 @@ export default {
       let volunteers = [];
       VolunteerService.getVolunteers().then(response => {
         volunteers = response.data
-        this.volunteerRequestList = volunteers.filter(v => !v.isApproved).sort(v => v.isApproved !== null ? 1 : -1);
-        this.volunteerList = volunteers.filter(v => v.isApproved);
+        this.volunteerRequestList = volunteers.filter(v => v.isApproved === null);
+        this.volunteerList = volunteers.filter(v => v.isApproved === true);
+        this.volunteerDeclinedList = volunteers.filter(v => v.isApproved === false);
       });
     }
   },

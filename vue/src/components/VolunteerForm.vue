@@ -35,11 +35,10 @@
                   placeholder="Provide your interest"
                   v-model="volunteer.volunteeringInterest"></textarea>
       </div>
-      <button :disabled="isSubmitting"> Submit</button>
-      <button @click="cancelForm" :disabled="isSubmitting">   Cancel</button>
-      <!-- <div class="buttons">
-
-      </div> -->
+      <div class="buttons">
+        <button :disabled="isSubmitting">Submit</button>
+        <button @click="cancelForm" :disabled="isSubmitting">Cancel</button>
+      </div>
     </form>
   </div>
 </template>
@@ -66,7 +65,6 @@ export default {
   },
   methods: {
     submitForm() {
-      this.validationMessages = []
       if (!this.validateForm()) {
         return;
       }
@@ -105,11 +103,11 @@ export default {
       this.$router.push({name: 'volunteer'});
     },
     validateForm() {
+      this.validationMessages = [];
+
       this.volunteer.firstName = this.volunteer.firstName.trim();
       if (this.volunteer.firstName.length < 3) {
-        console.log(this.volunteer.firstName)
         this.validationMessages.push("Volunteer name should be at least 3 characters.");
-        console.log(this.validationMessages)
       }
       this.volunteer.lastName = this.volunteer.lastName.trim();
       if (this.volunteer.lastName.length < 3) {
@@ -132,6 +130,13 @@ form {
 
 form ul.errors {
   color: red;
+}
+
+form .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  gap: 10px;
 }
 
 form > div {
