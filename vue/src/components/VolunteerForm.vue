@@ -2,6 +2,10 @@
   <div class="form">
     <form action="#" @submit.prevent="submitForm">
       <h2>Volunteer Application Form</h2>
+      <ul class="errors" v-if="validationMessages.length">
+        <li v-for="(msg, idx) in validationMessages" :key="idx">{{msg}}</li>
+      </ul>
+
       <div>
         <label for="volName">First Name</label>
         <input type="text" name="first_name" id="volName" placeholder="Enter Volunteer's first name" required
@@ -12,7 +16,6 @@
         <input type="text" name="last_name" id="volName" placeholder="Enter Volunteer's last name" required
                v-model="volunteer.lastName"/>
       </div>
-      <!-- <div class="{error : isEmailDuplicated}"> -->
       <div class="error">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Enter Volunteer's email" required
@@ -48,7 +51,7 @@ export default {
   data() {
     return {
       isSubmitting: false,
-      isEmailDuplicated: false,
+      validationMessages: [],
       volunteer: {
         firstName: "",
         lastName: "",
@@ -62,11 +65,12 @@ export default {
   },
   methods: {
     submitForm() {
-      this.isSubmitting = true;
+      this.validationMessages = []
       if (!this.validateForm()) {
         return;
       }
 
+      this.isSubmitting = true;
       VolunteerService
           .addVolunteer(this.volunteer)
           .then(response => {
@@ -85,11 +89,13 @@ export default {
             }
           }).catch(
           error => {
-            if (error.response.status === 409) {
-              this.isEmailDuplicated = true;
-              setTimeout(() => {
-                this.isEmailDuplicated = false
-              }, 5000);
+            if (error.response?.status === 409) {
+              this.validationMessages.push(`Volunteer with email: "${this.volunteer.email}" already exists.`);
+            } else {
+              this.validationMessages.push("Oops, something went wrong, please try again.");
+            }
+            if (typeof(error.response) === 'undefined') {
+              this.validationMessages.push("Oops, something went wrong, please try again.");
             }
             this.isSubmitting = false;
           });
@@ -98,24 +104,20 @@ export default {
       this.$router.push({name: 'volunteer'});
     },
     validateForm() {
-      let msg = '';
-
       this.volunteer.firstName = this.volunteer.firstName.trim();
-      if (this.volunteer.firstName < 3) {
-        msg += "Volunteer name should be at least 3 characters. ";
+      if (this.volunteer.firstName.length < 3) {
+        console.log(this.volunteer.firstName)
+        this.validationMessages.push("Volunteer name should be at least 3 characters.");
+        console.log(this.validationMessages)
       }
       this.volunteer.lastName = this.volunteer.lastName.trim();
-      if (this.volunteer.lastName < 3) {
-        msg += "Volunteer last name should be at least 3 characters. ";
+      if (this.volunteer.lastName.length < 3) {
+        this.validationMessages.push("Volunteer last name should be at least 3 characters.");
       }
       this.volunteer.email = this.volunteer.email.trim();
       this.volunteer.volunteeringInterest = this.volunteer.volunteeringInterest.trim();
 
-      if (msg.length > 0) {
-        console.log(msg);
-        return false;
-      }
-      return true;
+      return !this.validationMessages.length;
     },
   },
 }
@@ -125,6 +127,10 @@ export default {
 form {
   background: lightgrey;
   padding: 12px;
+}
+
+form ul.errors {
+  color: red;
 }
 
 form .buttons {
