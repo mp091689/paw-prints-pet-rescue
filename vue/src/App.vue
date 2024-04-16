@@ -23,7 +23,7 @@ npm run dev<template>
   .header{
     top: 0;
     left: 0;
-    width: 100vw;
+    max-width: 100vw;
     height: 20vh;
     background-color: #FF8811 ;
     border: solid #9DD9D2 3px ;
@@ -43,6 +43,7 @@ npm run dev<template>
   }
 
   #nav{
+    max-width: 100vw;
     font-size: medium;
     padding: 5px;
     display: flex;
