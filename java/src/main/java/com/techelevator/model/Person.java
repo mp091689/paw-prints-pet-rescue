@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 public class Person {
     private int personId;
-    private int userId;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -35,11 +35,11 @@ public class Person {
         this.personId = personId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

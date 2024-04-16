@@ -8,7 +8,7 @@
         <div class="columns">
             <p><b>Is available weekdays:</b> {{ person.availableWeekdays ? "Yes" : "No"  }}</p>
             <p><b>Is available weekends:</b> {{ person.availableWeekends ? "Yes" : "No"  }}</p>
-            <p><b>Is Approved:</b> {{ person.isApproved ? "Yes" : "No"  }}</p>
+            <p><b>Is Approved:</b> {{ person.isApproved === null ? "pending" : person.isApproved ? "Yes" : "No" }}</p>
         </div>
         <div class="columns">
             <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>

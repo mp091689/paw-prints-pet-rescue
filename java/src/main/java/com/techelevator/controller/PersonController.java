@@ -29,8 +29,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getPeople(@RequestParam(defaultValue = "true") boolean isApproved) {
-        return personDao.getPeopleByApproved(isApproved);
+    public List<Person> getPeople() {
+        return personDao.getPeople();
     }
 
     @GetMapping("/{id}")
