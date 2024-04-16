@@ -1,26 +1,28 @@
 <template>
     <div  class="volunteer-card" :class="`${$attrs.class}`">
-        <div class="columns">
+      <div class="three-columns-grid">
+        <div class="column">
             <p><b>First Name:</b> {{ person.firstName }}</p>
             <p><b>Last Name:</b> {{ person.lastName }}</p>
             <p><b>Email:</b> {{ person.email }}</p>
         </div>
-        <div class="columns">
+        <div class="column">
             <p><b>Is available weekdays:</b> {{ person.availableWeekdays ? "Yes" : "No"  }}</p>
             <p><b>Is available weekends:</b> {{ person.availableWeekends ? "Yes" : "No"  }}</p>
             <p><b>Is Approved:</b> {{ person.isApproved === null ? "pending" : person.isApproved ? "Yes" : "No" }}</p>
         </div>
-        <div class="columns">
+        <div class="column">
             <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>
         </div>
-        <div v-if="person.isApproved == null && $store.getters.isUserRole('ROLE_ADMIN')">
+      </div>
+      <div class="buttons" v-if="person.isApproved == null && $store.getters.isUserRole('ROLE_ADMIN')">
           <form action="#" @submit.prevent="submitApprove(true)">
             <button type="submit" :disabled="isSubmitting">Approve</button>
           </form>
           <form action="#" @submit.prevent="submitApprove(false)">
             <button type="submit" :disabled="isSubmitting">Decline</button>
           </form>
-        </div>
+      </div>
     </div>
 </template>
 
@@ -54,20 +56,25 @@ export default {
 
 <style scoped>
 .volunteer-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     border: solid red 1px;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    padding-left: 2px;
+    padding: 0 20px;
     color: black;
 }
-.columns{
+.three-columns-grid {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.three-columns-grid .column{
   justify-content: space-around;
   align-items: flex-start;
-  padding: 1px;
   flex-wrap: wrap;
+}
+
+.three-columns-grid .column p {
+  padding: 0;
+  margin: 10px 0;
 }
 /* */
 .volunteer-card.orange-card  {
@@ -77,5 +84,11 @@ export default {
 
 .volunteer-card.blue-card {
   background-color: cornflowerblue;
+}
+.buttons {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  gap: 10px;
 }
 </style>

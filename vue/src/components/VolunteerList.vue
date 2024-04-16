@@ -33,7 +33,6 @@ export default {
   background-color: #9DD9D2;
   color: black;
   text-align: left;
-  padding: 5px 0;
   font-size: 22px;
 }
 </style>
