@@ -60,8 +60,7 @@ public class PersonController {
         try {
             person.setPersonId(personId);
             Person updatedPerson = personDao.updatePerson(person);
-        }
-        catch (DaoException ex) {
+        } catch (DaoException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found");
         }
     }
@@ -69,7 +68,7 @@ public class PersonController {
     @PutMapping("{id}/approve")
     public void approve(@PathVariable int id) {
         Person person = personDao.getPersonById(id);
-        if (person.getIsApproved()) {
+        if (person.getIsApproved() != null) {
             return;
         }
 
@@ -98,7 +97,51 @@ public class PersonController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Opps something went wrong.");
         }
 
-        String msg = "Follow the link to activate your volunteer account http://localhost:5173/reset-password?token=" + person.getToken();
-        emailService.send(person.getEmail(), "You are approved as a Volunteer", msg);
+        emailService.send(person.getEmail(), "You were approved as a Volunteer", getApprovedMessage(person));
+    }
+
+    @PutMapping("{id}/decline")
+    public void decline(@PathVariable int id) {
+        Person person = personDao.getPersonById(id);
+        if (person.getIsApproved() != null) {
+            return;
+        }
+
+        person.setIsApproved(false);
+
+        try {
+            personDao.updatePerson(person);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Opps something went wrong.");
+        }
+
+        emailService.send(person.getEmail(), "Keep in touch", getDeclinedMessage(person));
+    }
+
+    private String getApprovedMessage(Person person) {
+        String url = "http://localhost:5173/reset-password?token=" + person.getToken();
+
+        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n" +
+                "\n" +
+                "Congratulations! Your volunteer application with Paw Prints Pet Rescue has been approved. " +
+                "We're thrilled to have you on board. " +
+                "<a href='" + url + "'>Please click here</a> to set password and activate your volunteer account. " +
+                "We'll be in touch soon with more details.\n" +
+                "\n" +
+                "Best regards,\n" +
+                "\n" +
+                "Paw Prints Pet Rescue Team";
+    }
+
+    private String getDeclinedMessage(Person person) {
+        return "Dear " + person.getFirstName() + " " + person.getLastName() + ",\n" +
+                "\n" +
+                "Thank you for your interest in volunteering with Paw Prints Pet Rescue." +
+                "While we currently don't have a suitable opportunity available," +
+                "we appreciate your enthusiasm. Please stay connected for future opportunities.\n" +
+                "\n" +
+                "Best regards,\n" +
+                "\n" +
+                "Paw Prints Pet Rescue Team";
     }
 }
