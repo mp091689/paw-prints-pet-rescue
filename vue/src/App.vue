@@ -2,17 +2,27 @@ npm run dev<template>
   <div id="capstone-app">
 
     <div class="header">
-      <img src="pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
+      <img src="/pet-photos/Paw Prints Pet Rescue Logo.png" class="company-logo" alt="PAW LOGO">
       <!-- <h1 id="title"> Paw Prints Pet Rescue</h1> -->
     </div>
 
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link> | 
-      <router-link v-bind:to="{ name: 'adopt' }">Adopt</router-link> |
-      <router-link v-bind:to="{name : 'donate'}">Donate</router-link> |
-      <router-link v-bind:to="{name: 'volunteer'}">Volunteer </router-link> |
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-      <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
+      <a id="home">
+        <router-link v-bind:to="{ name: 'home' }" class="nav-button">Home</router-link> 
+      </a>
+      <a id="adopt">
+        <router-link v-bind:to="{ name: 'adopt' }" class="nav-button">Adopt</router-link> 
+      </a>
+      <a id="donate">
+        <router-link v-bind:to="{name : 'donate'}" class="nav-button">Donate</router-link>
+      </a>
+      <a id="volunteer">
+        <router-link v-bind:to="{name: 'volunteer'}" class="nav-button">Volunteer </router-link>
+      </a>
+      <a id="login">
+        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" class="nav-button">Logout</router-link>
+        <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''" class="nav-button">Login</router-link>
+      </a>
     </div>
 
     <router-view />
@@ -44,10 +54,45 @@ npm run dev<template>
 
   #nav{
     max-width: 100vw;
-    font-size: medium;
-    padding: 5px;
+    padding: 1vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "home adopt donate volunteer login";
+  }
+  a {
+    text-decoration: none;
+    font-size: 115%;
+    color: #392F5A;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: #FF8811;
+  }
+  #home {
+    grid-area: home;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+  }
+  #adopt {
+    grid-area: adopt;
+    display: flex;
+    justify-content: center;
+  }
+  #donate {
+    grid-area: donate;
+    display: flex;
+    justify-content: center;
+  }
+  #volunteer {
+    grid-area: volunteer;
+    display: flex;
+    justify-content: center;
+  }
+  #login {
+    grid-area: login;
+    display: flex;
+    justify-content: center;
   }
 </style>
 

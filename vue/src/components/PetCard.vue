@@ -1,7 +1,7 @@
 <template>
     <div  class="pet-card" :class="`${$attrs.class}`">
 
-      <router-link id="pet-edit" :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
+      
 
       <div class="img">
         <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
@@ -14,8 +14,10 @@
         <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
       </div>
       
+      <a id="edit-link">
+        <router-link id="pet-edit" :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
+      </a>
       
-
     </div>
 </template>
 
@@ -44,7 +46,8 @@ export default {
 
 <style scoped>
 .pet-card {
-  display: flexbox;
+  display: flex;
+  flex-direction: column;
   border: solid #392F5A 3px; 
   justify-content: space-between;
   padding-left: 2px;
@@ -57,7 +60,7 @@ export default {
 }
 .pet-pic {
   max-width: 95%;
-  max-height: 100%;
+  max-height: 95%;
   padding-top: 1vh;
   margin: auto;
 } 
@@ -90,9 +93,18 @@ export default {
   margin: auto;
   font-size: 150%;
 }
-#pet-edit {
-  display: flex;
-  justify-content: end;
+#edit-link {
+  align-self: flex-end;
+  padding: 1vh 1vw; 
+  text-align: right;
+}
+a {
+    text-decoration: none;
+    color: #392F5A;
+  }
+a:hover {
+  text-decoration: underline;
+  color: #7d450d;
 }
 
  .pet-card.orange-card {
