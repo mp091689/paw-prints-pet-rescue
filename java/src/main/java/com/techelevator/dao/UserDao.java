@@ -17,4 +17,5 @@ public interface UserDao {
     User createUser(RegisterUserDto user);
 
     boolean updateUserPassword(ResetUserDto resetUserDto);
+    boolean updateUserRole(int userId, String role);
 }

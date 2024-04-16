@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class JdbcPersonDao implements PersonDao {
     private final JdbcTemplate jdbcTemplate;
-    private final String SELECT = "SELECT person_id, user_id, first_name, last_name, email, is_available_weekdays, is_available_weekends, volunteering_interest, is_approved, token FROM people ";
+    private final String SELECT = "SELECT p.person_id, p.user_id, p.first_name, p.last_name, p.email, p.is_available_weekdays, p.is_available_weekends, p.volunteering_interest, p.is_approved, p.token, u.role FROM people p LEFT JOIN users u ON p.user_id = u.user_id ";
 
     public JdbcPersonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -42,7 +42,7 @@ public class JdbcPersonDao implements PersonDao {
 
     @Override
     public Person getPersonByEmail(String email) {
-        String sql = SELECT + " WHERE email = ?";
+        String sql = SELECT + " WHERE p.email = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, email);
             if (results.next()) {
@@ -58,7 +58,7 @@ public class JdbcPersonDao implements PersonDao {
 
     @Override
     public Person getPersonById(int personId) {
-        String sql = SELECT + " WHERE person_id = ?";
+        String sql = SELECT + " WHERE p.person_id = ?";
         Person person = null;
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, personId);
@@ -161,6 +161,7 @@ public class JdbcPersonDao implements PersonDao {
         person.setVolunteeringInterest(rs.getString("volunteering_interest"));
         person.setIsApproved((Boolean) rs.getObject("is_approved"));
         person.setToken(rs.getString("token"));
+        person.setRole(rs.getString("role"));
         return person;
     }
 }
