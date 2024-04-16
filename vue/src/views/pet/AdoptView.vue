@@ -2,7 +2,7 @@
   <header>
     <h2 class="title"> Adoptable pets!!!</h2>
     <p class="desc"> So many adoptable pets to choose from! </p>
-    <router-link class="desc" :to="{name: 'add-pet'}">Add Pet</router-link>
+    <router-link class="desc" :to="{name: 'add-pet'}" v-if="$store.state.token != ''">Add Pet</router-link>
   </header>
   <pets-list :is-adopted="false"/>
 </template>
