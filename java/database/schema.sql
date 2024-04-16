@@ -19,7 +19,7 @@ CREATE TABLE people (
 	is_available_weekdays boolean NOT NULL DEFAULT 'false',
 	is_available_weekends boolean NOT NULL DEFAULT 'false',
 	volunteering_interest varchar(500),
-	is_approved boolean NOT NULL DEFAULT 'false',
+	is_approved boolean DEFAULT null,
 	token varchar(250) NOT NULL UNIQUE,
 	
 	CONSTRAINT PK_people PRIMARY KEY (person_id),

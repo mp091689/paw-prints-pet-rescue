@@ -8,15 +8,19 @@
         <div class="columns">
             <p><b>Is available weekdays:</b> {{ person.availableWeekdays ? "Yes" : "No"  }}</p>
             <p><b>Is available weekends:</b> {{ person.availableWeekends ? "Yes" : "No"  }}</p>
-            <p><b>Is Approved:</b> {{ person.isApproved ? "Yes" : "No"  }}</p>
+            <p><b>Is Approved:</b> {{ person.isApproved === null ? "pending" : person.isApproved ? "Yes" : "No" }}</p>
         </div>
         <div class="columns">
             <p><b>Volunteering Interest:</b> {{ person.volunteeringInterest }}</p>
         </div>
-      <form action="#" @submit.prevent="submitApprove" v-if="!person.isApproved && $store.getters.isUserRole('ROLE_ADMIN')">
-        <button type="submit">Approve</button>
-      </form>
-      <!-- <router-link :to="{name: 'edit-volunteer', params: {personId: person.personId}}" v-if="isAuthorized()">Edit</router-link> -->
+        <div v-if="person.isApproved == null && $store.getters.isUserRole('ROLE_ADMIN')">
+          <form action="#" @submit.prevent="submitApprove(true)">
+            <button type="submit">Approve</button>
+          </form>
+          <form action="#" @submit.prevent="submitApprove(false)">
+            <button type="submit">Decline</button>
+          </form>
+        </div>
     </div>
 </template>
 
@@ -27,8 +31,8 @@ export default {
   props: ['person'],
   emits: ['person-approved'],
   methods: {
-    submitApprove() {
-      VolunteerService.approveVolunteer(this.person).then(response => {
+    submitApprove(isApproved) {
+      VolunteerService.approveVolunteer(isApproved, this.person.personId).then(response => {
         if (response.status === 200) {
           this.$emit('person-approved');
         }

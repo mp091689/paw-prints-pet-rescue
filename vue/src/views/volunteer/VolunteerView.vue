@@ -17,29 +17,34 @@
 
     </div>
     <div>
-      <volunteer-form @click="dosomthing" @person-request-created="loadVolunteers" />
+      <volunteer-form @person-request-created="loadVolunteers" />
     </div>
   </div>
-  <volunteer-request-list :volunteers="volunteerRequestList"/>
-  <volunteer-list />
+  <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers"/>
+  <volunteer-list :volunteers="volunteerList" title="Volunteer List"/>
 </template>
 
 <script>
 import VolunteerForm from "@/components/VolunteerForm.vue";
-import VolunteerRequestList from "@/components/VolunteerRequestList.vue";
 import VolunteerList from "@/components/VolunteerList.vue";
 import VolunteerService from "@/services/VolunteerService";
 
 export default {
-  components: {VolunteerForm, VolunteerRequestList, VolunteerList},
+  components: {VolunteerForm, VolunteerList},
   data() {
     return {
       volunteerRequestList: [],
+      volunteerList: [],
     }
   },
   methods: {
     loadVolunteers() {
-      VolunteerService.getVolunteers(this.isApproved).then(response => this.volunteerRequestList = response.data);
+      let volunteers = [];
+      VolunteerService.getVolunteers().then(response => {
+        volunteers = response.data
+        this.volunteerRequestList = volunteers.filter(v => !v.isApproved).sort(v => v.isApproved !== null ? 1 : -1);
+        this.volunteerList = volunteers.filter(v => v.isApproved);
+      });
     }
   },
   created() {
