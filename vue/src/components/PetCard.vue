@@ -18,6 +18,10 @@
         <router-link id="pet-edit" :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
       </a>
       
+      <a id="details-link">
+        <router-link id="pet-details" :to="{name: 'pet-details', params: {petId: pet.petId}}">See more</router-link>
+      </a>
+
     </div>
 </template>
 

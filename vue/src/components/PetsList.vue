@@ -10,7 +10,7 @@
 
         <div v-if="showFilters" class="pet-filter">
             <div class="species-filter">
-                <label for="speciesId">Species:</label>
+                <label for="speciesId">Species: </label>
                 <select id="speciesId" v-model="filters.speciesId">
                     <option value="">All Species</option>
                     <option value="1">Cats</option>
@@ -20,22 +20,22 @@
             </div>
             
             <div class="age-filter">
-                <label for="age">Age:</label>
+                <label for="age">Age: </label>
                 <input id="age" type="number" v-model.number="filters.age" placeholder="Age" max="30" min="0">
             </div>
 
             <div class="breed-filter">
-                <label for="breed">Breed:</label>
+                <label for="breed">Breed: </label>
                 <input id="breed" v-model="filters.breed" placeholder="Breed">
             </div>
 
             <div class="color-filter">
-                <label for="color">Color:</label>
+                <label for="color">Color: </label>
                 <input id="color" v-model="filters.color" placeholder="Color">
             </div>
 
             <div class="size-filter">
-                <label for="size">Size:</label>
+                <label for="size">Size: </label>
                 <select id="size" v-model="filters.size">
                     <option value="">All Sizes</option>
                     <option value="XS">XS</option>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="gender-filter">
-                <label for="gender">Gender:</label>
+                <label for="gender">Gender: </label>
                 <select id="gender" v-model="filters.gender">
                     <option value="">All Genders</option>
                     <option value="Female">Female</option>
@@ -56,14 +56,18 @@
             </div>
 
             <div class="fixed-filter">
-                <label for="isFixed">Fixed:</label>
+                <label for="isFixed">Fixed: </label>
                 <input id="isFixed" type="checkbox" v-model="filters.isFixed">
             </div>
 
             <div class="special-filter">
-                <label for="hasSpecialNeed">Special Needs:</label>
+                <label for="hasSpecialNeed">Special Needs: </label>
                 <input id="hasSpecialNeed" type="checkbox" v-model="filters.hasSpecialNeed">
-            </div>            
+            </div>
+            
+            <div class="reset-filters">
+                <button id="reset-button" @click="resetFilters">Clear Filters</button>
+            </div>
 
             <!-- <label for="isAdopted">Show Adopted:</label>
             <input id="isAdopted" type="checkbox" v-model="filters.isAdopted"> -->
@@ -111,6 +115,9 @@ export default {
     methods: {
         toggleFilters() {
             this.showFilters = !this.showFilters;
+        },
+        resetFilters() {
+            this.filters = {};
         }
     },
     created() {
@@ -157,11 +164,76 @@ export default {
     background-color: #9DD9D2;
 }
 
+
 .pet-filter {
     margin-top: 2vh;
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "species age gender fixed"
+    "size breed color special"
+    "reset reset reset reset";
+    margin: auto;
 }
+.species-filter {
+    grid-area: species;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+.age-filter {
+    grid-area: age;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+.gender-filter {
+    grid-area: gender;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+.fixed-filter {
+    grid-area: fixed;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+.size-filter {
+    grid-area: size;
+    display: flex;
+    justify-content: center;
+}
+.breed-filter {
+    grid-area: breed;
+    display: flex;
+    justify-content: center;
+}
+.color-filter {
+    grid-area: color;
+    display: flex;
+    justify-content: center;
+}
+.special-filter {
+    grid-area: special;
+    display: flex;
+    justify-content: center;
+}
+.reset-filters {
+    grid-area: reset;
+    display: flex;
+    justify-content: flex-end;
+}
+#reset-button {
+    background-color: #F4D06F;
+    border: solid #392F5A 2px;
+    color: #392F5A;
+    text-align: center;
+    text-decoration: none;
+    font-family: Dekko;
+    font-size: 95%;
+}
+
 
 .pets-list {
   display: grid;
