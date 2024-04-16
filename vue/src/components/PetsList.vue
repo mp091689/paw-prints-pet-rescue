@@ -15,13 +15,13 @@
             </select>
 
             <label for="age">Age:</label>
-            <input id="age" type="number" v-model.number="filters.age" placeholder="Please enter age.">
+            <input id="age" type="number" v-model.number="filters.age" placeholder="Age">
 
             <label for="breed">Breed:</label>
-            <input id="breed" v-model="filters.breed" placeholder="Please enter a breed.">
+            <input id="breed" v-model="filters.breed" placeholder="Breed">
 
             <label for="color">Color:</label>
-            <input id="color" v-model="filters.color" placeholder="Please enter a color.">
+            <input id="color" v-model="filters.color" placeholder="Color">
 
             <label for="size">Size:</label>
             <select id="size" v-model="filters.size">
@@ -100,11 +100,11 @@ export default {
         filteredPets() {
             return this.pets.filter(pet => {
                 return (!parseInt(this.filters.speciesId) || pet.speciesId === parseInt(this.filters.speciesId))
-                    && (!this.filters.breed || pet.breed.toLowerCase().includes(this.filters.breed.toLowerCase()))
+                    && (!this.filters.breed || pet.breed.toLowerCase() === (this.filters.breed.toLowerCase()))
                     && (!this.filters.age || pet.age === this.filters.age)
-                    && (!this.filters.color || pet.color.toLowerCase().includes(this.filters.color.toLowerCase()))
-                    && (!this.filters.size || pet.size.toLowerCase().includes(this.filters.size.toLowerCase()))
-                    && (!this.filters.gender || pet.gender.toLowerCase().includes(this.filters.gender.toLowerCase()))
+                    && (!this.filters.color || pet.color.toLowerCase() === (this.filters.color.toLowerCase()))
+                    && (!this.filters.size || pet.size.toLowerCase() === (this.filters.size.toLowerCase()))
+                    && (!this.filters.gender || pet.gender.toLowerCase() === this.filters.gender.toLowerCase())
                     && (!this.filters.isFixed || pet.isFixed === this.filters.isFixed)
                     && (!this.filters.hasSpecialNeed || pet.hasSpecialNeed === this.filters.hasSpecialNeed);
                     // && (!this.filters.isAdopted || pet.isAdopted === this.filters.isAdopted);
