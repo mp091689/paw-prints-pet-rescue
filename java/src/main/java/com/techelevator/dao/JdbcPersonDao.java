@@ -156,8 +156,8 @@ public class JdbcPersonDao implements PersonDao {
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         person.setEmail(rs.getString("email"));
-        person.setAvailableWeekdays(rs.getBoolean("is_available_weekdays"));
-        person.setAvailableWeekends(rs.getBoolean("is_available_weekends"));
+        person.setIsAvailableWeekdays(rs.getBoolean("is_available_weekdays"));
+        person.setIsAvailableWeekends(rs.getBoolean("is_available_weekends"));
         person.setVolunteeringInterest(rs.getString("volunteering_interest"));
         person.setIsApproved((Boolean) rs.getObject("is_approved"));
         person.setToken(rs.getString("token"));

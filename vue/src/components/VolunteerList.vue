@@ -20,6 +20,11 @@ export default {
 </script>
 
 <style scoped>
+#filter-toggle {
+    display: flex;
+    justify-content: end;
+    padding: 1vh;
+}
 .volunteer-list {
   display: grid;
   grid-template-columns: 1fr;

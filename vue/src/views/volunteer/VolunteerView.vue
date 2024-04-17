@@ -21,9 +21,33 @@
     </div>
   </div>
   <div class="volLists">
-    <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers" v-if="volunteerRequestList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
-    <volunteer-list :volunteers="volunteerList" title="Volunteer List" @make-admin="loadVolunteers" v-if="volunteerList.length"/>
-    <volunteer-list :volunteers="volunteerDeclinedList" title="List of Declined Candidates for Volunteering" v-if="volunteerDeclinedList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
+
+      <div class="firstName-filter">
+        <label for="first_name">First Name:</label>
+        <input id="first_name" type="String" v-model="filters.first_name" placeholder="First Name" max="40" min="0">
+      </div>
+      <div class="lastName-filter">
+        <label for="last_name">Last Name:</label>
+        <input id="last_name" type="String" v-model="filters.last_name" placeholder="Last Name" max="40" min="0">
+      </div>
+      <div class="email-filter">
+        <label for="email">Email:</label>
+        <input id="email" type="email" v-model="filters.email" placeholder="email" max="40" min="0">
+      </div>
+      <div class="available-filter">
+        <label for="available">Availability:</label>
+        <select name="available" id="available"  v-model="filters.available">
+          <option value="">Choose..</option>
+          <option value="all">All Days</option>
+          <option value="weekdays">weekdays</option>
+          <option value="weekends">weekends</option>
+          <option value="none">Not available</option>
+        </select>
+      </div>
+
+    <volunteer-list :volunteers="filteredVolunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers" v-if="filteredVolunteerRequestList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
+    <volunteer-list :volunteers="filteredVolunteerList" title="Volunteer List" @make-admin="loadVolunteers" v-if="filteredVolunteerList.length"/>
+    <volunteer-list :volunteers="filteredVolunteerDeclinedList" title="List of Declined Candidates for Volunteering" v-if="filteredVolunteerDeclinedList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
   </div>
 </template>
 
@@ -36,24 +60,56 @@ export default {
   components: {VolunteerForm, VolunteerList},
   data() {
     return {
-      volunteerRequestList: [],
-      volunteerDeclinedList: [],
-      volunteerList: [],
+      volunteers: [],
+      filters: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        available: "",
+      }
     }
   },
   methods: {
     loadVolunteers() {
-      let volunteers = [];
-      VolunteerService.getVolunteers().then(response => {
-        volunteers = response.data
-        this.volunteerRequestList = volunteers.filter(v => v.isApproved === null);
-        this.volunteerList = volunteers.filter(v => v.isApproved === true);
-        this.volunteerDeclinedList = volunteers.filter(v => v.isApproved === false);
-      });
+      VolunteerService.getVolunteers().then(response => this.volunteers = response.data);
     }
   },
   created() {
     this.loadVolunteers();
+  },
+  computed: {
+    filterVolunteers() {
+        return this.volunteers.filter(v => {
+          let firstNameMatched = v.firstName.toLowerCase().includes(this.filters.first_name.toLocaleLowerCase());
+          let lastNameMatched = v.lastName.toLowerCase().includes(this.filters.last_name.toLocaleLowerCase());
+          let emailMatched = v.email.toLowerCase().includes(this.filters.email.toLocaleLowerCase());
+          let available = true;
+          switch (this.filters.available) {
+            case "none" :
+              available = !(v.availableWeekdays || v.availableWeekends);
+              break;
+            case "weekdays" :
+              available = v.availableWeekdays;
+              break;
+            case "weekends" :
+              available = v.availableWeekends;
+              break;
+            case "all" :
+            available = v.availableWeekdays && v.availableWeekends;
+              break;
+          }
+          return firstNameMatched && lastNameMatched && emailMatched && available;
+        });
+    },
+    filteredVolunteerRequestList() {
+      return this.filterVolunteers.filter(v => v.isApproved === null && this.filterVolunteers);
+    },
+    filteredVolunteerList() {
+      return this.filterVolunteers.filter(v => v.isApproved === true && this.filterVolunteers);
+    },
+    filteredVolunteerDeclinedList() {
+      return this.filterVolunteers.filter(v => v.isApproved === false && this.filterVolunteers);
+    },
   }
 }
 </script>
