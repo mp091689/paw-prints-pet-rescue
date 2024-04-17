@@ -11,10 +11,11 @@ public class Person {
     private String volunteeringInterest;
     private Boolean isApproved;
     private String token;
+    private String role;
 
     public Person() {}
 
-    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest, boolean isApproved, String token) {
+    public Person(int personId, int userId, String firstName, String lastName, String email, boolean isAvailableWeekdays, boolean isAvailableWeekends, String volunteeringInterest, boolean isApproved, String token, String role) {
         this.personId = personId;
         this.userId = userId;
         this.firstName = firstName;
@@ -25,6 +26,7 @@ public class Person {
         this.volunteeringInterest = volunteeringInterest;
         this.isApproved = isApproved;
         this.token = token;
+        this.role = role;
     }
 
     public int getPersonId() {
@@ -105,5 +107,13 @@ public class Person {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

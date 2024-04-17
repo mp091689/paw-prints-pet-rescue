@@ -103,6 +103,7 @@ public class PersonController {
     }
 
     @PutMapping("{id}/decline")
+    @ResponseStatus(HttpStatus.OK)
     public void decline(@PathVariable int id) {
         Person person = personDao.getPersonById(id);
         if (person.getIsApproved() != null) {
@@ -114,10 +115,25 @@ public class PersonController {
         try {
             personDao.updatePerson(person);
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Opps something went wrong.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops something went wrong.");
         }
 
         emailService.send(person.getEmail(), "Keep in touch", getDeclinedMessage(person));
+    }
+
+    @PutMapping("{id}/make-admin")
+    @ResponseStatus(HttpStatus.OK)
+    public void makeAdmin(@PathVariable int id) {
+        Person person = personDao.getPersonById(id);
+        if (!person.getIsApproved()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            userDao.updateUserRole(person.getUserId(), "ROLE_ADMIN");
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops something went wrong.");
+        }
     }
 
     private String getApprovedMessage(Person person) {

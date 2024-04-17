@@ -22,7 +22,7 @@
   </div>
   <div class="volLists">
     <volunteer-list :volunteers="volunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers" v-if="volunteerRequestList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
-    <volunteer-list :volunteers="volunteerList" title="Volunteer List" v-if="volunteerList.length"/>
+    <volunteer-list :volunteers="volunteerList" title="Volunteer List" @make-admin="loadVolunteers" v-if="volunteerList.length"/>
     <volunteer-list :volunteers="volunteerDeclinedList" title="List of Declined Candidates for Volunteering" v-if="volunteerDeclinedList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
   </div>
 </template>

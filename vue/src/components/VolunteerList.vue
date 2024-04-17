@@ -5,7 +5,8 @@
         v-for="(person, idx) in volunteers" :key="person.personId"
         :person="person"
         :class="{'orange-card': idx % 2 != 0, 'blue-card': idx % 2 == 0}"
-        @person-approved="$emit('person-approved')" />
+        @person-approved="$emit('person-approved')" 
+        @make-admin="$emit('make-admin')"/>
   </div>
 </template>
 <script>
@@ -14,7 +15,7 @@ import VolunteerCard from "@/components/VolunteerCard.vue";
 export default {
   components: {VolunteerCard},
   props: ['volunteers', 'title'],
-  emits: ['person-approved'],
+  emits: ['person-approved', 'make-admin'],
 }
 </script>
 
