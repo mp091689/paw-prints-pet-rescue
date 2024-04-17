@@ -135,10 +135,13 @@
       <div class="img-group">
         <input type="file" id="avatar" name="avatar" @change="onChangeAvatar" ref="mainPhoto"/>
         <div class="img-container">
-          <svg @click="removeMainPhoto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+          <svg @click="removeMainPhoto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+                  d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                  clip-rule="evenodd"/>
           </svg>
-          <img :src="getAvatarUrl(editPet)" alt="Pet's avatar" v-if="editPet.mainPhoto"/>
+          <img :src="getPhotoUrl(editPet.mainPhoto)" alt="Pet's avatar" v-if="editPet.mainPhoto"/>
         </div>
       </div>
     </div>
@@ -147,8 +150,23 @@
       <label for="photos">Select photos:</label>
       <div class="img-group">
         <input type="file" id="photos" name="photos" @change="onChangePhotos" multiple ref="photos"/>
-        <div class="img-container" v-for="(img, idx) in getPhotosUrl(editPet)" :key="idx">
-          <img :src="img" alt="Pet's photo"/>
+        <div class="img-container" v-for="photo in editPet.photos" :key="photo.photoId">
+          <img :src="getPhotoUrl(photo)" alt="Pet's photo"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Current photos:</label>
+        <div class="img-group">
+          <div class="img-container" v-for="photo in currentPhotos" :key="photo.photoId">
+            <svg @click="removePhoto(photo.photoId)" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                 height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd"
+                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                    clip-rule="evenodd"/>
+            </svg>
+            <img :src="getPhotoUrl(photo)" alt="Pet's photo"/>
+          </div>
         </div>
       </div>
     </div>
@@ -186,8 +204,9 @@ export default {
         description: this.pet?.description ?? "",
         isFixed: this.pet?.isFixed ?? false,
         mainPhoto: this.pet?.mainPhoto ?? null,
-        photos: this.pet?.photos ?? [],
+        photos: [],
       },
+      currentPhotos: this.pet?.photos ?? [],
     };
   },
   methods: {
@@ -200,23 +219,23 @@ export default {
             }
           }).catch(error => console.log(error));
     },
-    getAvatarUrl(pet) {
-      if (pet.mainPhoto instanceof File) {
-        return URL.createObjectURL(pet.mainPhoto);
-      }
-      return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + pet.mainPhoto;
-    },
-    getPhotosUrl(pet) {
-      if (pet.photos.length) {
-        return Array.from(pet.photos).map(photo => {
-              if (photo instanceof File) {
-                return URL.createObjectURL(photo);
-              }
-              return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + photo.fileName;
+    removePhoto(id) {
+      this.$refs.photos.value = null;
+      petService.removePhoto(id)
+          .then(response => {
+            if (response.status === 200) {
+              this.editPet.photos = response.data;
             }
-        );
+          }).catch(error => console.log(error));
+    },
+    getPhotoUrl(file) {
+      if (file instanceof File) {
+        return URL.createObjectURL(file);
       }
-      return [];
+      if (typeof file === 'string' || file instanceof String) {
+        return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + file;
+      }
+      return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + file.fileName;
     },
     submitForm() {
       if (!this.validateForm()) {
@@ -291,6 +310,11 @@ form .form-group .img-group {
   gap: 8px;
 }
 
+form .form-group img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
 form .form-group .img-container {
   max-width: 100px;
   max-height: 100px;
@@ -307,11 +331,6 @@ form .form-group .img-container svg {
 
 form .form-group .img-container svg:hover {
   color: red;
-}
-
-form .form-group img {
-  max-width: 100%;
-  max-height: 100%;
 }
 
 span.required {
