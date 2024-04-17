@@ -1,8 +1,10 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PetDao;
+import com.techelevator.dao.PhotoDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pet;
+import com.techelevator.model.Photo;
 import com.techelevator.service.ImageUploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +20,12 @@ import java.util.List;
 @RequestMapping("pets")
 public class PetController {
     private PetDao petDao;
+    private PhotoDao photoDao;
     private ImageUploader imageService;
 
-    public PetController(PetDao petDao, ImageUploader imageService) {
+    public PetController(PetDao petDao, PhotoDao photoDao, ImageUploader imageService) {
         this.petDao = petDao;
+        this.photoDao = photoDao;
         this.imageService = imageService;
     }
 
@@ -32,7 +36,9 @@ public class PetController {
 
     @GetMapping("{id}")
     public Pet getPetById(@PathVariable int id) {
-        return petDao.getPetById(id);
+        Pet pet = petDao.getPetById(id);
+        pet.setPhotos(photoDao.getByPetId(pet.getPetId()));
+        return pet;
     }
 
     @PostMapping
@@ -49,20 +55,18 @@ public class PetController {
             @RequestParam(required = false) boolean hasSpecialNeed,
             @RequestParam(required = false) boolean isFixed,
             @RequestParam(required = false) boolean isAdopted,
-            @RequestParam(required = false) MultipartFile avatar
+            @RequestParam(required = false) MultipartFile mainPhoto,
+            @RequestParam(required = false) MultipartFile[] photos
     ) {
-        Pet pet = new Pet();
-
+        String photoPath;
         try {
-            String photoPath = "placeholder_" + speciesId + ".jpg";
-            if (avatar != null) {
-                photoPath = imageService.save(avatar);
-            }
-            pet.setMainPhoto(photoPath);
+            photoPath = imageService.save(mainPhoto);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            photoPath = "placeholder_" + speciesId + ".jpg";
         }
 
+        Pet pet = new Pet();
+        pet.setMainPhoto(photoPath);
         pet.setName(name);
         pet.setAge(age);
         pet.setSpeciesId(speciesId);
@@ -76,10 +80,23 @@ public class PetController {
         pet.setDescription(description);
 
         try {
-            return petDao.createPet(pet);
+            pet = petDao.createPet(pet);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet could not created");
         }
+
+        for (MultipartFile multipartFile : photos) {
+            String imageName;
+            try {
+                imageName = imageService.save(multipartFile);
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
+            Photo photo = new Photo(0, imageName, pet.getPetId());
+            pet.addPhoto(photoDao.createPhoto(photo));
+        }
+
+        return pet;
     }
 
     @PutMapping("{id}")
@@ -97,7 +114,7 @@ public class PetController {
             @RequestParam(required = false) boolean hasSpecialNeed,
             @RequestParam(required = false) boolean isFixed,
             @RequestParam(required = false) boolean isAdopted,
-            @RequestParam(required = false) MultipartFile avatar
+            @RequestParam(required = false) MultipartFile mainPhoto
     ) {
         Pet pet = petDao.getPetById(id);
         pet.setPetId(id);
@@ -113,12 +130,10 @@ public class PetController {
         pet.setIsAdopted(isAdopted);
         pet.setDescription(description);
 
-        if (avatar != null) {
-            try {
-                pet.setMainPhoto(imageService.save(avatar));
-            } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-            }
+        try {
+            pet.setMainPhoto(imageService.save(mainPhoto));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 
         try {
@@ -128,12 +143,8 @@ public class PetController {
         }
     }
 
-    @GetMapping(value = "{id}/main-photo", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImage(@PathVariable int id) throws IOException {
-        Pet pet = petDao.getPetById(id);
-        if (pet == null) {
-            return new byte[0];
-        }
-        return imageService.get(pet.getMainPhoto());
+    @GetMapping(value = "/photos/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable String fileName) throws IOException {
+        return imageService.get(fileName);
     }
 }

@@ -1,5 +1,8 @@
 package com.techelevator.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pet {
 
     private int petId;
@@ -15,6 +18,7 @@ public class Pet {
     private boolean isAdopted;
     private String description;
     private String mainPhoto;
+    private List<Photo> photos = new ArrayList<>();
 
     public Pet() {
     }
@@ -31,7 +35,8 @@ public class Pet {
                boolean isFixed,
                boolean isAdopted,
                String description,
-               String mainPhoto
+               String mainPhoto,
+               List<Photo> photos
     ) {
         this.petId = petId;
         this.speciesId = speciesId;
@@ -46,6 +51,7 @@ public class Pet {
         this.isFixed = isFixed;
         this.isAdopted = isAdopted;
         this.mainPhoto = mainPhoto;
+        this.photos = photos;
     }
 
     public boolean getHasSpecialNeed() {
@@ -154,5 +160,17 @@ public class Pet {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+
+    public void addPhoto(Photo photo) {
+        photos.add(photo);
     }
 }
