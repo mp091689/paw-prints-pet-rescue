@@ -28,4 +28,7 @@ export default {
         }
         return axios.put(`${path}/${pet.petId}`, formData);
     },
+    removeMainPhoto(pet) {
+        return axios.put(`${path}/${pet.petId}/remove-main-photo`);
+    }
 }

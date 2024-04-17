@@ -133,8 +133,11 @@
     <div class="form-group">
       <label for="avatar">Select avatar:</label>
       <div class="img-group">
-        <input type="file" id="avatar" name="avatar" @change="onChangeAvatar"/>
+        <input type="file" id="avatar" name="avatar" @change="onChangeAvatar" ref="mainPhoto"/>
         <div class="img-container">
+          <svg @click="removeMainPhoto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+          </svg>
           <img :src="getAvatarUrl(editPet)" alt="Pet's avatar" v-if="editPet.mainPhoto"/>
         </div>
       </div>
@@ -188,6 +191,15 @@ export default {
     };
   },
   methods: {
+    removeMainPhoto() {
+      this.$refs.mainPhoto.value = null;
+      petService.removeMainPhoto(this.editPet)
+          .then(response => {
+            if (response.status === 200) {
+              this.editPet.mainPhoto = response.data;
+            }
+          }).catch(error => console.log(error));
+    },
     getAvatarUrl(pet) {
       if (pet.mainPhoto instanceof File) {
         return URL.createObjectURL(pet.mainPhoto);
@@ -216,7 +228,6 @@ export default {
       if (this.editPet.petId === 0) {
         petService.addPet(this.editPet)
             .then(response => {
-              console.log(response);
               if (response.status === 201) {
                 this.$router.push({name: 'adopt'});
               }
@@ -286,19 +297,15 @@ form .form-group .img-container {
   position: relative;
 }
 
-form .form-group .img-container i {
+form .form-group .img-container svg {
   position: absolute;
-  top: 0px;
-  right: 10px;
-  font-size: 30px;
-  font-weight: bold;
-  color: red;
+  top: 0;
+  right: 0;
+  color: darkred;
   cursor: pointer;
-  text-shadow: 0px 0px 2px white;
 }
 
-form .form-group .img-container i:hover {
-  font-size: 35px;
+form .form-group .img-container svg:hover {
   color: red;
 }
 

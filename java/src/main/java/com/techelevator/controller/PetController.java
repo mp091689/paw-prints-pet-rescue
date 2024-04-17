@@ -62,7 +62,7 @@ public class PetController {
         try {
             photoPath = imageService.save(mainPhoto);
         } catch (Exception e) {
-            photoPath = "placeholder_" + speciesId + ".jpg";
+            photoPath = getPhotoPlaceholder(speciesId);
         }
 
         Pet pet = new Pet();
@@ -116,7 +116,15 @@ public class PetController {
             @RequestParam(required = false) boolean isAdopted,
             @RequestParam(required = false) MultipartFile mainPhoto
     ) {
+        String photoPath;
+        try {
+            photoPath = imageService.save(mainPhoto);
+        } catch (Exception e) {
+            photoPath = getPhotoPlaceholder(speciesId);
+        }
+
         Pet pet = petDao.getPetById(id);
+        pet.setMainPhoto(photoPath);
         pet.setPetId(id);
         pet.setName(name);
         pet.setAge(age);
@@ -131,12 +139,6 @@ public class PetController {
         pet.setDescription(description);
 
         try {
-            pet.setMainPhoto(imageService.save(mainPhoto));
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-
-        try {
             return petDao.updatePet(pet);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet Not Found");
@@ -146,5 +148,27 @@ public class PetController {
     @GetMapping(value = "/photos/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable String fileName) throws IOException {
         return imageService.get(fileName);
+    }
+
+    @PutMapping("{id}/remove-main-photo")
+    @ResponseStatus(HttpStatus.OK)
+    public String resetMainPhoto(@PathVariable int id) {
+        Pet pet = petDao.getPetById(id);
+        if (pet.getMainPhoto().equals(getPhotoPlaceholder(pet.getSpeciesId()))) {
+            return pet.getMainPhoto();
+        }
+
+        try {
+            imageService.delete(pet.getMainPhoto());
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        pet.setMainPhoto(getPhotoPlaceholder(pet.getSpeciesId()));
+        petDao.updatePet(pet);
+        return pet.getMainPhoto();
+    }
+
+    private String getPhotoPlaceholder(int speciesId) {
+        return "placeholder_" + speciesId + ".jpg";
     }
 }
