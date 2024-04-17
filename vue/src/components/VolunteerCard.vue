@@ -23,6 +23,16 @@
             <button type="submit" :disabled="isSubmitting">Decline</button>
           </form>
       </div>
+      <div class="buttons" v-if="person.isApproved == true && person.role === 'ROLE_USER' && $store.getters.isUserRole('ROLE_ADMIN')">
+          <form action="#" @submit.prevent="submitAdmin()">
+            <button type="submit" :disabled="isSubmitting">Make an Admin</button>
+          </form>
+      </div>
+      <!-- <div class="buttons" v-if="person.isApproved == false && $store.getters.isUserRole('ROLE_ADMIN')">
+          <form action="#" @submit.prevent="submitApprove(null)">
+            <button type="submit" :disabled="isSubmitting">Approve for Volunteer</button>
+          </form>
+      </div> -->
     </div>
 </template>
 
@@ -31,7 +41,7 @@ import VolunteerService from "@/services/VolunteerService";
 
 export default {
   props: ['person'],
-  emits: ['person-approved'],
+  emits: ['person-approved','make-admin'],
   data() {
     return {
       isSubmitting: false,
@@ -49,7 +59,31 @@ export default {
         this.isSubmitting = false;
         console.log(error);
       });
+    },
+    submitAdmin() {
+      this.isSubmitting = true;
+      VolunteerService.makeAdmin(this.person.personId).then(response => {
+        if (response.status === 200) {
+          this.$emit('make-admin');
+          this.isSubmitting = false;
+        }
+      }).catch(error => {
+        this.isSubmitting = false;
+        console.log(error);
+      });
     }
+    // submitVolunteer(isApproved) {
+    //   this.isSubmitting = true;
+    //   VolunteerService.approveVolunteer(isApproved, this.person.personId).then(response => {
+    //     if (response.status === 200) {
+    //       this.$emit('person-approved');
+    //       this.isSubmitting = false;
+    //     }
+    //   }).catch(error => {
+    //     this.isSubmitting = false;
+    //     console.log(error);
+    //   });
+    // }
   }
 }
 </script>

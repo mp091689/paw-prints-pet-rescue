@@ -13,5 +13,8 @@ export default {
         let suffix = isApproved ? "/approve" : "/decline";
 
         return axios.put(path + '/' + volunteerId + suffix);
+    },
+    makeAdmin(volunteerId) {
+        return axios.put(path + '/' + volunteerId + '/make-admin');
     }
 }
