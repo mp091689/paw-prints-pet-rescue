@@ -3,28 +3,35 @@
         <h1>loading...</h1>
     </div>
     <div v-else>
+
         <div class="pet-details">
+
             <div class="pet-img">
                 <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
             </div>
 
             <div class="pet-info">
                 <h2 id="pet-name">I'm {{ pet.name }}!</h2>
-                <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
-                <p id="pet-age">{{ pet.age ? pet.age : "unknown" }} years old</p>
-                <p id="pet-gender">{{ pet.gender }}</p>
+                <div class="group-one">
+                    <p id="pet-age">{{ pet.age ? pet.age : "unknown" }}</p>
+                    <p id="pet-breed">{{ pet.breed }}</p>
+                    <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
+                </div>
+                <div class="group-two">
+                    <p id="pet-gender">{{ pet.gender }}</p>
+                    <p id="pet-fixed">{{ pet.isFixed ? "Fixed" : "Not Fixed"}}</p>
+                    <p id="pet-color">{{ pet.color }}</p>
+                    <p id="pet-size">{{ pet.size }}</p>
+                </div>
                 <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
-                <p id="pet-color">{{ pet.color }}</p>
-                <p id="pet-breed">{{ pet.breed }}</p>
-                <p id="pet-size">Size - {{ pet.size }}</p>
                 <p id="pet-adopted">{{ pet.isAdopted ? "Adopted" : "Adopt Me!"}}</p>
-                <p id="pet-fixed">{{ pet.isFixed ? "Fixed" : "Not Fixed"}}</p>
                 <p id="pet-desc">{{ pet.description }}</p>
             </div>
+
         </div>
 
-
     </div>
+
 </template>
 
 <script>
@@ -66,11 +73,9 @@ export default {
 <style scoped>
 .pet-details {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
         "pic info";
-    max-height: 100vh;
-    max-width: 100vw;
     border: solid #392F5A 3px;
     background-color: #9DD9D2;
 }
@@ -83,22 +88,22 @@ export default {
 }
 
 .pet-pic {
-    max-height: 75%;
-    max-width: 95%;
+    max-height: 75vh;
+    max-width: 75vw;
+    padding: 1vh ;
 }
 
 .pet-info {
     grid-area: info;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-        "name name"
-        "age species"
-        "gender fixed"
-        "breed color"
-        "size special"
-        "adopted adopted"
-        "desc desc";
+        "name" 
+        "one"
+        "two"
+        "special"
+        "adopted"
+        "desc";
     font-size: 150%;
 }
 #pet-name {
@@ -108,7 +113,17 @@ export default {
     justify-content: center;
     align-items: center;
 }
-#pet-species {
+.group-one {
+    grid-area: one;
+    display: flex;
+    justify-content: space-between;
+}
+.group-two {
+    grid-area: two;
+    display: flex;
+    justify-content: space-between;
+}
+/* #pet-species {
     grid-area: species;
     margin: auto;
     display: flex;
@@ -128,7 +143,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 #pet-special {
     grid-area: special;
     margin: auto;
@@ -136,7 +151,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
-#pet-color {
+/* #pet-color {
     grid-area: color;
     margin: auto;
     display: flex;
@@ -156,7 +171,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 #pet-adopted {
     grid-area: adopted;
     margin: auto;
@@ -171,12 +186,12 @@ export default {
     justify-content: center;
     align-items: center;
 }
-#pet-fixed {
+/* #pet-fixed {
     grid-area: fixed;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 </style>
 
