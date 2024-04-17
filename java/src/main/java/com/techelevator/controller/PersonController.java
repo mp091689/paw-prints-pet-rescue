@@ -70,7 +70,7 @@ public class PersonController {
     @PutMapping("{id}/approve")
     public void approve(@PathVariable int id) {
         Person person = personDao.getPersonById(id);
-        if (person.getIsApproved() != null) {
+        if (person.getIsApproved()) {
             return;
         }
 
