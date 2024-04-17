@@ -12,6 +12,11 @@ export default {
     addPet(pet) {
         let formData = new FormData();
         for (let key in pet) {
+            if (pet[key] instanceof FileList) {
+                for(let key2 in pet[key]) {
+                    formData.append(key, pet[key][key2]);
+                }
+            }
             formData.append(key, pet[key]);
         }
         return axios.post(path, formData);
