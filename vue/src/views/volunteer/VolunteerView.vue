@@ -20,8 +20,10 @@
       <volunteer-form @person-request-created="loadVolunteers" />
     </div>
   </div>
+  <br>
   <div class="volLists">
-
+    <div class="filterVol">
+      <div><b>Choose your volunteer filter</b></div>
       <div class="firstName-filter">
         <label for="first_name">First Name:</label>
         <input id="first_name" type="String" v-model="filters.first_name" placeholder="First Name" max="40" min="0">
@@ -44,6 +46,8 @@
           <option value="none">Not available</option>
         </select>
       </div>
+    </div>
+      
 
     <volunteer-list :volunteers="filteredVolunteerRequestList" title="Volunteer Request List" @person-approved="loadVolunteers" v-if="filteredVolunteerRequestList.length && $store.getters.isUserRole('ROLE_ADMIN')"/>
     <volunteer-list :volunteers="filteredVolunteerList" title="Volunteer List" @make-admin="loadVolunteers" v-if="filteredVolunteerList.length"/>
@@ -135,5 +139,19 @@ export default {
 }
 .list {
   padding: 30px;
+}
+.volLists{
+  /* background-color:#9DD9D2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 20px; */
+}
+.filterVol{
+  background-color:#9DD9D2;
+  display: grid;
+  text-align: center;
+  font-size: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding: 20px;
 }
 </style>
