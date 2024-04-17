@@ -7,20 +7,25 @@
         <div class="pet-details">
 
             <div class="pet-img">
-                <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
+                <img class="pet-pic" :src="getMainPhotoUrl(pet.mainPhoto)" alt="">
             </div>
 
             <div class="pet-info">
                 <h2 id="pet-name">I'm {{ pet.name }}!</h2>
                 <div class="group-one">
                     <p id="pet-age">{{ pet.age ? pet.age : "unknown" }}</p>
+                    <p> ~~ </p>
                     <p id="pet-breed">{{ pet.breed }}</p>
+                    <p> ~~ </p>
                     <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
                 </div>
                 <div class="group-two">
                     <p id="pet-gender">{{ pet.gender }}</p>
+                    <p> ~~ </p>
                     <p id="pet-fixed">{{ pet.isFixed ? "Fixed" : "Not Fixed"}}</p>
+                    <p> ~~ </p>
                     <p id="pet-color">{{ pet.color }}</p>
+                    <p> ~~ </p>
                     <p id="pet-size">{{ pet.size }}</p>
                 </div>
                 <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
@@ -51,7 +56,7 @@ export default {
     },
     methods: {
         getMainPhotoUrl(id) {
-            return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
+            return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + id;
         },
         getSpeciesName(id) {
             if (id == 1) return "Cat";
@@ -78,6 +83,8 @@ export default {
         "pic info";
     border: solid #392F5A 3px;
     background-color: #9DD9D2;
+    font-size: 115%;
+    overflow: hidden;
 }
 
 .pet-img {
@@ -86,112 +93,47 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
 .pet-pic {
     max-height: 75vh;
     max-width: 75vw;
     padding: 1vh ;
 }
-
 .pet-info {
     grid-area: info;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "name" 
-        "one"
-        "two"
-        "special"
-        "adopted"
-        "desc";
-    font-size: 150%;
+    display: flex;
+    flex-direction: column;
 }
 #pet-name {
-    grid-area: name;
-    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .group-one {
-    grid-area: one;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .group-two {
-    grid-area: two;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
-/* #pet-species {
-    grid-area: species;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#pet-age {
-    grid-area: age;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#pet-gender{
-    grid-area: gender;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 #pet-special {
-    grid-area: special;
-    margin: auto;
+    margin-top: 1vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* #pet-color {
-    grid-area: color;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#pet-breed {
-    grid-area: breed;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#pet-size {
-    grid-area: size;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 #pet-adopted {
-    grid-area: adopted;
-    margin: auto;
+    margin-top: 1vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 #pet-desc {
-    grid-area: desc;
-    margin: auto;
+    margin-top: 1vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* #pet-fixed {
-    grid-area: fixed;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 </style>
 
