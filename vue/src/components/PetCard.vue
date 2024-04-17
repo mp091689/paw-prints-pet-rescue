@@ -4,7 +4,7 @@
       
 
       <div class="img">
-        <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
+        <img class="pet-pic" :src="getMainPhotoUrl(pet.mainPhoto)" alt="">
       </div>
 
       <div class="info">
@@ -36,8 +36,8 @@ export default {
       }
       return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN').length;
     },
-    getMainPhotoUrl(id) {
-        return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
+    getMainPhotoUrl(fileName) {
+        return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + fileName;
     },
     getSpeciesName(id) {
       if(id == 1) return "Cat";

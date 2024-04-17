@@ -55,16 +55,10 @@ CREATE TABLE pets (
 	CONSTRAINT FK_pets_species FOREIGN KEY(species_id) REFERENCES species(species_id)
 );
 
--- CREATE TABLE photos (
--- 	photo_id SERIAL,
--- 	file_name varchar NOT NULL,
--- 	pet_id integer,
-	
--- 	CONSTRAINT PK_photos PRIMARY KEY (photo_id),
--- 	CONSTRAINT FK_photos_pet FOREIGN KEY(pet_id) REFERENCES pets(pet_id)
--- );
-
--- ALTER TABLE pets
--- 	ADD CONSTRAINT FK_pets_avatar FOREIGN KEY(avatar_id) REFERENCES photos(photo_id);
+CREATE TABLE photos (
+	photo_id SERIAL PRIMARY KEY ,
+	file_name varchar NOT NULL,
+	pet_id integer REFERENCES pets(pet_id)
+);
 
 COMMIT TRANSACTION;
