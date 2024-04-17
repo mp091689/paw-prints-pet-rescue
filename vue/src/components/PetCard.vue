@@ -11,6 +11,7 @@
         <h2 id="pet-name">Meet {{ pet.name }}!</h2>
         <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
         <p id="pet-age">{{ pet.age ? pet.age : "unknown" }} years old</p>
+        <p id="pet-gender">{{ pet.gender }}</p>
         <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
       </div>
       
@@ -19,7 +20,7 @@
       </a>
       
       <a id="details-link">
-        <router-link id="pet-details" :to="{name: 'pet-details', params: {petId: pet.petId}}">See more</router-link>
+        <router-link id="pet-details" :to="{name: 'pet-details', params: {petId: pet.petId}}">Learn More About Me!</router-link>
       </a>
 
     </div>
@@ -74,7 +75,7 @@ export default {
   grid-template-areas: 
   "name name"
   "age species"
-  "special special";
+  "gender special";
 }
 #pet-name {
   grid-area: name;
@@ -92,6 +93,11 @@ export default {
   margin: auto;
   font-size: 150%;
 }
+#pet-gender {
+  grid-area: gender;
+  margin: auto;
+  font-size: 150%;
+}
 #pet-special {
   grid-area: special;
   margin: auto;
@@ -102,6 +108,12 @@ export default {
   padding: 1vh 1vw; 
   text-align: right;
 }
+#details-link {
+  align-self: center;
+  padding-bottom: 1vh;
+  font-size: 150%;
+}
+
 a {
     text-decoration: none;
     color: #392F5A;

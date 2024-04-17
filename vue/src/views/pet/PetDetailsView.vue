@@ -1,8 +1,8 @@
 <template>
-    <div v-if="isLoading">
-        <h1>loading...</h1>
-    </div>
-    <pet-details :pet="pet" v-else/>
+  <div v-if="isLoading">
+    <h1>loading...</h1>
+  </div>
+  <pet-details :pet="pet" v-else/>
 </template>
 
 <style>
