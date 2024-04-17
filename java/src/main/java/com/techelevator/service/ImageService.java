@@ -14,7 +14,11 @@ public class ImageService implements ImageUploader {
     private final String DIR_PATH = "src/main/resources/photos";
 
     public String save(MultipartFile imageFile) throws IOException {
-        String uniqueFileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
+        if (imageFile == null || imageFile.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        String uniqueFileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename().replace(" ", "_");
 
         Path uploadPath = Path.of(DIR_PATH);
         Path filePath = uploadPath.resolve(uniqueFileName);

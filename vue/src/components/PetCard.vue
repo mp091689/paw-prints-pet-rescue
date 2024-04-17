@@ -4,13 +4,14 @@
       
 
       <div class="img">
-        <img class="pet-pic" :src="getMainPhotoUrl(pet.petId)" alt="">
+        <img class="pet-pic" :src="getMainPhotoUrl(pet.mainPhoto)" alt="">
       </div>
 
       <div class="info">
         <h2 id="pet-name">Meet {{ pet.name }}!</h2>
         <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
         <p id="pet-age">{{ pet.age ? pet.age : "unknown" }} years old</p>
+        <p id="pet-gender">{{ pet.gender }}</p>
         <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
       </div>
       
@@ -18,6 +19,10 @@
         <router-link id="pet-edit" :to="{name: 'edit-pet', params: {petId: pet.petId}}" v-if="isAuthorized()">Edit</router-link>
       </a>
       
+      <a id="details-link">
+        <router-link id="pet-details" :to="{name: 'pet-details', params: {petId: pet.petId}}">Learn More About Me!</router-link>
+      </a>
+
     </div>
 </template>
 
@@ -31,8 +36,8 @@ export default {
       }
       return this.$store.state.user.authorities?.filter(role => role.name === 'ROLE_ADMIN').length;
     },
-    getMainPhotoUrl(id) {
-        return import.meta.env.VITE_REMOTE_API + '/pets/' + id + '/main-photo';
+    getMainPhotoUrl(fileName) {
+        return import.meta.env.VITE_REMOTE_API + '/pets/photos/' + fileName;
     },
     getSpeciesName(id) {
       if(id == 1) return "Cat";
@@ -70,7 +75,7 @@ export default {
   grid-template-areas: 
   "name name"
   "age species"
-  "special special";
+  "gender special";
 }
 #pet-name {
   grid-area: name;
@@ -88,6 +93,11 @@ export default {
   margin: auto;
   font-size: 150%;
 }
+#pet-gender {
+  grid-area: gender;
+  margin: auto;
+  font-size: 150%;
+}
 #pet-special {
   grid-area: special;
   margin: auto;
@@ -98,6 +108,12 @@ export default {
   padding: 1vh 1vw; 
   text-align: right;
 }
+#details-link {
+  align-self: center;
+  padding-bottom: 1vh;
+  font-size: 150%;
+}
+
 a {
     text-decoration: none;
     color: #392F5A;
