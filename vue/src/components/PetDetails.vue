@@ -14,18 +14,18 @@
                 <h2 id="pet-name">I'm {{ pet.name }}!</h2>
                 <div class="group-one">
                     <p id="pet-age">{{ pet.age ? pet.age : "unknown" }}</p>
-                    <p> ~~ </p>
+                    <p> || </p>
                     <p id="pet-breed">{{ pet.breed }}</p>
-                    <p> ~~ </p>
+                    <p> || </p>
                     <p id="pet-species">{{ getSpeciesName(pet.speciesId) }}</p>
                 </div>
                 <div class="group-two">
                     <p id="pet-gender">{{ pet.gender }}</p>
-                    <p> ~~ </p>
+                    <p> || </p>
                     <p id="pet-fixed">{{ pet.isFixed ? "Fixed" : "Not Fixed"}}</p>
-                    <p> ~~ </p>
+                    <p> || </p>
                     <p id="pet-color">{{ pet.color }}</p>
-                    <p> ~~ </p>
+                    <p> || </p>
                     <p id="pet-size">{{ pet.size }}</p>
                 </div>
                 <p id="pet-special">{{ pet.hasSpecialNeed ? "I have special needs." : "" }}</p>
@@ -83,7 +83,7 @@ export default {
         "pic info";
     border: solid #392F5A 3px;
     background-color: #9DD9D2;
-    font-size: 115%;
+    font-size: 150%;
     overflow: hidden;
 }
 
