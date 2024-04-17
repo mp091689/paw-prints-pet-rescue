@@ -24,8 +24,19 @@ export default {
     updatePet(pet) {
         let formData = new FormData();
         for (let key in pet) {
+            if (pet[key] instanceof FileList) {
+                for(let key2 in pet[key]) {
+                    formData.append(key, pet[key][key2]);
+                }
+            }
             formData.append(key, pet[key]);
         }
         return axios.put(`${path}/${pet.petId}`, formData);
     },
+    removeMainPhoto(pet) {
+        return axios.put(`${path}/${pet.petId}/remove-main-photo`);
+    },
+    removePhoto(id) {
+        return axios.put(`${path}/remove-photo/${id}`);
+    }
 }
