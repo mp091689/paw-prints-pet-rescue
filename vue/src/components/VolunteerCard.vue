@@ -90,7 +90,6 @@ export default {
 
 <style scoped>
 .volunteer-card {
-    border: solid red 1px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 0 20px;
