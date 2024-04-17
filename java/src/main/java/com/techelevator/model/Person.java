@@ -73,7 +73,7 @@ public class Person {
         return isAvailableWeekdays;
     }
 
-    public void setAvailableWeekdays(boolean availableWeekdays) {
+    public void setIsAvailableWeekdays(boolean availableWeekdays) {
         isAvailableWeekdays = availableWeekdays;
     }
 
@@ -81,7 +81,7 @@ public class Person {
         return isAvailableWeekends;
     }
 
-    public void setAvailableWeekends(boolean availableWeekends) {
+    public void setIsAvailableWeekends(boolean availableWeekends) {
         isAvailableWeekends = availableWeekends;
     }
 
