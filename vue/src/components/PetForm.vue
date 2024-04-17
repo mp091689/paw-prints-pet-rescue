@@ -224,7 +224,7 @@ export default {
       petService.removePhoto(id)
           .then(response => {
             if (response.status === 200) {
-              this.editPet.photos = response.data;
+              this.currentPhotos = response.data;
             }
           }).catch(error => console.log(error));
     },
